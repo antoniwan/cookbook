@@ -6,6 +6,7 @@ description: >-
 pubDate: '2026-06-20T10:00:00-04:00'
 language:
   - en
+recipeYield: About 2½ cups (about 20 cubes)
 heroImage: /images/2026/sofrito.avif
 imageAlt: >-
   Ajíes dulces, jalapeños, bell pepper, onion, garlic, tomato, cilantro, and

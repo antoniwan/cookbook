@@ -6,6 +6,7 @@ description: >-
 pubDate: '2026-10-16T07:30:00-04:00'
 language:
   - en
+recipeYield: 2 adults and a toddler
 heroImage: /images/2026/patatas-y-batatas-bravas.avif
 imageAlt: >-
   Parboiled cubes of pale potato and orange sweet potato piled together in a

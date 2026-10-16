@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { isPublished, plainText, recipeGroup, recipeParts, SITE } from './recipe.ts';
+import { recipeStructuredData } from './seo.ts';
 
 export type Recipe = CollectionEntry<'recipes'>;
 
@@ -19,6 +20,12 @@ export function publicRecipe(recipe: Recipe) {
     publishedAt: recipe.data.pubDate.toISOString(),
     revisedAt: recipe.data.updatedDate?.toISOString(),
     group: recipeGroup(recipe.id),
+    recipeCategory: recipeGroup(recipe.id),
+    recipeCuisine: recipe.data.tags.includes('puerto-rico') ? 'Puerto Rican' : undefined,
+    recipeYield: recipe.data.recipeYield,
+    prepTime: recipe.data.prepTime,
+    cookTime: recipe.data.cookTime,
+    totalTime: recipe.data.totalTime,
     subjects: recipe.data.tags,
     introduction: plainText(parts.introduction),
     ingredients: parts.ingredients.map(plainText),
@@ -33,21 +40,5 @@ export function publicRecipe(recipe: Recipe) {
 }
 
 export function structuredRecipe(recipe: Recipe, image?: string) {
-  const record = publicRecipe(recipe);
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Recipe',
-    '@id': record.id,
-    url: record.id,
-    name: record.title,
-    description: record.description,
-    inLanguage: record.language,
-    datePublished: record.publishedAt,
-    dateModified: record.revisedAt ?? record.publishedAt,
-    ...(image ? { image: [image] } : {}),
-    author: { '@type': 'Person', name: 'Antonio', url: 'https://antoniwan.online' },
-    recipeIngredient: record.ingredients,
-    recipeInstructions: record.method.map((text, index) => ({ '@type': 'HowToStep', position: index + 1, text })),
-    keywords: record.subjects.join(', '),
-  };
+  return recipeStructuredData(publicRecipe(recipe), image);
 }

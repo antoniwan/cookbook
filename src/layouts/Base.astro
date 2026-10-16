@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../lib/recipe';
+import { safeJson, SITE } from '../lib/recipe';
+import { websiteStructuredData } from '../lib/seo';
 interface Props { title?: string; description?: string; path?: string; language?: 'en' | 'es'; image?: string; }
 const { title = 'Cookbook — Recipes from our kitchen', description = 'The family recipes we cook at home, in English and Spanish.', path = '/', language = 'en', image = '/social/cookbook.jpg' } = Astro.props;
 const canonical = new URL(path, SITE).href;
@@ -26,6 +27,7 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <meta property="og:site_name" content="Cookbook" />
     <meta property="og:image" content={new URL(image, SITE).href} />
     <meta name="twitter:card" content="summary_large_image" />
+    {path === '/' && <script type="application/ld+json" set:html={safeJson(websiteStructuredData())} />}
     <slot name="head" />
   </head>
   <body>

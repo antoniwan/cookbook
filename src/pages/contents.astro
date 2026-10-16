@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { allRecipes } from '../lib/catalogue';
+import { safeJson } from '../lib/recipe';
+import { recipeListStructuredData } from '../lib/seo';
 const all = await allRecipes();
 const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((first, second) => first.data.title.localeCompare(second.data.title));
 const letters = [...new Set(recipes.map(recipe => recipe.data.title[0].toUpperCase()))];
 ---
-<Base title="Recipes, A–Z — Cookbook" path="/contents"><main class="wrap contents-page" id="main"><p class="eyebrow">Recipe index</p><h1>Recipes,<br /><em>A to Z.</em></h1><p class="page-description">{recipes.length} recipes.</p><nav class="letter-nav" aria-label="Jump to a letter">{letters.map(letter => <a href={`#letter-${letter}`}>{letter}</a>)}</nav>{letters.map(letter => <section class="letter-section" id={`letter-${letter}`}><h2>{letter}</h2><ul>{recipes.filter(recipe => recipe.data.title.startsWith(letter)).map(recipe => <li><a href={`/recipes/${recipe.id}`}>{recipe.data.title}<span aria-hidden="true">↗</span></a>{recipe.data.translationGroup && <span class="language-note">EN / ES</span>}</li>)}</ul></section>)}</main></Base>
+<Base title="Recipes, A–Z — Cookbook" path="/contents"><script slot="head" type="application/ld+json" set:html={safeJson(recipeListStructuredData(recipes, '/contents'))} /><main class="wrap contents-page" id="main"><p class="eyebrow">Recipe index</p><h1>Recipes,<br /><em>A to Z.</em></h1><p class="page-description">{recipes.length} recipes.</p><nav class="letter-nav" aria-label="Jump to a letter">{letters.map(letter => <a href={`#letter-${letter}`}>{letter}</a>)}</nav>{letters.map(letter => <section class="letter-section" id={`letter-${letter}`}><h2>{letter}</h2><ul>{recipes.filter(recipe => recipe.data.title.startsWith(letter)).map(recipe => <li><a href={`/recipes/${recipe.id}`}>{recipe.data.title}<span aria-hidden="true">↗</span></a>{recipe.data.translationGroup && <span class="language-note">EN / ES</span>}</li>)}</ul></section>)}</main></Base>

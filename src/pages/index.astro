@@ -2,11 +2,13 @@
 import Base from '../layouts/Base.astro';
 import RecipeCard from '../components/RecipeCard.astro';
 import { allRecipes } from '../lib/catalogue';
-import { GROUPS } from '../lib/recipe';
+import { GROUPS, safeJson } from '../lib/recipe';
+import { recipeListStructuredData } from '../lib/seo';
 const all = await allRecipes();
 const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((first, second) => first.data.title.localeCompare(second.data.title));
 ---
 <Base>
+  <script slot="head" type="application/ld+json" set:html={safeJson(recipeListStructuredData(recipes, '/'))} />
   <main id="main">
     <section class="hero wrap">
       <div class="hero-copy"><p class="eyebrow"><span class="tiny-flower">✳</span> Family recipes</p><h1>Recipes from<br /><em>our kitchen.</em></h1><p class="hero-description">The recipes we cook at home, in English and Spanish.<br />Ingredients, equipment, and step-by-step methods.</p><a class="button" href="#recipes">Browse recipes <span aria-hidden="true">↓</span></a><p class="hero-note">{recipes.length} recipes <span>·</span> English &amp; Español</p></div>

@@ -2,9 +2,10 @@
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { allRecipes, structuredRecipe, type Recipe } from '../../lib/catalogue';
+import { allRecipes, publicRecipe, structuredRecipe, type Recipe } from '../../lib/catalogue';
 import { recipeImage } from '../../lib/images';
 import { recipeGroup, safeJson, SITE } from '../../lib/recipe';
+import { breadcrumbStructuredData, durationLabel } from '../../lib/seo';
 export async function getStaticPaths() {
   const recipes = await allRecipes();
   return recipes.map(recipe => ({ params: { slug: recipe.id }, props: { recipe, recipes } }));
@@ -14,6 +15,8 @@ const { recipe, recipes } = Astro.props;
 const { Content } = await render(recipe);
 const image = recipeImage(recipe.data.heroImage);
 const language = recipe.data.language[0];
+const record = publicRecipe(recipe);
+const yieldLabel = record.recipeYield && /^\d+$/.test(record.recipeYield) ? `${record.recipeYield} ${language === 'es' ? record.recipeYield === '1' ? 'porción' : 'porciones' : record.recipeYield === '1' ? 'serving' : 'servings'}` : record.recipeYield;
 const twin = recipe.data.translationGroup ? recipes.find(other => other.id !== recipe.id && other.data.translationGroup === recipe.data.translationGroup) : undefined;
 const imagePath = recipe.data.heroImage ? '/social/' + recipe.data.heroImage.split('/').at(-1)!.replace(/\.[^.]+$/, '.jpg') : '/social/cookbook.jpg';
 const more = recipes.filter(other => other.id !== recipe.id && other.data.language[0] === language && (!recipe.data.translationGroup || other.data.translationGroup !== recipe.data.translationGroup)).slice(0, 3);
@@ -21,14 +24,16 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
 <Base title={`${recipe.data.title} — Cookbook`} description={recipe.data.description} path={`/recipes/${recipe.id}`} language={language} image={imagePath}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={safeJson(structuredRecipe(recipe, new URL(imagePath, SITE).href))} />
+    <script type="application/ld+json" set:html={safeJson(breadcrumbStructuredData([{ name: 'Cookbook', url: `${SITE}/` }, { name: language === 'es' ? 'Recetas' : 'Recipes', url: `${SITE}/contents` }, { name: recipe.data.title, url: record.id }]))} />
     <link rel="alternate" type="text/markdown" href={`/recipes/${recipe.id}.md`} />
     <link rel="alternate" type="application/json" href={`/recipes/${recipe.id}.json`} />
     <link rel="alternate" hreflang={language} href={`${SITE}/recipes/${recipe.id}`} />
     {twin && <link rel="alternate" hreflang={twin.data.language[0]} href={`${SITE}/recipes/${twin.id}`} />}
   </Fragment>
   <main id="main" class="recipe-page wrap">
-    <div class="recipe-breadcrumb"><a href="/#recipes">← {language === 'es' ? 'Todas las recetas' : 'All recipes'}</a><span>{recipeGroup(recipe.id)}</span></div>
+    <nav class="recipe-breadcrumb" aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}><a href="/">Cookbook</a><a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a><span aria-current="page">{recipe.data.title}</span></nav>
     <header class="recipe-title-block"><p class="eyebrow">{language === 'es' ? 'Receta' : 'Recipe'}</p><h1>{recipe.data.title}</h1><div class="recipe-heading-bottom"><p>{recipe.data.description}</p>{twin && <a class="translation-link" href={`/recipes/${twin.id}`} lang={twin.data.language[0]}>{language === 'es' ? 'Read in English' : 'Leer en español'} ↗</a>}</div></header>
+    <dl class="recipe-facts"><div><dt>{language === 'es' ? 'Categoría' : 'Category'}</dt><dd>{recipeGroup(recipe.id)}</dd></div>{record.recipeCuisine && <div><dt>{language === 'es' ? 'Cocina' : 'Cuisine'}</dt><dd>{language === 'es' ? 'Puertorriqueña' : record.recipeCuisine}</dd></div>}{yieldLabel && <div><dt>{language === 'es' ? 'Rendimiento' : 'Yield'}</dt><dd>{yieldLabel}</dd></div>}{record.totalTime && <div><dt>{language === 'es' ? 'Tiempo total aproximado' : 'Approx. total time'}</dt><dd>{durationLabel(record.totalTime)}</dd></div>}{record.prepTime && record.cookTime && <><div><dt>{language === 'es' ? 'Preparación' : 'Preparation'}</dt><dd>{durationLabel(record.prepTime)}</dd></div><div><dt>{language === 'es' ? 'Cocción' : 'Cooking'}</dt><dd>{durationLabel(record.cookTime)}</dd></div></>}</dl>
     {image && <figure class="recipe-hero"><Image src={image} alt={recipe.data.imageAlt ?? recipe.data.title} widths={[640, 960, 1280]} sizes="(min-width: 1100px) 1100px, 100vw" width={1280} height={680} loading="eager" />{recipe.data.imageCredit && <figcaption>{recipe.data.imageCreditUrl ? <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">{recipe.data.imageCredit}</a> : recipe.data.imageCredit}{recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}</figcaption>}</figure>}
     <div class="recipe-body-layout">
       <aside class="recipe-tools" aria-label="Recipe tools"><p class="eyebrow">At the counter</p><a href="#ingredients">{language === 'es' ? 'Ingredientes' : 'Ingredients'} ↓</a><a href="#equipment">{language === 'es' ? 'Equipo' : 'Equipment'} ↓</a><a href="#method">{language === 'es' ? 'Método' : 'Method'} ↓</a><button type="button" id="print-recipe">{language === 'es' ? 'Imprimir receta' : 'Print recipe'} <span aria-hidden="true">↗</span></button><button type="button" id="kitchen-mode" aria-pressed="false">{language === 'es' ? 'Modo cocina' : 'Kitchen mode'} <span aria-hidden="true">☼</span></button><p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p><div class="quantity-controls" role="group" aria-label={language === 'es' ? 'Multiplicar ingredientes' : 'Multiply ingredients'}><span>{language === 'es' ? 'Cantidades' : 'Quantities'}</span><div>{[1, 2, 3].map(multiplier => <button type="button" data-multiplier={multiplier} aria-pressed={multiplier === 1}>{multiplier}×</button>)}</div><small>{language === 'es' ? 'Las cantidades sin una medida clara quedan igual. Revisa los tiempos de cocción.' : 'Measures without a clear amount stay as written. Check cooking times separately.'}</small></div><button type="button" id="reset-checklist">{language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}</button></aside>

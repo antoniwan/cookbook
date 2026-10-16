@@ -6,6 +6,7 @@ description: >-
 pubDate: '2026-06-20T10:00:00-04:00'
 language:
   - es
+recipeYield: Unas 2½ tazas (unos 20 cubitos)
 heroImage: /images/2026/sofrito.avif
 imageAlt: >-
   Ajíes dulces, jalapeños, pimiento, cebolla, ajo, tomate, cilantro y recao

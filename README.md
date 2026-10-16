@@ -2,7 +2,7 @@
 
 Family recipes in English and Spanish. Built with Astro and TypeScript.
 
-Planned home: https://cookbook.antoniwan.online.
+Public home: https://cookbook.antoniwan.online.
 
 ## Work locally
 
@@ -25,6 +25,8 @@ Recipes live in src/content/recipes/. The public recipe body supplies the ingred
 The same source produces HTML, Recipe JSON-LD, JSON, and Markdown. Do not maintain a second recipe catalogue by hand.
 
 Public machine endpoints: /recipes.json, /recipes/<slug>.json, /recipes/<slug>.md, and /llms.txt.
+
+Structured data covers recipes, recipe lists, breadcrumbs, and site identity. Supported recipe facts and their evidence are documented in docs/recipe-metadata.md.
 
 The first migration copies already-public recipes from Notes. It does not read Panda or change the Notes site.
 

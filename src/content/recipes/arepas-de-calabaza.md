@@ -6,6 +6,8 @@ description: >-
 pubDate: '2026-03-04T10:00:00-04:00'
 language:
   - en
+recipeYield: 2 arepas
+totalTime: PT55M
 heroImage: /images/2026/arepas-de-calabaza.avif
 imageAlt: >-
   Golden seared corn arepas on a white plate, one cut into wedges with melted

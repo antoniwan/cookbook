@@ -6,6 +6,8 @@ description: >-
 pubDate: '2022-06-01T10:00:00-04:00'
 language:
   - es
+recipeYield: '1'
+totalTime: PT15M
 heroImage: /images/2026/brocoli-con-sabor.avif
 imageAlt: >-
   Brócoli cocido, floretes y tallos, en un bowl de vidrio texturizado, junto
