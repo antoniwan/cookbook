@@ -3,10 +3,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { AUTHOR, breadcrumbStructuredData, durationLabel, recipeListStructuredData, recipeStructuredData, websiteStructuredData } from '../src/lib/seo.ts';
 import { SITE } from '../src/lib/recipe.ts';
+import recipeStepAnchors from '../src/lib/recipe-step-anchors.ts';
 
 const record = {
   id: `${SITE}/recipes/example`, title: 'Example', description: 'A recipe.', language: 'en',
-  publishedAt: '2026-01-01T00:00:00.000Z', ingredients: ['2 carrots'], method: ['Cook the carrots.'],
+  publishedAt: '2026-01-01T00:00:00.000Z', ingredients: ['2 carrots'], equipment: ['A pan'], method: ['Cook the carrots.'],
   subjects: ['carrots'], recipeCategory: 'Sides & staples',
 };
 
@@ -36,6 +37,30 @@ test('recipe schema omits unknown durations, yields, nutrition, and ratings', ()
   for (const key of ['prepTime', 'cookTime', 'totalTime', 'recipeYield', 'recipeCuisine', 'nutrition', 'aggregateRating']) assert.ok(!(key in schema), key);
   assert.equal(schema.recipeCategory, record.recipeCategory);
   assert.equal(schema.recipeInstructions[0].text, record.method[0]);
+  assert.equal(schema.recipeInstructions[0].name, 'Cook the carrots');
+  assert.equal(schema.recipeInstructions[0].url, `${record.id}#step-1`);
+  assert.deepEqual(schema.tool, [{ '@type': 'HowToTool', name: 'A pan' }]);
+});
+
+test('method anchors skip ingredient lists, nested lists, and later sections', () => {
+  const ingredient = { type: 'listItem', data: { hProperties: { class: 'ingredient' } } };
+  const nestedStep = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
+  const firstStep = { type: 'listItem', data: { hProperties: { class: 'existing' } }, children: [{ type: 'list', ordered: true, children: [nestedStep] }] };
+  const secondStep = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
+  const note = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
+  const tree = { type: 'root', children: [
+    { type: 'list', ordered: false, children: [ingredient] },
+    { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Method' }] },
+    { type: 'list', ordered: true, children: [firstStep, secondStep] },
+    { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Notes' }] },
+    { type: 'list', ordered: true, children: [note] },
+  ] };
+  recipeStepAnchors().before(tree, { setProperty(node, key, value) { node[key] = value; } });
+  assert.deepEqual(firstStep.data.hProperties, { class: 'existing', id: 'step-1' });
+  assert.equal(secondStep.data.hProperties.id, 'step-2');
+  assert.ok(!('id' in ingredient.data.hProperties));
+  assert.ok(!('id' in nestedStep.data.hProperties));
+  assert.ok(!('id' in note.data.hProperties));
 });
 
 test('supported recipe facts propagate without inventing missing preparation time', () => {

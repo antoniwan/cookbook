@@ -47,6 +47,7 @@ interface RecipeRecord {
   publishedAt: string;
   revisedAt?: string;
   ingredients: string[];
+  equipment: string[];
   method: string[];
   subjects: string[];
   recipeCategory: string;
@@ -73,7 +74,8 @@ export function recipeStructuredData(record: RecipeRecord, image?: string) {
     ...(image ? { image: [image] } : {}),
     author: AUTHOR,
     recipeIngredient: record.ingredients,
-    recipeInstructions: record.method.map((text, index) => ({ '@type': 'HowToStep', position: index + 1, text })),
+    recipeInstructions: record.method.map((text, index) => ({ '@type': 'HowToStep', position: index + 1, name: text.split(/[.!?](?:\s|$)/)[0].trim(), text, url: `${record.id}#step-${index + 1}` })),
+    tool: record.equipment.map(name => ({ '@type': 'HowToTool', name })),
     recipeCategory: record.recipeCategory,
     ...(record.recipeCuisine ? { recipeCuisine: record.recipeCuisine } : {}),
     ...(record.recipeYield ? { recipeYield: record.recipeYield } : {}),

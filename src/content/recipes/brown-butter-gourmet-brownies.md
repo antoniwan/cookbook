@@ -6,6 +6,7 @@ description: >-
 pubDate: '2026-05-29T10:00:00-04:00'
 language:
   - en
+recipeYield: 16 squares
 heroImage: /images/2026/brown-butter-gourmet-brownies.avif
 imageAlt: >-
   Close-up of square chocolate brownies with a crackly top and chocolate

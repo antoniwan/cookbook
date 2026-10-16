@@ -6,6 +6,7 @@ description: >-
 pubDate: '2026-08-21T10:00:00-04:00'
 language:
   - en
+recipeYield: 3 hearty portions or 4 moderate portions
 heroImage: /images/2026/fettuccine-with-seared-chicken.avif
 imageAlt: >-
   Creamy fettuccine with seared chicken and grated cheese in a shallow bowl on

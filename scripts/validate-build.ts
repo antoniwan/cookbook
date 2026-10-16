@@ -22,6 +22,12 @@ for (const recipe of catalogue.recipes) {
   assert.equal(json.id, recipe.id);
   assert.deepEqual(schema.recipeIngredient, recipe.ingredients);
   assert.equal(schema.recipeInstructions.length, recipe.method.length);
+  assert.deepEqual(schema.tool.map((tool: any) => tool.name), recipe.equipment);
+  schema.recipeInstructions.forEach((step: any, index: number) => {
+    assert.ok(step.name, recipe.slug + ': step name');
+    assert.equal(step.url, `${recipe.id}#step-${index + 1}`);
+    assert.ok(html.includes(`id="step-${index + 1}"`), recipe.slug + ': missing step anchor');
+  });
   assert.equal(schema.recipeCategory, recipe.group);
   for (const field of ['recipeCuisine', 'recipeYield', 'prepTime', 'cookTime', 'totalTime']) assert.equal(schema[field], recipe[field], recipe.slug + ': ' + field);
   assert.equal(Boolean(schema.prepTime), Boolean(schema.cookTime));
@@ -55,7 +61,7 @@ assert.equal(website?.name, 'Cookbook');
 assert.equal(website.url, `${SITE}/`);
 assert.equal(website.publisher['@type'], 'Person');
 assert.equal(catalogue.recipes.filter((recipe: any) => recipe.totalTime).length, 4);
-assert.equal(catalogue.recipes.filter((recipe: any) => recipe.recipeYield).length, 10);
+assert.equal(catalogue.recipes.filter((recipe: any) => recipe.recipeYield).length, 12);
 const htmlFiles = (root: string): string[] => readdirSync(root, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? htmlFiles(join(root, entry.name)) : entry.name.endsWith('.html') ? [join(root, entry.name)] : []);
 for (const path of htmlFiles(dist)) {
   const html = readFileSync(path, 'utf8');
@@ -66,5 +72,8 @@ for (const path of htmlFiles(dist)) {
 }
 assert.ok(existsSync(join(dist, 'sitemap-index.xml')));
 assert.ok(existsSync(join(dist, 'mascots.webp')));
+for (const icon of ['garlic', 'strawberry', 'garlic-angry']) assert.ok(existsSync(join(dist, 'icons', `${icon}.webp`)));
+assert.ok(!readFileSync(join(dist, 'index.html'), 'utf8').includes('✳'));
+assert.ok(!readFileSync(join(dist, 'index.html'), 'utf8').includes('wordmark-dot'));
 assert.equal((readFileSync(join(dist, 'rss.xml'), 'utf8').match(/<item>/g) ?? []).length, 28);
 console.log(`Validated ${catalogue.recipes.length} recipe pages, translations, machine endpoints, structured data, images, and internal links.`);

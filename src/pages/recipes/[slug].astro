@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import MascotIcon from '../../components/MascotIcon.astro';
 import { allRecipes, publicRecipe, structuredRecipe, type Recipe } from '../../lib/catalogue';
 import { recipeImage } from '../../lib/images';
 import { recipeGroup, safeJson, SITE } from '../../lib/recipe';
@@ -39,6 +40,7 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
       <aside class="recipe-tools" aria-label="Recipe tools"><p class="eyebrow">At the counter</p><a href="#ingredients">{language === 'es' ? 'Ingredientes' : 'Ingredients'} ↓</a><a href="#equipment">{language === 'es' ? 'Equipo' : 'Equipment'} ↓</a><a href="#method">{language === 'es' ? 'Método' : 'Method'} ↓</a><button type="button" id="print-recipe">{language === 'es' ? 'Imprimir receta' : 'Print recipe'} <span aria-hidden="true">↗</span></button><button type="button" id="kitchen-mode" aria-pressed="false">{language === 'es' ? 'Modo cocina' : 'Kitchen mode'} <span aria-hidden="true">☼</span></button><p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p><div class="quantity-controls" role="group" aria-label={language === 'es' ? 'Multiplicar ingredientes' : 'Multiply ingredients'}><span>{language === 'es' ? 'Cantidades' : 'Quantities'}</span><div>{[1, 2, 3].map(multiplier => <button type="button" data-multiplier={multiplier} aria-pressed={multiplier === 1}>{multiplier}×</button>)}</div><small>{language === 'es' ? 'Las cantidades sin una medida clara quedan igual. Revisa los tiempos de cocción.' : 'Measures without a clear amount stay as written. Check cooking times separately.'}</small></div><button type="button" id="reset-checklist">{language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}</button></aside>
       <article class="recipe-prose" data-recipe-id={recipe.id} data-language={language}><Content /></article>
     </div>
+    <aside class="recipe-caution"><MascotIcon variant="garlic-angry" size={38} /><p>{language === 'es' ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.' : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}</p></aside>
     <section class="more-recipes"><h2>{language === 'es' ? 'Más recetas' : 'More recipes'}</h2><div>{more.map(other => <a href={`/recipes/${other.id}`}>{other.data.title}<span aria-hidden="true">↗</span></a>)}</div><a class="index-link" href="/#recipes">{language === 'es' ? 'Ver todas las recetas' : 'All recipes'} ↗</a></section>
   </main>
 </Base>
@@ -46,6 +48,14 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
   import { scaleIngredient } from '../../lib/recipe';
   const prose = document.querySelector<HTMLElement>('.recipe-prose');
   const language = prose?.dataset.language ?? 'en';
+  prose?.querySelectorAll<HTMLElement>('[id^="step-"]').forEach((step, index) => {
+    const link = document.createElement('a');
+    link.href = `#${step.id}`;
+    link.className = 'step-link';
+    link.textContent = '↗';
+    link.setAttribute('aria-label', language === 'es' ? `Enlace al paso ${index + 1}` : `Link to step ${index + 1}`);
+    (step.querySelector('p') ?? step).append(' ', link);
+  });
   const checks: HTMLInputElement[] = [];
   const labels: { node: HTMLElement; original: string; html: string }[] = [];
   const storageKey = `cookbook:ingredients:${prose?.dataset.recipeId}`;

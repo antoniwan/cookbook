@@ -31,9 +31,13 @@ button[hidden], [hidden] { display: none !important; }
 .skip-link { position: fixed; top: -100px; left: 16px; z-index: 20; background: var(--ink); color: var(--paper); padding: 16px; }
 .skip-link:focus { top: 10px; }
 .site-header { display: flex; align-items: center; justify-content: space-between; gap: 25px; min-height: 105px; border-bottom: 1px solid var(--line); }
-.wordmark { display: inline-flex; align-items: center; text-decoration: none; font-family: var(--serif); font-size: 31px; font-weight: 700; letter-spacing: -1.7px; white-space: nowrap; }
-.wordmark-stem { color: var(--berry); font-family: var(--sans); margin-right: 10px; font-size: 34px; font-weight: 400; }
-.wordmark-dot { color: var(--berry); }
+.wordmark { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-family: var(--serif); font-size: 31px; font-weight: 700; letter-spacing: -1.7px; white-space: nowrap; }
+.mascot-icon { display: inline-block; flex: 0 0 auto; object-fit: contain; vertical-align: middle; }
+.wordmark-start { width: 42px; height: 42px; transform: rotate(-7deg); }
+.wordmark-end { width: 26px; height: 26px; align-self: flex-end; margin: 0 0 3px -3px; transform: rotate(9deg); }
+.eyebrow .mascot-icon { margin-right: 7px; }
+.site-footer .wordmark-start { width: 34px; height: 34px; }
+.site-footer .wordmark-end { width: 22px; height: 22px; }
 .site-header nav { display: flex; gap: 32px; }
 .site-header nav a, .personal-link { font-size: 13px; text-decoration: none; }
 .site-header nav a:hover, .footer-links a:hover { text-decoration: underline; }
@@ -42,7 +46,6 @@ button[hidden], [hidden] { display: none !important; }
 .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 1.9px; font-weight: 650; line-height: 1.8; }
 .hero { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; min-height: 570px; padding-block: 52px 55px; }
 .hero-copy { position: relative; z-index: 1; }
-.tiny-flower { color: var(--berry); margin-right: 9px; font-size: 16px; vertical-align: -1px; }
 .hero h1 { font-family: var(--serif); font-size: clamp(64px, 6.3vw, 92px); line-height: 1.03; letter-spacing: -4px; font-weight: 400; margin: 23px 0; }
 em { font-weight: 400; color: var(--berry); }
 .hero-description { font-size: 15px; line-height: 1.8; color: var(--muted); margin: 23px 0 28px; }
@@ -56,7 +59,6 @@ em { font-weight: 400; color: var(--berry); }
 .handwritten { font-family: var(--serif); font-style: italic; font-size: 16px; }
 .hero-caption { position: relative; color: var(--muted); z-index: 1; margin-top: -15px; transform: rotate(-4deg); }
 .collection-banner { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 22px; padding-block: 18px; }
-.small-seal { font-size: 30px; color: var(--berry); }
 .collection-banner p { margin: 0; font-family: var(--serif); font-size: 18px; }
 .collection-banner a { margin-left: auto; font-size: 11px; white-space: nowrap; }
 .recipe-section { padding-top: 70px; padding-bottom: 60px; }
@@ -91,6 +93,7 @@ h2 { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 
 .index-link span { margin-left: 25px; }
 .empty-state { padding: 40px; background: var(--leaf); border-radius: 8px; text-align: center; }
 .empty-state h3 { font: 400 26px var(--serif); }
+.state-mascot { margin-inline: auto; }
 .kitchen-note { padding: 50px 50px 55px; margin-bottom: 75px; background: var(--leaf); border-radius: 6px; }
 .kitchen-note h2 { font-size: 50px; margin: 18px 0; }
 .kitchen-note p { max-width: 470px; font-size: 14px; line-height: 1.8; color: var(--muted); }
@@ -114,6 +117,10 @@ h2 { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 
 .recipe-body-layout { display: grid; grid-template-columns: 195px minmax(0, 700px); justify-content: space-between; gap: 60px; }
 .recipe-tools { align-self: start; position: sticky; top: 24px; display: flex; flex-direction: column; gap: 14px; }
 .recipe-tools .eyebrow { margin-top: 0; }
+.recipe-caution { display: flex; align-items: center; gap: 14px; margin-top: 28px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 6px; }
+.recipe-caution p { margin: 0; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.step-link { display: inline-block; padding-inline: 4px; text-decoration: none; font-size: 13px; color: var(--muted); }
+.recipe-prose [id^='step-']:target { background: var(--leaf); border-radius: 4px; }
 .recipe-tools > a { font-size: 12px; text-decoration: none; }
 .recipe-tools > button { border: 1px solid var(--line); background: transparent; border-radius: 5px; color: var(--ink); padding: 12px; text-align: left; font-size: 12px; display: flex; justify-content: space-between; min-height: 42px; }
 .recipe-tools button[aria-pressed='true'] { background: var(--ink); color: var(--paper-light); }
@@ -174,7 +181,8 @@ h2 { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 
   .wrap { width: calc(100% - 40px); }
   .site-header { min-height: 84px; gap: 15px; }
   .wordmark { font-size: 27px; }
-  .wordmark-stem { font-size: 25px; margin-right: 5px; }
+  .wordmark-start { width: 34px; height: 34px; }
+  .wordmark-end { width: 22px; height: 22px; }
   .site-header nav { gap: 16px; }
   .site-header nav a { font-size: 11px; }
   .personal-link { display: none; }
@@ -230,7 +238,8 @@ h2 { font-family: var(--serif); font-size: 42px; font-weight: 400; line-height: 
   .card-copy { padding: 17px; }
   .card-copy .eyebrow { font-size: 9px; }
   .card-description { font-size: 13px; }
-  .site-header nav { gap: 12px; }
+  .site-header { flex-wrap: wrap; justify-content: center; gap: 12px; padding-block: 16px; }
+  .site-header nav { width: 100%; justify-content: center; gap: 28px; }
 }
 .recipe-facts { display: flex; flex-wrap: wrap; gap: 18px 36px; margin: 0 0 28px; }
 .recipe-facts dt { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }

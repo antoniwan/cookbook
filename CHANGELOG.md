@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Replace decorative asterisks and wordmark punctuation with garlic and strawberry icons.
+- Add the angry garlic to caution and missing-result states.
+- Add named, linkable method steps and structured equipment.
 - Add recipe gallery, breadcrumb, and site identity structured data.
 - Expose supported recipe yields, total durations, categories, and regional tags.
 - Test structured data and document the source of each added recipe fact.
