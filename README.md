@@ -32,4 +32,6 @@ The first migration copies already-public recipes from Notes. It does not read P
 
 Each page keeps its image credit and license. Asset source records are in docs/migration.json.
 
+The [recipe photography plan](docs/recipe-photography.md) records the visual direction, capture checklist, and progress for all 28 dishes.
+
 The garlic bulb and strawberry are Cookbook's companion mascots. Their illustration prompt is recorded in docs/mascots.md.

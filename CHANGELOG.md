@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Document the recipe photography direction, capture workflow, and 28-dish completion checklist.
+
 - Replace decorative asterisks and wordmark punctuation with garlic and strawberry icons.
 - Add the angry garlic to caution and missing-result states.
 - Add named, linkable method steps and structured equipment.
