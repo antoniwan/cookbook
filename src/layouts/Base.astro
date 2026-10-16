@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import { SITE } from '../lib/recipe';
+interface Props { title?: string; description?: string; path?: string; language?: 'en' | 'es'; image?: string; }
+const { title = 'Cookbook — Recipes from our kitchen', description = 'The family recipes we cook at home, in English and Spanish.', path = '/', language = 'en', image = '/social/cookbook.jpg' } = Astro.props;
+const canonical = new URL(path, SITE).href;
+const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
+---
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f3e9" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="alternate" type="application/json" href="/recipes.json" title="Recipe catalogue" />
+    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Cookbook" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Cookbook" />
+    <meta property="og:image" content={new URL(image, SITE).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="/" aria-label="Cookbook home"><span class="wordmark-stem">✳</span> Cookbook<span class="wordmark-dot">.</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/#recipes">The recipes</a>
+        <a href="/contents">A–Z</a>
+        <a href="/about">Our kitchen</a>
+      </nav>
+      <a class="personal-link" href="https://antoniwan.online">By Antonio <span aria-hidden="true">↗</span></a>
+    </header>
+    <slot />
+    <footer class="site-footer wrap">
+      <a class="wordmark" href="/">Cookbook<span class="wordmark-dot">.</span></a>
+      <p>From our kitchen to yours.</p>
+      <a class="professional-mark" href="https://antoniwan.online" aria-label="Antonio’s professional mark"><img src="/professional-mark.svg" alt="" width="24" height="24" /></a>
+      <div class="footer-links"><a href="https://notes.antoniwan.online">Notes ↗</a><a href="https://antoniwan.online">Antonio ↗</a><a href="/rss.xml">RSS</a><a href="/recipes.json">Recipe data</a><a href="https://github.com/antoniwan/cookbook">Source ↗</a></div>
+    </footer>
+  </body>
+</html>

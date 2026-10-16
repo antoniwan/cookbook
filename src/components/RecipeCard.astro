@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { Recipe } from '../lib/catalogue';
+import { recipeImage } from '../lib/images';
+import { recipeGroup, recipeParts, plainText } from '../lib/recipe';
+interface Props { recipe: Recipe; translated?: boolean; index?: number; }
+const { recipe, translated = false, index = 0 } = Astro.props;
+const image = recipeImage(recipe.data.heroImage);
+const group = recipeGroup(recipe.id);
+const searchText = [recipe.data.title, recipe.data.description, ...recipe.data.tags, ...recipeParts(recipe.body ?? '').ingredients.map(plainText)].join(' ');
+---
+<article class="recipe-card" data-recipe-card data-group={group} data-search={searchText}>
+  <a class="card-image" href={`/recipes/${recipe.id}`} tabindex="-1" aria-hidden="true">
+    {image ? <Image src={image} alt="" widths={[320, 480, 640]} sizes="(min-width: 1100px) 25vw, (min-width: 650px) 50vw, 100vw" width={640} height={480} loading={index < 4 ? 'eager' : 'lazy'} /> : <img src="/mascots.webp" alt="" width="640" height="480" loading="lazy" />}
+    {translated && <span class="language-badge">EN / ES</span>}
+  </a>
+  <div class="card-copy"><p class="eyebrow">{group}</p><h3><a href={`/recipes/${recipe.id}`}>{recipe.data.title}</a></h3><p class="card-description">{recipe.data.description}</p><a class="recipe-arrow" href={`/recipes/${recipe.id}`} aria-label={`Cook ${recipe.data.title}`}>↗</a></div>
+</article>

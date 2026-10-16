@@ -1,0 +1,102 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { allRecipes, structuredRecipe, type Recipe } from '../../lib/catalogue';
+import { recipeImage } from '../../lib/images';
+import { recipeGroup, safeJson, SITE } from '../../lib/recipe';
+export async function getStaticPaths() {
+  const recipes = await allRecipes();
+  return recipes.map(recipe => ({ params: { slug: recipe.id }, props: { recipe, recipes } }));
+}
+interface Props { recipe: Recipe; recipes: Recipe[]; }
+const { recipe, recipes } = Astro.props;
+const { Content } = await render(recipe);
+const image = recipeImage(recipe.data.heroImage);
+const language = recipe.data.language[0];
+const twin = recipe.data.translationGroup ? recipes.find(other => other.id !== recipe.id && other.data.translationGroup === recipe.data.translationGroup) : undefined;
+const imagePath = recipe.data.heroImage ? '/social/' + recipe.data.heroImage.split('/').at(-1)!.replace(/\.[^.]+$/, '.jpg') : '/social/cookbook.jpg';
+const more = recipes.filter(other => other.id !== recipe.id && other.data.language[0] === language && (!recipe.data.translationGroup || other.data.translationGroup !== recipe.data.translationGroup)).slice(0, 3);
+---
+<Base title={`${recipe.data.title} — Cookbook`} description={recipe.data.description} path={`/recipes/${recipe.id}`} language={language} image={imagePath}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={safeJson(structuredRecipe(recipe, new URL(imagePath, SITE).href))} />
+    <link rel="alternate" type="text/markdown" href={`/recipes/${recipe.id}.md`} />
+    <link rel="alternate" type="application/json" href={`/recipes/${recipe.id}.json`} />
+    <link rel="alternate" hreflang={language} href={`${SITE}/recipes/${recipe.id}`} />
+    {twin && <link rel="alternate" hreflang={twin.data.language[0]} href={`${SITE}/recipes/${twin.id}`} />}
+  </Fragment>
+  <main id="main" class="recipe-page wrap">
+    <div class="recipe-breadcrumb"><a href="/#recipes">← {language === 'es' ? 'Todas las recetas' : 'All recipes'}</a><span>{recipeGroup(recipe.id)}</span></div>
+    <header class="recipe-title-block"><p class="eyebrow">From our kitchen</p><h1>{recipe.data.title}</h1><div class="recipe-heading-bottom"><p>{recipe.data.description}</p>{twin && <a class="translation-link" href={`/recipes/${twin.id}`} lang={twin.data.language[0]}>{language === 'es' ? 'Read in English' : 'Leer en español'} ↗</a>}</div></header>
+    {image && <figure class="recipe-hero"><Image src={image} alt={recipe.data.imageAlt ?? recipe.data.title} widths={[640, 960, 1280]} sizes="(min-width: 1100px) 1100px, 100vw" width={1280} height={680} loading="eager" />{recipe.data.imageCredit && <figcaption>{recipe.data.imageCreditUrl ? <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">{recipe.data.imageCredit}</a> : recipe.data.imageCredit}{recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}</figcaption>}</figure>}
+    <div class="recipe-body-layout">
+      <aside class="recipe-tools" aria-label="Recipe tools"><p class="eyebrow">At the counter</p><a href="#ingredients">{language === 'es' ? 'Ingredientes' : 'Ingredients'} ↓</a><a href="#equipment">{language === 'es' ? 'Equipo' : 'Equipment'} ↓</a><a href="#method">{language === 'es' ? 'Método' : 'Method'} ↓</a><button type="button" id="print-recipe">{language === 'es' ? 'Imprimir receta' : 'Print recipe'} <span aria-hidden="true">↗</span></button><button type="button" id="kitchen-mode" aria-pressed="false">{language === 'es' ? 'Modo cocina' : 'Kitchen mode'} <span aria-hidden="true">☼</span></button><p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p><div class="quantity-controls" role="group" aria-label={language === 'es' ? 'Multiplicar ingredientes' : 'Multiply ingredients'}><span>{language === 'es' ? 'Cantidades' : 'Quantities'}</span><div>{[1, 2, 3].map(multiplier => <button type="button" data-multiplier={multiplier} aria-pressed={multiplier === 1}>{multiplier}×</button>)}</div><small>{language === 'es' ? 'Las cantidades sin una medida clara quedan igual. Revisa los tiempos de cocción.' : 'Measures without a clear amount stay as written. Check cooking times separately.'}</small></div><button type="button" id="reset-checklist">{language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}</button></aside>
+      <article class="recipe-prose" data-recipe-id={recipe.id} data-language={language}><Content /></article>
+    </div>
+    <section class="more-recipes"><p class="eyebrow">Keep the kitchen going</p><h2>{language === 'es' ? 'Más recetas' : 'Something else to make'}</h2><div>{more.map(other => <a href={`/recipes/${other.id}`}>{other.data.title}<span aria-hidden="true">↗</span></a>)}</div><a class="index-link" href="/#recipes">{language === 'es' ? 'Ver todas las recetas' : 'Back to the recipe book'} ↗</a></section>
+  </main>
+</Base>
+<script>
+  import { scaleIngredient } from '../../lib/recipe';
+  const prose = document.querySelector<HTMLElement>('.recipe-prose');
+  const language = prose?.dataset.language ?? 'en';
+  const checks: HTMLInputElement[] = [];
+  const labels: { node: HTMLElement; original: string; html: string }[] = [];
+  const storageKey = `cookbook:ingredients:${prose?.dataset.recipeId}`;
+  let checked: number[] = [];
+  try { checked = JSON.parse(localStorage.getItem(storageKey) ?? '[]'); if (!Array.isArray(checked)) checked = []; } catch {}
+  const ingredientHeading = prose?.querySelector('#ingredients');
+  let element = ingredientHeading?.nextElementSibling;
+  while (element && element.tagName !== 'H2') {
+    for (const item of element.querySelectorAll<HTMLLIElement>('li')) {
+      const index = checks.length;
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = checked.includes(index);
+      const label = document.createElement('label');
+      const text = document.createElement('span');
+      text.append(...Array.from(item.childNodes));
+      label.append(checkbox, text);
+      item.append(label);
+      item.classList.add('ingredient-item');
+      checks.push(checkbox);
+      labels.push({ node: text, original: text.textContent ?? '', html: text.innerHTML });
+      checkbox.addEventListener('change', () => { try { localStorage.setItem(storageKey, JSON.stringify(checks.flatMap((check, position) => check.checked ? [position] : []))); } catch {} });
+    }
+    element = element.nextElementSibling;
+  }
+  document.querySelector('#print-recipe')?.addEventListener('click', () => window.print());
+  document.querySelector('#reset-checklist')?.addEventListener('click', () => { checks.forEach(check => check.checked = false); try { localStorage.removeItem(storageKey); } catch {} });
+  const multiplierButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-multiplier]')];
+  multiplierButtons.forEach(button => button.addEventListener('click', () => {
+    const multiplier = Number(button.dataset.multiplier);
+    multiplierButtons.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+    labels.forEach(label => {
+      const scaled = scaleIngredient(label.original, multiplier);
+      if (scaled === label.original) label.node.innerHTML = label.html;
+      else label.node.textContent = scaled;
+    });
+  }));
+  const kitchen = document.querySelector<HTMLButtonElement>('#kitchen-mode');
+  const status = document.querySelector('#kitchen-status');
+  let wakeLock: WakeLockSentinel | null = null;
+  let kitchenEnabled = false;
+  async function requestWakeLock() {
+    if (!kitchenEnabled || !('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      if (status) status.textContent = language === 'es' ? 'La pantalla permanece encendida.' : 'Screen stays awake while this page is visible.';
+    } catch { if (status) status.textContent = language === 'es' ? 'Modo cocina activo. No se pudo mantener la pantalla encendida.' : 'Kitchen mode is on. Screen wake lock is unavailable.'; }
+  }
+  kitchen?.addEventListener('click', async () => {
+    kitchenEnabled = !kitchenEnabled;
+    kitchen.setAttribute('aria-pressed', String(kitchenEnabled));
+    document.body.classList.toggle('kitchen-mode', kitchenEnabled);
+    if (kitchenEnabled) {
+      if (status) status.textContent = language === 'es' ? 'Modo cocina activo.' : 'Kitchen mode is on.';
+      await requestWakeLock();
+    } else { await wakeLock?.release(); wakeLock = null; if (status) status.textContent = ''; }
+  });
+  document.addEventListener('visibilitychange', requestWakeLock);
+</script>

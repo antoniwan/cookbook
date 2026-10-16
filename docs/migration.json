@@ -1,0 +1,595 @@
+{
+  "migratedAt": "2026-10-16T18:43:16.915Z",
+  "sourceCommit": "7df7a0c9ffacdb364a5eb99728e2e282fe846004",
+  "files": [
+    {
+      "slug": "arepas-de-calabaza",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/arepas-de-calabaza",
+      "sourcePath": "src/content/p/recipes/arepas-de-calabaza.md",
+      "sourceSha256": "d0b01f6660d20159f42afff51f51b4b9578c82c8dcaa1f9d0487203c45a0c189",
+      "destination": "src/content/recipes/arepas-de-calabaza.md",
+      "destinationSha256": "d0b01f6660d20159f42afff51f51b4b9578c82c8dcaa1f9d0487203c45a0c189",
+      "language": "en"
+    },
+    {
+      "slug": "arroz-con-gandules-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/arroz-con-gandules-en",
+      "sourcePath": "src/content/p/recipes/arroz-con-gandules-en.md",
+      "sourceSha256": "49a0fb44b8ca90fb09c1cffc6c5d524da90e04c04a0e08441a202e4f04eb13de",
+      "destination": "src/content/recipes/arroz-con-gandules-en.md",
+      "destinationSha256": "67a332276d3a61a5256dea5478254c90f5eb5c4232d77651830fc547665045e4",
+      "language": "en",
+      "translationGroup": "arroz-con-gandules"
+    },
+    {
+      "slug": "arroz-con-gandules",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/arroz-con-gandules",
+      "sourcePath": "src/content/p/recipes/arroz-con-gandules.md",
+      "sourceSha256": "0fa98c3f06e28d457a3fc69836f12ccdfa102b45c04ef47d30e9429f5bd53b34",
+      "destination": "src/content/recipes/arroz-con-gandules.md",
+      "destinationSha256": "b1ebda7ddd0baa209d2140a59d5b1ff2ba3f5933d640819507a263ddfd6c6b88",
+      "language": "es",
+      "translationGroup": "arroz-con-gandules"
+    },
+    {
+      "slug": "arroz-con-pollo-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/arroz-con-pollo-en",
+      "sourcePath": "src/content/p/recipes/arroz-con-pollo-en.md",
+      "sourceSha256": "429cbee06f475f44ad0607fbd26d0fb3ef8b8fc81edee813a9e358457be6dcd4",
+      "destination": "src/content/recipes/arroz-con-pollo-en.md",
+      "destinationSha256": "b36a9d7832dd4299d1d47e982d0bb78fa21e0684780290680e3e5967594fc3ea",
+      "language": "en",
+      "translationGroup": "arroz-con-pollo"
+    },
+    {
+      "slug": "arroz-con-pollo",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/arroz-con-pollo",
+      "sourcePath": "src/content/p/recipes/arroz-con-pollo.md",
+      "sourceSha256": "662612a29f4632e21f1262dd6d8da2bdfcd11eb8e49db291eeddabb07617f299",
+      "destination": "src/content/recipes/arroz-con-pollo.md",
+      "destinationSha256": "3e3e5f50f947635a668e86897d512c23cf417340b8c9eb6e3ac5ae273510e018",
+      "language": "es",
+      "translationGroup": "arroz-con-pollo"
+    },
+    {
+      "slug": "asopao-de-pollo-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/asopao-de-pollo-en",
+      "sourcePath": "src/content/p/recipes/asopao-de-pollo-en.md",
+      "sourceSha256": "916a244e866f3fae6c68911939d809d6027dee1e4066eaf9fdc298c5f6956e33",
+      "destination": "src/content/recipes/asopao-de-pollo-en.md",
+      "destinationSha256": "b87366e29d15b91868a841978764df34b1407cea832f0cdc5d1a5afd29a6d723",
+      "language": "en",
+      "translationGroup": "asopao-de-pollo"
+    },
+    {
+      "slug": "asopao-de-pollo",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/asopao-de-pollo",
+      "sourcePath": "src/content/p/recipes/asopao-de-pollo.md",
+      "sourceSha256": "d2efe13c44f4373c9e8bf4f50c6a055ae98037a3f4bd242c741a1e73fdebd78e",
+      "destination": "src/content/recipes/asopao-de-pollo.md",
+      "destinationSha256": "b3abec5476900cf79e0c87e3bf8b2e4fa47bffc63910301c0d1c6265e23f6eac",
+      "language": "es",
+      "translationGroup": "asopao-de-pollo"
+    },
+    {
+      "slug": "banana-oat-bread",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/banana-oat-bread",
+      "sourcePath": "src/content/p/recipes/banana-oat-bread.md",
+      "sourceSha256": "513a03f9bbc734a582e18b5fb824e840506a02c8f36ff42da890e3899cc135fe",
+      "destination": "src/content/recipes/banana-oat-bread.md",
+      "destinationSha256": "513a03f9bbc734a582e18b5fb824e840506a02c8f36ff42da890e3899cc135fe",
+      "language": "en"
+    },
+    {
+      "slug": "brocoli-con-sabor-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/brocoli-con-sabor-en",
+      "sourcePath": "src/content/p/recipes/brocoli-con-sabor-en.md",
+      "sourceSha256": "204655b6fb14c60154340a821b1833e95487118ad3c71bec939bd599f220b04b",
+      "destination": "src/content/recipes/brocoli-con-sabor-en.md",
+      "destinationSha256": "204655b6fb14c60154340a821b1833e95487118ad3c71bec939bd599f220b04b",
+      "language": "en",
+      "translationGroup": "brocoli-con-sabor"
+    },
+    {
+      "slug": "brocoli-con-sabor",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/brocoli-con-sabor",
+      "sourcePath": "src/content/p/recipes/brocoli-con-sabor.md",
+      "sourceSha256": "074fcce1f6421eeab505a786b2bb9733209e8067281afc0f6f617ccc12fbb38c",
+      "destination": "src/content/recipes/brocoli-con-sabor.md",
+      "destinationSha256": "074fcce1f6421eeab505a786b2bb9733209e8067281afc0f6f617ccc12fbb38c",
+      "language": "es",
+      "translationGroup": "brocoli-con-sabor"
+    },
+    {
+      "slug": "brown-butter-gourmet-brownies",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/brown-butter-gourmet-brownies",
+      "sourcePath": "src/content/p/recipes/brown-butter-gourmet-brownies.md",
+      "sourceSha256": "47dcca3af2226fa3e8cdacbe8230868796d930e480feed98021c2253cbe91341",
+      "destination": "src/content/recipes/brown-butter-gourmet-brownies.md",
+      "destinationSha256": "47dcca3af2226fa3e8cdacbe8230868796d930e480feed98021c2253cbe91341",
+      "language": "en"
+    },
+    {
+      "slug": "cast-iron-flank-steak",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/cast-iron-flank-steak",
+      "sourcePath": "src/content/p/recipes/cast-iron-flank-steak.md",
+      "sourceSha256": "4ec8dd29c0b5562df169dc70ec5a391210080a12859f6f926be7033eff0c4470",
+      "destination": "src/content/recipes/cast-iron-flank-steak.md",
+      "destinationSha256": "4ec8dd29c0b5562df169dc70ec5a391210080a12859f6f926be7033eff0c4470",
+      "language": "en"
+    },
+    {
+      "slug": "chilean-sea-bass",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/chilean-sea-bass",
+      "sourcePath": "src/content/p/recipes/chilean-sea-bass.md",
+      "sourceSha256": "9081157575b52f42b95bf025c414b901875f9c20b4e5201b7a31fe45962ecf41",
+      "destination": "src/content/recipes/chilean-sea-bass.md",
+      "destinationSha256": "9081157575b52f42b95bf025c414b901875f9c20b4e5201b7a31fe45962ecf41",
+      "language": "en"
+    },
+    {
+      "slug": "coquito-de-moni-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/coquito-de-moni-en",
+      "sourcePath": "src/content/p/recipes/coquito-de-moni-en.md",
+      "sourceSha256": "545a585ff6abcc44c5875cb9953a70a8ca02de239dddc367110ab8f60641df47",
+      "destination": "src/content/recipes/coquito-de-moni-en.md",
+      "destinationSha256": "545a585ff6abcc44c5875cb9953a70a8ca02de239dddc367110ab8f60641df47",
+      "language": "en",
+      "translationGroup": "coquito-de-moni"
+    },
+    {
+      "slug": "coquito-de-moni",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/coquito-de-moni",
+      "sourcePath": "src/content/p/recipes/coquito-de-moni.md",
+      "sourceSha256": "55afe986e9df641e0047ff3c6eb12854d20b1540ec088ce37cd16c5565d154e5",
+      "destination": "src/content/recipes/coquito-de-moni.md",
+      "destinationSha256": "55afe986e9df641e0047ff3c6eb12854d20b1540ec088ce37cd16c5565d154e5",
+      "language": "es",
+      "translationGroup": "coquito-de-moni"
+    },
+    {
+      "slug": "easy-breakfast-guacamole-toast",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/easy-breakfast-guacamole-toast",
+      "sourcePath": "src/content/p/recipes/easy-breakfast-guacamole-toast.md",
+      "sourceSha256": "5e286deb10c8ca9c762613f6ac6b99f3a8d76f7923ec77359c1dbae347f34f0a",
+      "destination": "src/content/recipes/easy-breakfast-guacamole-toast.md",
+      "destinationSha256": "5e286deb10c8ca9c762613f6ac6b99f3a8d76f7923ec77359c1dbae347f34f0a",
+      "language": "en"
+    },
+    {
+      "slug": "fettuccine-with-seared-chicken",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/fettuccine-with-seared-chicken",
+      "sourcePath": "src/content/p/recipes/fettuccine-with-seared-chicken.md",
+      "sourceSha256": "db6234bc177ecb4bdb3ae65242af8f324ebde896bf47e66e6b185f4cdb386a04",
+      "destination": "src/content/recipes/fettuccine-with-seared-chicken.md",
+      "destinationSha256": "db6234bc177ecb4bdb3ae65242af8f324ebde896bf47e66e6b185f4cdb386a04",
+      "language": "en"
+    },
+    {
+      "slug": "fried-chicken-tender-nuggets-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/fried-chicken-tender-nuggets-en",
+      "sourcePath": "src/content/p/recipes/fried-chicken-tender-nuggets-en.md",
+      "sourceSha256": "d0802871f7512de7ed994d75f5e3b6aa2d5f682e316281edd8ecff8e00526270",
+      "destination": "src/content/recipes/fried-chicken-tender-nuggets-en.md",
+      "destinationSha256": "d0802871f7512de7ed994d75f5e3b6aa2d5f682e316281edd8ecff8e00526270",
+      "language": "en",
+      "translationGroup": "fried-chicken-tender-nuggets"
+    },
+    {
+      "slug": "fried-chicken-tender-nuggets",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/fried-chicken-tender-nuggets",
+      "sourcePath": "src/content/p/recipes/fried-chicken-tender-nuggets.md",
+      "sourceSha256": "0414d6914a70abc545deb7dd15b907b66bfcd89c9d0889eed5eacf154d9f4e49",
+      "destination": "src/content/recipes/fried-chicken-tender-nuggets.md",
+      "destinationSha256": "0414d6914a70abc545deb7dd15b907b66bfcd89c9d0889eed5eacf154d9f4e49",
+      "language": "es",
+      "translationGroup": "fried-chicken-tender-nuggets"
+    },
+    {
+      "slug": "habichuelas-guisadas-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/habichuelas-guisadas-en",
+      "sourcePath": "src/content/p/recipes/habichuelas-guisadas-en.md",
+      "sourceSha256": "2c2d6724dd29b8059d85e875cdbf3dd3e3990013402d802696e890103741d408",
+      "destination": "src/content/recipes/habichuelas-guisadas-en.md",
+      "destinationSha256": "626d7619a2d00c74ef1b613ebe8c9bc543170155e313642e7811f5b3716cfb7c",
+      "language": "en",
+      "translationGroup": "habichuelas-guisadas"
+    },
+    {
+      "slug": "habichuelas-guisadas",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/habichuelas-guisadas",
+      "sourcePath": "src/content/p/recipes/habichuelas-guisadas.md",
+      "sourceSha256": "1d6e9d2de710b0b0d20bd021a055137039f48bed16b14e741d82eedd388cca93",
+      "destination": "src/content/recipes/habichuelas-guisadas.md",
+      "destinationSha256": "ae4ca9ede692e305eb722f4e7c7bb2dee81c0e3e7d1b087220ea1cebfbb31f34",
+      "language": "es",
+      "translationGroup": "habichuelas-guisadas"
+    },
+    {
+      "slug": "lamb-loin-chops-al-vino-con-vegetales-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/lamb-loin-chops-al-vino-con-vegetales-en",
+      "sourcePath": "src/content/p/recipes/lamb-loin-chops-al-vino-con-vegetales-en.md",
+      "sourceSha256": "42d475f71c5580b3a8fe6e61b5928c9997cac55b64ef67b71e355703d73468d0",
+      "destination": "src/content/recipes/lamb-loin-chops-al-vino-con-vegetales-en.md",
+      "destinationSha256": "42d475f71c5580b3a8fe6e61b5928c9997cac55b64ef67b71e355703d73468d0",
+      "language": "en",
+      "translationGroup": "lamb-loin-chops-al-vino-con-vegetales"
+    },
+    {
+      "slug": "lamb-loin-chops-al-vino-con-vegetales",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/lamb-loin-chops-al-vino-con-vegetales",
+      "sourcePath": "src/content/p/recipes/lamb-loin-chops-al-vino-con-vegetales.md",
+      "sourceSha256": "e6c40d85bf1824c81f64c6e6f6f65ed52dd59a4a56d8479e27bea0b8575b99fc",
+      "destination": "src/content/recipes/lamb-loin-chops-al-vino-con-vegetales.md",
+      "destinationSha256": "e6c40d85bf1824c81f64c6e6f6f65ed52dd59a4a56d8479e27bea0b8575b99fc",
+      "language": "es",
+      "translationGroup": "lamb-loin-chops-al-vino-con-vegetales"
+    },
+    {
+      "slug": "lemon-pepper-chicken",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/lemon-pepper-chicken",
+      "sourcePath": "src/content/p/recipes/lemon-pepper-chicken.md",
+      "sourceSha256": "7dc41ddb3c5aade0c091efa94fe6964f16a42b1448de00e8d870219d6060cd51",
+      "destination": "src/content/recipes/lemon-pepper-chicken.md",
+      "destinationSha256": "7dc41ddb3c5aade0c091efa94fe6964f16a42b1448de00e8d870219d6060cd51",
+      "language": "en"
+    },
+    {
+      "slug": "mias-chicken-nuggets-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/mias-chicken-nuggets-en",
+      "sourcePath": "src/content/p/recipes/mias-chicken-nuggets-en.md",
+      "sourceSha256": "149a86ee9430a52dd05352c9d56a1a0abd65727672150e59062a36c3cba3c6b2",
+      "destination": "src/content/recipes/mias-chicken-nuggets-en.md",
+      "destinationSha256": "149a86ee9430a52dd05352c9d56a1a0abd65727672150e59062a36c3cba3c6b2",
+      "language": "en",
+      "translationGroup": "mias-chicken-nuggets"
+    },
+    {
+      "slug": "mias-chicken-nuggets",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/mias-chicken-nuggets",
+      "sourcePath": "src/content/p/recipes/mias-chicken-nuggets.md",
+      "sourceSha256": "7e9d3074a3434c5effeeaef1cd169acbc7413c20d3694b8ce98ec2bfecdc1f10",
+      "destination": "src/content/recipes/mias-chicken-nuggets.md",
+      "destinationSha256": "7e9d3074a3434c5effeeaef1cd169acbc7413c20d3694b8ce98ec2bfecdc1f10",
+      "language": "es",
+      "translationGroup": "mias-chicken-nuggets"
+    },
+    {
+      "slug": "mias-cinnamon-pancakes",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/mias-cinnamon-pancakes",
+      "sourcePath": "src/content/p/recipes/mias-cinnamon-pancakes.md",
+      "sourceSha256": "63dffc7e5fd2fb4364b1c0efaa84cfb933c793e5b7e5a18d7ab0cc126519ecaa",
+      "destination": "src/content/recipes/mias-cinnamon-pancakes.md",
+      "destinationSha256": "63dffc7e5fd2fb4364b1c0efaa84cfb933c793e5b7e5a18d7ab0cc126519ecaa",
+      "language": "en"
+    },
+    {
+      "slug": "mias-vegan-cupcakes",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/mias-vegan-cupcakes",
+      "sourcePath": "src/content/p/recipes/mias-vegan-cupcakes.md",
+      "sourceSha256": "576084c3ff86ef5acc095ae28e90add36febdf707e5d607bce143ad75f883051",
+      "destination": "src/content/recipes/mias-vegan-cupcakes.md",
+      "destinationSha256": "576084c3ff86ef5acc095ae28e90add36febdf707e5d607bce143ad75f883051",
+      "language": "en"
+    },
+    {
+      "slug": "pancakes-sin-huevo-para-mia-luna-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/pancakes-sin-huevo-para-mia-luna-en",
+      "sourcePath": "src/content/p/recipes/pancakes-sin-huevo-para-mia-luna-en.md",
+      "sourceSha256": "db31f898de5cdebd3f97b1746201170c27e3c2e5d6dd5872952eb92bf38c652f",
+      "destination": "src/content/recipes/pancakes-sin-huevo-para-mia-luna-en.md",
+      "destinationSha256": "db31f898de5cdebd3f97b1746201170c27e3c2e5d6dd5872952eb92bf38c652f",
+      "language": "en",
+      "translationGroup": "pancakes-sin-huevo-para-mia-luna"
+    },
+    {
+      "slug": "pancakes-sin-huevo-para-mia-luna",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/pancakes-sin-huevo-para-mia-luna",
+      "sourcePath": "src/content/p/recipes/pancakes-sin-huevo-para-mia-luna.md",
+      "sourceSha256": "5cf37b19da58ffdb3ce54492ecf6c948ec2dc261b1efbdfe9a93a86d3fca76b3",
+      "destination": "src/content/recipes/pancakes-sin-huevo-para-mia-luna.md",
+      "destinationSha256": "5cf37b19da58ffdb3ce54492ecf6c948ec2dc261b1efbdfe9a93a86d3fca76b3",
+      "language": "es",
+      "translationGroup": "pancakes-sin-huevo-para-mia-luna"
+    },
+    {
+      "slug": "pastel-de-banana-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/pastel-de-banana-en",
+      "sourcePath": "src/content/p/recipes/pastel-de-banana-en.md",
+      "sourceSha256": "5c131ae4b2f017b0d737923ece6129acefbc4dc4bae56e6c496bc0073217b4da",
+      "destination": "src/content/recipes/pastel-de-banana-en.md",
+      "destinationSha256": "5c131ae4b2f017b0d737923ece6129acefbc4dc4bae56e6c496bc0073217b4da",
+      "language": "en",
+      "translationGroup": "pastel-de-banana"
+    },
+    {
+      "slug": "pastel-de-banana",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/pastel-de-banana",
+      "sourcePath": "src/content/p/recipes/pastel-de-banana.md",
+      "sourceSha256": "ac3bd331523fb853432136271af98ff9a4dbbb0ba444a46190af24a8e3e06f10",
+      "destination": "src/content/recipes/pastel-de-banana.md",
+      "destinationSha256": "ac3bd331523fb853432136271af98ff9a4dbbb0ba444a46190af24a8e3e06f10",
+      "language": "es",
+      "translationGroup": "pastel-de-banana"
+    },
+    {
+      "slug": "patatas-bravas",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/patatas-bravas",
+      "sourcePath": "src/content/p/recipes/patatas-bravas.md",
+      "sourceSha256": "bfb22225a68b1e88da8a9df0f6e7f0e157ddf56fde5727a5e5dccf5b6e60f4fe",
+      "destination": "src/content/recipes/patatas-bravas.md",
+      "destinationSha256": "e9087ec2483b5188d92fbfd4f79748da3f0d12665c752e882d0fd4ea82cf55f5",
+      "language": "en"
+    },
+    {
+      "slug": "patatas-y-batatas-bravas",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/patatas-y-batatas-bravas",
+      "sourcePath": "src/content/p/recipes/patatas-y-batatas-bravas.md",
+      "sourceSha256": "494b5f29f811ad8e4438247b0321dab9fb82174ef5f7008248478a6865431211",
+      "destination": "src/content/recipes/patatas-y-batatas-bravas.md",
+      "destinationSha256": "aae7a11d548cb2ab6decd2e3a998a0f2a57bf702769e8c14eb82e6d58855260b",
+      "language": "en"
+    },
+    {
+      "slug": "perfect-crispy-oven-drumsticks",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/perfect-crispy-oven-drumsticks",
+      "sourcePath": "src/content/p/recipes/perfect-crispy-oven-drumsticks.md",
+      "sourceSha256": "f62c2d901fb7af49c31226d13a2ad664af151c63a9220995e3769254a2ef3861",
+      "destination": "src/content/recipes/perfect-crispy-oven-drumsticks.md",
+      "destinationSha256": "f62c2d901fb7af49c31226d13a2ad664af151c63a9220995e3769254a2ef3861",
+      "language": "en"
+    },
+    {
+      "slug": "shaved-carrots",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/shaved-carrots",
+      "sourcePath": "src/content/p/recipes/shaved-carrots.md",
+      "sourceSha256": "5deaf6b489479df0a93cd55319429b538d1317c53d655bc568fe6548ab0f0654",
+      "destination": "src/content/recipes/shaved-carrots.md",
+      "destinationSha256": "5deaf6b489479df0a93cd55319429b538d1317c53d655bc568fe6548ab0f0654",
+      "language": "en"
+    },
+    {
+      "slug": "simple-baked-chicken-breasts",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/simple-baked-chicken-breasts",
+      "sourcePath": "src/content/p/recipes/simple-baked-chicken-breasts.md",
+      "sourceSha256": "2370e30dfbc48fb265606ef780678694b412cfc7107d00ce4e837aeb64e295c2",
+      "destination": "src/content/recipes/simple-baked-chicken-breasts.md",
+      "destinationSha256": "2370e30dfbc48fb265606ef780678694b412cfc7107d00ce4e837aeb64e295c2",
+      "language": "en"
+    },
+    {
+      "slug": "sofrito-en",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/sofrito-en",
+      "sourcePath": "src/content/p/recipes/sofrito-en.md",
+      "sourceSha256": "289a091c53e5f8419c2799c63e34f54dfa444fde4644901d12a203f1a6f70412",
+      "destination": "src/content/recipes/sofrito-en.md",
+      "destinationSha256": "289a091c53e5f8419c2799c63e34f54dfa444fde4644901d12a203f1a6f70412",
+      "language": "en",
+      "translationGroup": "sofrito"
+    },
+    {
+      "slug": "sofrito",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/sofrito",
+      "sourcePath": "src/content/p/recipes/sofrito.md",
+      "sourceSha256": "7776d51bc2849e366826b8492a8f1147924c44da861c87d744291ceaa15d4ad7",
+      "destination": "src/content/recipes/sofrito.md",
+      "destinationSha256": "7776d51bc2849e366826b8492a8f1147924c44da861c87d744291ceaa15d4ad7",
+      "language": "es",
+      "translationGroup": "sofrito"
+    },
+    {
+      "slug": "turkey-patties",
+      "sourceUrl": "https://notes.antoniwan.online/p/recipes/turkey-patties",
+      "sourcePath": "src/content/p/recipes/turkey-patties.md",
+      "sourceSha256": "27a7670cba9c3636ed8e3869e19fa2120d80390ddb4a551db6ace52a2e5f9931",
+      "destination": "src/content/recipes/turkey-patties.md",
+      "destinationSha256": "27a7670cba9c3636ed8e3869e19fa2120d80390ddb4a551db6ace52a2e5f9931",
+      "language": "en"
+    }
+  ],
+  "assets": [
+    {
+      "image": "/images/2026/arepas-de-calabaza.avif",
+      "sourceSha256": "26568e1eba2db44007ee5f66029554d4a404015664c4f4bf2426a51b6f5f432f",
+      "destination": "src/assets/images/2026/arepas-de-calabaza.avif",
+      "credit": "Jess Lander",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Arepa_de_queso_by_jslander.png",
+      "license": "CC BY 2.0"
+    },
+    {
+      "image": "/images/2026/arroz-con-gandules.avif",
+      "sourceSha256": "2b8ba5335d17a488278706162bcdba2aedea06a5e5f344383cabbe7d743ca858",
+      "destination": "src/assets/images/2026/arroz-con-gandules.avif",
+      "credit": "USDA Food and Nutrition Service",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:MyPlate_gov_Cultural_Food_(20241025-USDA-FNS-UNK-0063).jpg",
+      "license": "Public domain"
+    },
+    {
+      "image": "/images/2026/arroz-con-pollo.avif",
+      "sourceSha256": "c419ca025b3d2b788d06a4d0bef4ff1dc2c0ab08d6bfc63bdf38588b49d6cf25",
+      "destination": "src/assets/images/2026/arroz-con-pollo.avif",
+      "credit": "Ll1324",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Locrio_de_Pollo_(Dominicano).jpg",
+      "license": "CC0"
+    },
+    {
+      "image": "/images/2026/asopao-de-pollo.avif",
+      "sourceSha256": "dec4bdbc8520307ead25435bdc4789a71f66e48fa01b6f29ea2b072d3803480d",
+      "destination": "src/assets/images/2026/asopao-de-pollo.avif"
+    },
+    {
+      "image": "/images/2026/banana-oat-bread.avif",
+      "sourceSha256": "4dffa67ead3d9127c874000a2131768dbbb81692aa961091c094959b651fcf5b",
+      "destination": "src/assets/images/2026/banana-oat-bread.avif",
+      "credit": "Shisma",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Banana_bread_cut_into_slices.jpg",
+      "license": "CC BY 4.0"
+    },
+    {
+      "image": "/images/2026/brocoli-con-sabor.avif",
+      "sourceSha256": "a0be9e5e9ced43f9af1ee59485affd85f7977d28faf812712aa1eb4a137c3816",
+      "destination": "src/assets/images/2026/brocoli-con-sabor.avif",
+      "credit": "Horacio Cambeiro",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Cooked_broccoli_florets_in_a_textured_glass_bowl.jpg",
+      "license": "CC BY-SA 3.0"
+    },
+    {
+      "image": "/images/2026/brown-butter-gourmet-brownies.avif",
+      "sourceSha256": "a0f4eb2236984c95477cc4f811c40efcc0da862677910338bc38c139957d91e5",
+      "destination": "src/assets/images/2026/brown-butter-gourmet-brownies.avif",
+      "credit": "Rob Walker",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Brownies_with_chocolate_chunks.jpg",
+      "license": "CC BY 2.0"
+    },
+    {
+      "image": "/images/2026/cast-iron-flank-steak.avif",
+      "sourceSha256": "5306f3c5081520e8bdc397913124a0591f61011588557c088a1035edad9e88ae",
+      "destination": "src/assets/images/2026/cast-iron-flank-steak.avif",
+      "credit": "Zachary Delorenzo",
+      "creditUrl": "https://unsplash.com/photos/KgaeT7jp2EM",
+      "license": "Unsplash License"
+    },
+    {
+      "image": "/images/2026/chilean-sea-bass.avif",
+      "sourceSha256": "ec55c8ffbf8359e9b680893aa7566493aced7dcb4b9440f1328a8bdf543f84e4",
+      "destination": "src/assets/images/2026/chilean-sea-bass.avif",
+      "credit": "Acabashi",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Pan_seared_sea_bass_at_the_White_Hart_Inn,_Moreton,_Essex,_England.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/coquito-de-moni.avif",
+      "sourceSha256": "554db684d3a543b992749f4c4292e0a3dce0ed1505e6234592bbd9e0171d53ee",
+      "destination": "src/assets/images/2026/coquito-de-moni.avif",
+      "credit": "Infrogmation",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Coquito_in_glass_with_spices_on_top.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/easy-breakfast-guacamole-toast.avif",
+      "sourceSha256": "21e3d483e32c8ae8e4d81dc4ff532e1c072f0899972dbd6c46b6616dbc5b64b8",
+      "destination": "src/assets/images/2026/easy-breakfast-guacamole-toast.avif",
+      "credit": "Jami430",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Avocado_toast_in_Stockholm,_Sweden.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/fettuccine-with-seared-chicken.avif",
+      "sourceSha256": "0ae848ceb4e59ea16a7b61744dee06a396665d810c24d618de7aa1613999f3b4",
+      "destination": "src/assets/images/2026/fettuccine-with-seared-chicken.avif",
+      "credit": "Jordan VC",
+      "creditUrl": "https://unsplash.com/photos/Jrvcg9My0B4",
+      "license": "Unsplash License"
+    },
+    {
+      "image": "/images/2026/fried-chicken-tender-nuggets.avif",
+      "sourceSha256": "8f12cffc414abdac13fe2f1c908a56a2e120fe925e302120dc0324246dead222",
+      "destination": "src/assets/images/2026/fried-chicken-tender-nuggets.avif"
+    },
+    {
+      "image": "/images/2026/habichuelas-guisadas.avif",
+      "sourceSha256": "51974603cdba81beafda77a6c011e0544c7f0449b0d470266fab050789c329ec",
+      "destination": "src/assets/images/2026/habichuelas-guisadas.avif",
+      "credit": "Jerjes Medina Albino",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Arroz,_Habichuelas_y_Pescado_Frito.jpg",
+      "license": "CC0"
+    },
+    {
+      "image": "/images/2026/lamb-loin-chops-al-vino-con-vegetales.avif",
+      "sourceSha256": "68238004ec9282b1d87db9b066fc34053229bcb3953a0c668003f22876e05c9e",
+      "destination": "src/assets/images/2026/lamb-loin-chops-al-vino-con-vegetales.avif",
+      "credit": "Bernard Tuck",
+      "creditUrl": "https://unsplash.com/photos/sEVyWOg5M2s",
+      "license": "Unsplash License"
+    },
+    {
+      "image": "/images/2026/lemon-pepper-chicken.avif",
+      "sourceSha256": "675b98e1da984875b715fcd74ed11da666bd7092f17803f7f019b5825191d407",
+      "destination": "src/assets/images/2026/lemon-pepper-chicken.avif",
+      "credit": "Yuvraj Singh 97",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Lemon_Pepper_Chicken_-_Home_-_Chandigarh_-_India_-_0005.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/mias-chicken-nuggets.avif",
+      "sourceSha256": "2e58c3193b1493c95b5727f50a6dc5db0e57ddbfbbd8dea715524ae979cf202e",
+      "destination": "src/assets/images/2026/mias-chicken-nuggets.avif"
+    },
+    {
+      "image": "/images/2026/mias-cinnamon-pancakes.avif",
+      "sourceSha256": "a5ea750381b1e2bbfd41a393c2d9140b44c6a6b4af8fb042d63a77fcd00ea239",
+      "destination": "src/assets/images/2026/mias-cinnamon-pancakes.avif",
+      "credit": "Maame1Yaa",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Stack_of_pancakes.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/mias-vegan-cupcakes.avif",
+      "sourceSha256": "5d5910eceed42c94f4bc3cc9c8df9200f21495024d0f5185ff5a91ba650f0663",
+      "destination": "src/assets/images/2026/mias-vegan-cupcakes.avif"
+    },
+    {
+      "image": "/images/2026/pancakes-sin-huevo-para-mia-luna.avif",
+      "sourceSha256": "dc910fc3891ecf9a50268c9536ccee7a58e16c2594e001eaec667f59418dc07f",
+      "destination": "src/assets/images/2026/pancakes-sin-huevo-para-mia-luna.avif",
+      "credit": "Dbenbenn",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Pancakes.jpg",
+      "license": "CC BY-SA 3.0"
+    },
+    {
+      "image": "/images/2026/pastel-de-banana.avif",
+      "sourceSha256": "bd6b32d28e7ec7b6f3782832a60f2da68746e407a3ce904f9df52bbf12c67200",
+      "destination": "src/assets/images/2026/pastel-de-banana.avif",
+      "credit": "Sarah",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Banana_bread.jpg",
+      "license": "CC BY 2.0"
+    },
+    {
+      "image": "/images/2026/patatas-bravas.avif",
+      "sourceSha256": "0b9f5c44b029c49b114fdf082394b87a92af168dc1eefaf99318440cd3189682",
+      "destination": "src/assets/images/2026/patatas-bravas.avif",
+      "credit": "Krista",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Patatas_bravas_-_Lizarran.jpg",
+      "license": "CC BY 2.0"
+    },
+    {
+      "image": "/images/2026/patatas-y-batatas-bravas.avif",
+      "sourceSha256": "2ca2080bf2cac3777e9564d7f9b948956e9f7f2c23c2b6d88c417db716d78da4",
+      "destination": "src/assets/images/2026/patatas-y-batatas-bravas.avif"
+    },
+    {
+      "image": "/images/2026/perfect-crispy-oven-drumsticks.avif",
+      "sourceSha256": "99abc16299cfc5efa3f1b29470d6bf42ad98d224f03b8d85967bab317882292e",
+      "destination": "src/assets/images/2026/perfect-crispy-oven-drumsticks.avif",
+      "credit": "Mousa Alhaddad",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:6_cooked_chicken_legs.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "image": "/images/2026/shaved-carrots.avif",
+      "sourceSha256": "b241911d67cbdb238b13eb6389d0d13b92a70a1c7fde8437edea2c46f2c72d3f",
+      "destination": "src/assets/images/2026/shaved-carrots.avif"
+    },
+    {
+      "image": "/images/2026/simple-baked-chicken-breasts.avif",
+      "sourceSha256": "b08677f7aef09014049969d8f4a22e73dd281b30866e66d40bc87471ffc55141",
+      "destination": "src/assets/images/2026/simple-baked-chicken-breasts.avif",
+      "credit": "Joceline Painho",
+      "creditUrl": "https://unsplash.com/photos/YBoZUbc3Uj4",
+      "license": "Unsplash License"
+    },
+    {
+      "image": "/images/2026/sofrito.avif",
+      "sourceSha256": "4181658dfd66b54193fd66e89ad1f4e96bd4d9d9c015e05deac1f3b58433e5b0",
+      "destination": "src/assets/images/2026/sofrito.avif",
+      "credit": "Portorricensis",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:PuertoRicanSofrito.jpg",
+      "license": "Public domain"
+    },
+    {
+      "image": "/images/2026/turkey-patties.avif",
+      "sourceSha256": "75d929c2111f331c773551098924f52f7542eaaf166c913a25d927474bc5c976",
+      "destination": "src/assets/images/2026/turkey-patties.avif"
+    }
+  ]
+}

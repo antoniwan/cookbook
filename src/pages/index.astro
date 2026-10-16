@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import { allRecipes } from '../lib/catalogue';
+import { GROUPS } from '../lib/recipe';
+const all = await allRecipes();
+const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((first, second) => first.data.title.localeCompare(second.data.title));
+---
+<Base>
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-copy"><p class="eyebrow"><span class="tiny-flower">✳</span> A family recipe book</p><h1>A little savory.<br /><em>A little sweet.</em></h1><p class="hero-description">The recipes we cook at home.<br />Kept close, shared here, ready for your kitchen.</p><a class="button" href="#recipes">Find something to cook <span aria-hidden="true">↓</span></a><p class="hero-note">{recipes.length} recipes <span>·</span> English &amp; Español</p></div>
+      <div class="hero-illustration"><div class="illustration-halo"></div><img src="/mascots.webp" width="1536" height="1024" alt="A smiling garlic bulb and strawberry, Cookbook’s two kitchen companions." fetchpriority="high" /><span class="handwritten hero-caption">Good company in the kitchen.</span></div>
+    </section>
+    <section class="collection-banner wrap" aria-label="Cookbook introduction"><span class="small-seal" aria-hidden="true">✳</span><p>A few family favorites. A lot of meals worth making again.</p><a href="/about">A note from our kitchen ↗</a></section>
+    <section class="recipe-section wrap" id="recipes" aria-labelledby="recipes-title">
+      <div class="section-heading"><div><p class="eyebrow">Open the recipe book</p><h2 id="recipes-title">What sounds good?</h2></div><label class="search-field"><span class="sr-only">Search recipes and ingredients</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" id="recipe-search" placeholder="A dish, an ingredient…" autocomplete="off" /></label></div>
+      <div class="filter-bar" role="group" aria-label="Filter recipes">{GROUPS.map((group, index) => <button type="button" data-filter={group} aria-pressed={index === 0}>{group}</button>)}</div>
+      <div class="results-line"><p id="recipe-results" role="status" aria-live="polite">{recipes.length} recipes, made at home</p><button id="clear-filters" type="button" hidden>Clear filters</button></div>
+      <div class="recipe-grid">{recipes.map((recipe, index) => <RecipeCard recipe={recipe} translated={Boolean(recipe.data.translationGroup && all.some(other => other.id !== recipe.id && other.data.translationGroup === recipe.data.translationGroup))} index={index} />)}</div>
+      <div class="empty-state" id="empty-state" hidden><h3>Nothing in this corner of the kitchen.</h3><p>Try another ingredient, or browse all the recipes.</p></div>
+      <a class="index-link" href="/contents">The whole recipe book, A–Z <span aria-hidden="true">↗</span></a>
+    </section>
+    <section class="kitchen-note wrap"><span class="eyebrow">A kitchen, not a content calendar</span><h2>Recipes for the way<br /><em>we actually eat.</em></h2><p>Weeknight dinners, Puerto Rican staples, something sweet. Ingredients, equipment, and a method you can follow.</p><a href="/about">More about this cookbook ↗</a></section>
+  </main>
+</Base>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#recipe-search');
+  const filters = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-recipe-card]')];
+  const result = document.querySelector('#recipe-results');
+  const clear = document.querySelector<HTMLButtonElement>('#clear-filters');
+  const empty = document.querySelector<HTMLElement>('#empty-state');
+  let selected = 'All recipes';
+  const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  function applyFilters() {
+    const terms = normalize(search?.value ?? '').trim().split(/\s+/).filter(Boolean);
+    let count = 0;
+    for (const card of cards) {
+      const visible = (selected === 'All recipes' || card.dataset.group === selected) && terms.every(term => normalize(card.dataset.search ?? '').includes(term));
+      card.hidden = !visible;
+      if (visible) count++;
+    }
+    filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === selected)));
+    if (result) result.textContent = `${count} ${count === 1 ? 'recipe' : 'recipes'}${terms.length || selected !== 'All recipes' ? ' found' : ', made at home'}`;
+    if (clear) clear.hidden = !terms.length && selected === 'All recipes';
+    if (empty) empty.hidden = count !== 0;
+  }
+  search?.addEventListener('input', applyFilters);
+  filters.forEach(button => button.addEventListener('click', () => { selected = button.dataset.filter ?? 'All recipes'; applyFilters(); }));
+  clear?.addEventListener('click', () => { if (search) search.value = ''; selected = 'All recipes'; applyFilters(); search?.focus(); });
+</script>
