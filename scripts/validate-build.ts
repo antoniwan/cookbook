@@ -11,6 +11,7 @@ const manifest = JSON.parse(readFileSync('docs/migration.json', 'utf8'));
 const schemasIn = (html: string): any[] => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
 assert.equal(catalogue.recipes.length, manifest.files.length);
 assert.equal(new Set(catalogue.recipes.map((recipe: any) => recipe.id)).size, catalogue.recipes.length);
+assert.ok(catalogue.recipes.filter((recipe: any) => recipe.imageOwnership !== 'original').every((recipe: any) => !recipe.hasPhoto), 'non-original images must not be displayed');
 for (const recipe of catalogue.recipes) {
   const html = readFileSync(join(dist, 'recipes', recipe.slug, 'index.html'), 'utf8');
   const markdown = readFileSync(join(dist, 'recipes', recipe.slug + '.md'), 'utf8');
@@ -33,12 +34,24 @@ for (const recipe of catalogue.recipes) {
   assert.equal(Boolean(schema.prepTime), Boolean(schema.cookTime));
   assert.ok(!schema.nutrition && !schema.aggregateRating, recipe.slug + ': invented nutrition or ratings');
   assert.ok(html.includes('class="recipe-facts"'), recipe.slug + ': visible recipe facts');
+  if (recipe.hasPhoto) {
+    assert.equal(recipe.imageOwnership, 'original', recipe.slug + ': only confirmed original photographs may be displayed');
+    assert.ok(html.includes('class="recipe-photo"'), recipe.slug + ': shared recipe image treatment');
+  }
+  else {
+    assert.ok(html.includes('recipe-placeholder-cover'), recipe.slug + ': missing-photo cover');
+    assert.ok(html.includes(recipe.language === 'es' ? 'Foto de la receta pendiente' : 'Recipe photo to come'), recipe.slug + ': localized placeholder label');
+    assert.ok(!html.includes('class="recipe-photo"'), recipe.slug + ': placeholder must not claim to be a photo');
+    assert.ok(!('image' in schema), recipe.slug + ': decorative placeholder must not be a Recipe image');
+    assert.ok(!json.imageCreditUrl, recipe.slug + ': no credit for an undisplayed photo');
+    assert.ok(html.includes('/social/recipe-placeholder.jpg'), recipe.slug + ': placeholder social preview');
+  }
   for (const identifier of ['quantity-panel', 'quantity-form', 'quantity-multiplier', 'quantity-status', 'show-originals', 'copy-ingredients', 'print-recipe', 'kitchen-mode', 'scale-summary']) assert.ok(html.includes(`id="${identifier}"`), recipe.slug + ': ' + identifier);
   assert.ok(html.includes('min="0.25" max="20" step="any"'), recipe.slug + ': custom quantity limits');
   if (recipe.totalTime) assert.ok(html.includes(durationLabel(recipe.totalTime)), recipe.slug + ': visible duration');
   const breadcrumbs = schemas.find(value => value['@type'] === 'BreadcrumbList');
   assert.deepEqual(breadcrumbs?.itemListElement.map((item: any) => item.item), [`${SITE}/`, `${SITE}/contents`, recipe.id]);
-  assert.ok(schema.image?.length, recipe.slug + ': required dish image');
+  if (recipe.hasPhoto) assert.ok(schema.image?.length, recipe.slug + ': required dish image');
   assert.ok(html.includes(`href="${SITE}/recipes/${recipe.slug}"`), recipe.slug + ': canonical URL');
   assert.ok(markdown.startsWith('# ' + recipe.title));
   assert.ok(recipe.ingredients.length && recipe.method.length && recipe.equipment.length);
@@ -47,10 +60,17 @@ for (const recipe of catalogue.recipes) {
   if (recipe.translationGroup) {
     const twin = catalogue.recipes.find((entry: any) => entry.slug !== recipe.slug && entry.translationGroup === recipe.translationGroup);
     assert.ok(twin, recipe.slug + ': missing translation');
+    assert.equal(twin.hasPhoto, recipe.hasPhoto, recipe.slug + ': translation image state');
     assert.ok(html.includes(`href="/recipes/${twin.slug}"`));
   }
 }
 const listedRecipes = catalogue.recipes.filter((recipe: any) => recipe.language === 'en').sort((first: any, second: any) => first.title.localeCompare(second.title));
+const bravas = catalogue.recipes.find((recipe: any) => recipe.slug === 'patatas-y-batatas-bravas');
+const bravasHtml = readFileSync(join(dist, 'recipes/patatas-y-batatas-bravas/index.html'), 'utf8');
+assert.equal(bravas.hasPhoto, false, 'bravas: process photograph must not become a cover');
+assert.equal(bravas.method.length, 6, 'bravas: process photograph must not create an extra step');
+assert.ok(/id="step-3"[\s\S]*?<img[^>]*src="\/images\/patatas-y-batatas-bravas-process.avif"[\s\S]*?id="step-4"/.test(bravasHtml), 'bravas: photograph belongs inside step 3');
+assert.ok(!bravas.method.some((step: string) => step.includes('![') || step.includes('/images/')), 'bravas: machine-readable instructions omit image markup');
 for (const page of ['index.html', 'contents/index.html']) {
   const schemas = schemasIn(readFileSync(join(dist, page), 'utf8'));
   const list = schemas.find(value => value['@type'] === 'ItemList');
@@ -59,6 +79,9 @@ for (const page of ['index.html', 'contents/index.html']) {
   assert.deepEqual(list.itemListElement.map((item: any) => item.position), listedRecipes.map((_: any, index: number) => index + 1));
 }
 const website = schemasIn(readFileSync(join(dist, 'index.html'), 'utf8')).find(value => value['@type'] === 'WebSite');
+assert.ok(readFileSync(join(dist, 'index.html'), 'utf8').includes('id="project-note-title"'), 'homepage: personal project note');
+assert.equal((readFileSync(join(dist, 'index.html'), 'utf8').match(/class="recipe-photo"/g) ?? []).length, listedRecipes.filter((recipe: any) => recipe.hasPhoto).length);
+assert.equal((readFileSync(join(dist, 'index.html'), 'utf8').match(/recipe-placeholder-card/g) ?? []).length, listedRecipes.filter((recipe: any) => !recipe.hasPhoto).length);
 assert.equal(website?.name, 'Cookbook');
 assert.equal(website.url, `${SITE}/`);
 assert.equal(website.publisher['@type'], 'Person');
@@ -67,6 +90,10 @@ assert.equal(catalogue.recipes.filter((recipe: any) => recipe.recipeYield).lengt
 const htmlFiles = (root: string): string[] => readdirSync(root, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? htmlFiles(join(root, entry.name)) : entry.name.endsWith('.html') ? [join(root, entry.name)] : []);
 for (const path of htmlFiles(dist)) {
   const html = readFileSync(path, 'utf8');
+  assert.ok(html.includes('<meta name="author" content="Antonio">'), path + ': author metadata');
+  assert.ok(html.includes('The strawberry knows too much.'), path + ': footer aside');
+  assert.ok(!html.includes('<p>Family recipes by Antonio.</p>'), path + ': old footer attribution');
+  for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) if (/src="\/(?:mascots\.webp|icons\/)/.test(tag)) assert.ok(!tag.includes('recipe-photo'), path + ': mascot must retain its original palette');
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
     const target = join(dist, decodeURIComponent(match[1]));
     assert.ok(existsSync(target) || existsSync(target + '.html') || existsSync(join(target, 'index.html')), path + ': missing ' + match[1]);
@@ -74,6 +101,7 @@ for (const path of htmlFiles(dist)) {
 }
 assert.ok(existsSync(join(dist, 'sitemap-index.xml')));
 assert.ok(existsSync(join(dist, 'mascots.webp')));
+assert.ok(existsSync(join(dist, 'recipe-placeholder.webp')));
 for (const icon of ['garlic', 'strawberry', 'garlic-angry']) assert.ok(existsSync(join(dist, 'icons', `${icon}.webp`)));
 assert.ok(!readFileSync(join(dist, 'index.html'), 'utf8').includes('✳'));
 assert.ok(!readFileSync(join(dist, 'index.html'), 'utf8').includes('wordmark-dot'));

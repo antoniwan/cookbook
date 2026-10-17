@@ -7,6 +7,7 @@ pubDate: '2022-09-25T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/fried-chicken-tender-nuggets.avif
+imageOwnership: original
 imageAlt: >-
   Three fried chicken tenders and a cob of corn on a black-and-white
   patterned plate

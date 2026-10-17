@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Move the Patatas y Batatas Bravas preparation photograph into method step 3 and use the pattern as its cover.
+
+- Restrict recipe photographs to confirmed original images; use placeholders for third-party and unverified images, including social previews.
+
+- Replace illustrated recipe covers with a shared picnic-cloth placeholder until actual photographs are available.
+- Keep decorative placeholders out of Recipe image markup and expose photo availability in recipe JSON.
+
+- Add a personal homepage note about curiosity, creative freedom, and the pleasure of making things.
+
+- Simplify the homepage label and replace footer attribution with an aside while retaining authorship in metadata.
+
+- Apply a reversible warm, muted palette treatment to recipe cards and covers without changing mascot colors or original assets.
+
 - Compact the recipe toolbar and give quantity controls a dedicated panel.
 - Add half-batches, custom multipliers, original-amount comparisons, and ingredient copying.
 - Scale ranges, optional amounts, and explicit equivalents while flagging ambiguous numeric lines for review.

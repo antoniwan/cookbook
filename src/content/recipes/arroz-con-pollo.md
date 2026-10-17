@@ -6,6 +6,7 @@ pubDate: '2026-07-23T10:00:00-04:00'
 language:
   - es
 heroImage: /images/2026/arroz-con-pollo.avif
+imageOwnership: third-party
 imageAlt: >-
   Locrio de pollo: arroz anaranjado, muslos dorados y una aceituna, en un
   plato hondo

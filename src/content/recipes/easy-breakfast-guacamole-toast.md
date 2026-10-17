@@ -9,6 +9,7 @@ language:
 recipeYield: '1'
 totalTime: PT10M
 heroImage: /images/2026/easy-breakfast-guacamole-toast.avif
+imageOwnership: third-party
 imageAlt: >-
   Sliced avocado on dark seeded toast, sesame seeds and salt, on a speckled
   plate

@@ -7,6 +7,7 @@ pubDate: '2022-08-11T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/shaved-carrots.avif
+imageKind: illustration
 imageAlt: >-
   Flat illustration of orange carrot ribbons dusted with white specks in a grey
   bowl, seen from above

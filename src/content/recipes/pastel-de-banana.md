@@ -7,6 +7,7 @@ pubDate: '2026-06-10'
 language:
   - es
 heroImage: /images/2026/pastel-de-banana.avif
+imageOwnership: third-party
 imageAlt: >-
   Rebanada de bizcocho de banana en un plato rojo con borde de flores
 imageCredit: Sarah

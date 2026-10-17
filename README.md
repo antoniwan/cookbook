@@ -34,6 +34,8 @@ Each page keeps its image credit and license. Asset source records are in docs/m
 
 The [recipe photography plan](docs/recipe-photography.md) records the visual direction, capture checklist, and progress for all 28 dishes.
 
+The [recipe placeholder guide](docs/recipe-placeholder.md) records the missing-photo pattern, its prompt, and its structured-data policy.
+
 The [quantity controls guide](docs/quantity-controls.md) describes custom batches, original-amount comparisons, ingredient copying, and scaling limits.
 
 The garlic bulb and strawberry are Cookbook's companion mascots. Their illustration prompt is recorded in docs/mascots.md.

@@ -10,7 +10,47 @@ Use warm, honest family-kitchen photography. Let the garlic and strawberry chara
 
 Standardize the light, framing, and editing. Preserve each dish's appearance and the character of our kitchen.
 
-The current images remain in place until their replacements are ready. This document does not replace images or change recipes.
+Only confirmed original photographs appear on the site. Other recipe images use the picnic-cloth placeholder until original photographs are ready.
+
+## Temporary palette treatment
+
+Recipe cards and recipe covers share a subtle CSS filter. It reduces saturation, softens contrast, and adds slight warmth.
+
+The filter does not affect mascots, logos, text, or image credits. It does not overwrite image files.
+
+Downloaded originals and social preview images retain their original colors. The treatment affects only images rendered within the site.
+
+The shared --recipe-photo-filter variable is in src/styles/global.css. Set it to none when the replacement photographs no longer need this treatment.
+
+This treatment reduces palette differences. It does not correct inconsistent lighting, composition, or subject matter.
+
+## Missing photographs
+
+Illustrated, third-party, and unverified covers use a shared picnic-cloth placeholder. Existing source files remain in the repository as historical assets.
+
+The placeholder uses pale gingham, upright garlic heads, and inverted strawberry heads. A visible label identifies the missing recipe photograph.
+
+The imageOwnership field records original, third-party, or unverified ownership. Its default is unverified.
+
+A missing credit does not establish ownership. Display a photograph only after Antonio confirms that it is an original photograph.
+
+On October 17, 2026, Antonio confirmed the photographs for Fried Chicken Tender Nuggets, Mia's Vegan Cupcakes, and Patatas y Batatas Bravas.
+
+The Patatas y Batatas Bravas photograph shows preparation, not the completed dish. It appears within method step 3, not as a cover.
+
+Keep preparation photographs within the relevant method step. Use completed-dish photographs for covers and Recipe image markup.
+
+The frontmatter field imageKind identifies illustrations. Set imageKind to illustration to use the placeholder instead of that cover.
+
+If heroImage is absent or cannot be resolved, the page also uses the placeholder.
+
+After an original photograph is confirmed, set imageKind to photo and imageOwnership to original.
+
+Update heroImage, imageAlt, attribution, and the social image. Do not apply an old external license to the replacement photograph.
+
+Update both language pages together. Recipe JSON exposes hasPhoto and imageOwnership so other consumers can identify unavailable photographs.
+
+The decorative pattern is not a completed-dish image. Recipe structured data omits image until a photograph is available.
 
 ## Visual direction
 

@@ -7,6 +7,7 @@ pubDate: '2025-02-21T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/banana-oat-bread.avif
+imageOwnership: third-party
 imageAlt: Sliced banana bread on a wooden board
 imageCredit: Shisma
 imageCreditUrl: https://commons.wikimedia.org/wiki/File:Banana_bread_cut_into_slices.jpg

@@ -6,6 +6,7 @@ pubDate: '2026-07-23T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/arroz-con-pollo.avif
+imageOwnership: third-party
 imageAlt: >-
   Locrio de pollo: orange rice, browned thighs and an olive, in a deep plate
 imageCredit: Ll1324

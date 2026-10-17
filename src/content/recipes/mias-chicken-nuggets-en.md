@@ -7,6 +7,7 @@ pubDate: '2025-01-10'
 language:
   - en
 heroImage: /images/2026/mias-chicken-nuggets.avif
+imageKind: illustration
 imageAlt: >-
   Cartoon pattern: irregular golden nuggets repeated on a paprika-red field
 category:

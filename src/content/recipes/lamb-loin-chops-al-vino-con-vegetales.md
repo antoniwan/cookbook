@@ -7,6 +7,7 @@ pubDate: '2026-04-15T10:00:00-04:00'
 language:
   - es
 heroImage: /images/2026/lamb-loin-chops-al-vino-con-vegetales.avif
+imageOwnership: third-party
 imageAlt: >-
   Three seared lamb loin chops in a black pan on a wooden board
 imageCredit: Bernard Tuck

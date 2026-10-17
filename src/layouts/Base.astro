@@ -4,7 +4,7 @@ import { safeJson, SITE } from '../lib/recipe';
 import { websiteStructuredData } from '../lib/seo';
 import Wordmark from '../components/Wordmark.astro';
 interface Props { title?: string; description?: string; path?: string; language?: 'en' | 'es'; image?: string; }
-const { title = 'Cookbook — Recipes from our kitchen', description = 'The family recipes we cook at home, in English and Spanish.', path = '/', language = 'en', image = '/social/cookbook.jpg' } = Astro.props;
+const { title = 'Cookbook — Recipes from our kitchen', description = 'Family recipes by Antonio, in English and Spanish.', path = '/', language = 'en', image = '/social/cookbook.jpg' } = Astro.props;
 const canonical = new URL(path, SITE).href;
 const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
 ---
@@ -16,6 +16,7 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <meta name="theme-color" content="#f7f3e9" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Antonio" />
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/favicon-garlic.png" sizes="48x48" />
@@ -46,7 +47,7 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <slot />
     <footer class="site-footer wrap">
       <Wordmark />
-      <p>Family recipes by Antonio.</p>
+      <p>The strawberry knows too much.</p>
       <a class="professional-mark" href="https://antoniwan.online" aria-label="Antonio’s professional mark"><img src="/professional-mark.svg" alt="" width="24" height="24" /></a>
       <div class="footer-links"><a href="https://notes.antoniwan.online">Notes ↗</a><a href="https://antoniwan.online">Antonio ↗</a><a href="/rss.xml">RSS</a><a href="/recipes.json">Recipe data</a><a href="https://github.com/antoniwan/cookbook">Source ↗</a></div>
     </footer>

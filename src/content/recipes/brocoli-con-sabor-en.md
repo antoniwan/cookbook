@@ -9,6 +9,7 @@ language:
 recipeYield: '1'
 totalTime: PT15M
 heroImage: /images/2026/brocoli-con-sabor.avif
+imageOwnership: third-party
 imageAlt: >-
   Cooked broccoli florets and stems in a textured glass bowl, next to a
   teal-handled spoon

@@ -7,6 +7,7 @@ pubDate: '2026-08-27T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/asopao-de-pollo.avif
+imageKind: illustration
 imageAlt: >-
   Cartoon of a grandmother with a steaming pot of asopao, and a line of
   people with spiral eyes following her as if hypnotized

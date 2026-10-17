@@ -7,6 +7,7 @@ pubDate: '2026-04-01T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/simple-baked-chicken-breasts.avif
+imageOwnership: third-party
 imageAlt: >-
   Two baked chicken breasts in a dish with green beans and thick carrot coins
 imageCredit: Joceline Painho

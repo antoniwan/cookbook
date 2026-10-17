@@ -7,6 +7,7 @@ pubDate: '2026-03-18T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/cast-iron-flank-steak.avif
+imageOwnership: third-party
 imageAlt: >-
   Thick steak searing in a black cast-iron skillet on an electric coil, steam
   rising

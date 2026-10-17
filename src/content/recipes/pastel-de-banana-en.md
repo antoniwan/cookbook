@@ -7,6 +7,7 @@ pubDate: '2026-06-10'
 language:
   - en
 heroImage: /images/2026/pastel-de-banana.avif
+imageOwnership: third-party
 imageAlt: >-
   Slice of banana bread on a red plate with a floral rim
 imageCredit: Sarah

@@ -6,6 +6,7 @@ pubDate: '2026-08-06T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/arroz-con-gandules.avif
+imageOwnership: third-party
 imageAlt: >-
   Plate of orange rice with pigeon peas and olives, with fried plantains,
   avocado, and tomato

@@ -6,6 +6,7 @@ pubDate: '2026-08-06T10:00:00-04:00'
 language:
   - es
 heroImage: /images/2026/arroz-con-gandules.avif
+imageOwnership: third-party
 imageAlt: >-
   Plato de arroz anaranjado con gandules y aceitunas, plátanos maduros,
   aguacate y tomate

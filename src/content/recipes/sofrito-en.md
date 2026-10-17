@@ -8,6 +8,7 @@ language:
   - en
 recipeYield: About 2½ cups (about 20 cubes)
 heroImage: /images/2026/sofrito.avif
+imageOwnership: third-party
 imageAlt: >-
   Ajíes dulces, jalapeños, bell pepper, onion, garlic, tomato, cilantro, and
   recao on a white board

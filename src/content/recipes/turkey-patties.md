@@ -7,6 +7,7 @@ pubDate: '2026-05-24'
 language:
   - en
 heroImage: /images/2026/turkey-patties.avif
+imageKind: illustration
 imageAlt: >-
   Cartoon of two golden turkey patties in a black cast-iron skillet on a
   paprika-red field

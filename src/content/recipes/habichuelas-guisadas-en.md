@@ -6,6 +6,7 @@ pubDate: '2026-07-04T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/habichuelas-guisadas.avif
+imageOwnership: third-party
 imageAlt: >-
   Plate of rice, stewed beans, and fried fish, with salad and avocado
 imageCredit: Jerjes Medina Albino

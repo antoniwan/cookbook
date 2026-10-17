@@ -8,6 +8,7 @@ language:
   - en
 recipeYield: 12 cupcakes
 heroImage: /images/2026/mias-vegan-cupcakes.avif
+imageOwnership: original
 imageAlt: >-
   Twenty-four small cupcakes in red liners, dusted with powdered sugar, packed
   in a cardboard box

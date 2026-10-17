@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { isPublished, plainText, recipeGroup, recipeParts, SITE } from './recipe.ts';
 import { recipeStructuredData } from './seo.ts';
+import { recipeImage } from './images.ts';
 
 export type Recipe = CollectionEntry<'recipes'>;
 
@@ -10,12 +11,15 @@ export async function allRecipes() {
 
 export function publicRecipe(recipe: Recipe) {
   const parts = recipeParts(recipe.body ?? '');
+  const hasPhoto = Boolean(recipeImage(recipe.data.heroImage, recipe.data.imageKind, recipe.data.imageOwnership));
   return {
     id: `${SITE}/recipes/${recipe.id}`,
     slug: recipe.id,
     title: recipe.data.title,
     description: recipe.data.description,
     language: recipe.data.language[0],
+    hasPhoto,
+    imageOwnership: recipe.data.imageOwnership,
     translationGroup: recipe.data.translationGroup,
     publishedAt: recipe.data.pubDate.toISOString(),
     revisedAt: recipe.data.updatedDate?.toISOString(),
@@ -33,12 +37,13 @@ export function publicRecipe(recipe: Recipe) {
     method: parts.method.map(plainText),
     notes: parts.notes.map(plainText),
     markdownUrl: `${SITE}/recipes/${recipe.id}.md`,
-    imageCredit: recipe.data.imageCredit,
-    imageCreditUrl: recipe.data.imageCreditUrl,
-    imageLicense: recipe.data.imageLicense,
+    imageCredit: hasPhoto ? recipe.data.imageCredit : undefined,
+    imageCreditUrl: hasPhoto ? recipe.data.imageCreditUrl : undefined,
+    imageLicense: hasPhoto ? recipe.data.imageLicense : undefined,
   };
 }
 
 export function structuredRecipe(recipe: Recipe, image?: string) {
-  return recipeStructuredData(publicRecipe(recipe), image);
+  const record = publicRecipe(recipe);
+  return recipeStructuredData(record, record.hasPhoto ? image : undefined);
 }

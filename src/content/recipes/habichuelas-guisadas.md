@@ -7,6 +7,7 @@ pubDate: '2026-07-04T10:00:00-04:00'
 language:
   - es
 heroImage: /images/2026/habichuelas-guisadas.avif
+imageOwnership: third-party
 imageAlt: >-
   Plato de arroz, habichuelas guisadas y pescado frito, con ensalada y
   aguacate

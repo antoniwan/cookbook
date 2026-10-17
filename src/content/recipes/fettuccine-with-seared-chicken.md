@@ -8,6 +8,7 @@ language:
   - en
 recipeYield: 3 hearty portions or 4 moderate portions
 heroImage: /images/2026/fettuccine-with-seared-chicken.avif
+imageOwnership: third-party
 imageAlt: >-
   Creamy fettuccine with seared chicken and grated cheese in a shallow bowl on
   a wooden table

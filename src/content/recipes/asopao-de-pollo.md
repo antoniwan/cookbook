@@ -7,6 +7,7 @@ pubDate: '2026-08-27T10:00:00-04:00'
 language:
   - es
 heroImage: /images/2026/asopao-de-pollo.avif
+imageKind: illustration
 imageAlt: >-
   Caricatura de una abuela con una olla de asopao humeante, y una fila de
   personas con ojos de espiral que la siguen como hipnotizadas

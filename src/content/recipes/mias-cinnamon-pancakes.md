@@ -7,6 +7,7 @@ pubDate: '2022-07-18'
 language:
   - en
 heroImage: /images/2026/mias-cinnamon-pancakes.avif
+imageOwnership: third-party
 imageAlt: >-
   Tall stack of golden-brown pancakes on a white square plate on a wooden
   table

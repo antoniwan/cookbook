@@ -8,6 +8,7 @@ language:
   - es
 recipeYield: 4 a 5 botellas grandes
 heroImage: /images/2026/coquito-de-moni.avif
+imageOwnership: third-party
 imageAlt: >-
   Vaso de coquito visto de cerca, canela molida en la superficie, sobre
   mesa verde

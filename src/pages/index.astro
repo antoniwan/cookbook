@@ -12,7 +12,7 @@ const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((fir
   <script slot="head" type="application/ld+json" set:html={safeJson(recipeListStructuredData(recipes, '/'))} />
   <main id="main">
     <section class="hero wrap">
-      <div class="hero-copy"><p class="eyebrow"><MascotIcon variant="garlic" size={24} /> Family recipes</p><h1>Recipes from<br /><em>our kitchen.</em></h1><p class="hero-description">The recipes we cook at home, in English and Spanish.<br />Ingredients, equipment, and step-by-step methods.</p><a class="button" href="#recipes">Browse recipes <span aria-hidden="true">↓</span></a><p class="hero-note">{recipes.length} recipes <span>·</span> English &amp; Español</p></div>
+      <div class="hero-copy"><p class="eyebrow">Family recipes</p><h1>Recipes from<br /><em>our kitchen.</em></h1><p class="hero-description">The recipes we cook at home, in English and Spanish.<br />Ingredients, equipment, and step-by-step methods.</p><a class="button" href="#recipes">Browse recipes <span aria-hidden="true">↓</span></a><p class="hero-note">{recipes.length} recipes <span>·</span> English &amp; Español</p></div>
       <div class="hero-illustration"><div class="illustration-halo"></div><img src="/mascots.webp" width="1536" height="1024" alt="A smiling garlic bulb and strawberry, Cookbook’s two kitchen companions." fetchpriority="high" /></div>
     </section>
     <section class="collection-banner wrap" aria-label="Cookbook introduction"><MascotIcon variant="strawberry" size={36} /><p>{recipes.length} recipes. {all.filter(recipe => recipe.data.language[0] === 'es').length} also available in Spanish.</p><a href="/about">Our kitchen ↗</a></section>
@@ -24,7 +24,10 @@ const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((fir
       <div class="empty-state" id="empty-state" hidden><MascotIcon variant="garlic-angry" size={64} class="state-mascot" /><h3>No recipes found.</h3><p>Try another search term or clear the filters.</p></div>
       <a class="index-link" href="/contents">Recipes, A–Z <span aria-hidden="true">↗</span></a>
     </section>
-    <section class="kitchen-note wrap"><span class="eyebrow"><MascotIcon variant="garlic" size={24} /> Using Cookbook</span><h2>Ingredients. Equipment.<br /><em>Method.</em></h2><p>Each recipe follows the same format. Check off ingredients, adjust quantities, print a copy, or use kitchen mode while you cook.</p><a href="/about">Our kitchen ↗</a></section>
+    <section class="kitchen-note wrap" id="project-note" aria-labelledby="project-note-title">
+      <div class="project-note-copy"><p class="eyebrow">A personal project</p><h2 id="project-note-title">Made for<br /><em>the fun of it.</em></h2><p>Cookbook is a home for our family recipes, and a place to follow my curiosity. I build software for a living; here, I get to shape the whole thing—from the first idea to the smallest detail.</p><p>Some things are worth making simply because you want to see what they could become.</p><a href="/about">Our kitchen ↗</a></div>
+      <aside class="kitchen-howto" aria-labelledby="kitchen-howto-title"><p class="eyebrow">Using Cookbook</p><h3 id="kitchen-howto-title">Made to be used.</h3><p>Each recipe follows the same format. Check off ingredients, adjust quantities, print a copy, or use kitchen mode while you cook.</p></aside>
+    </section>
   </main>
 </Base>
 <script>

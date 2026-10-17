@@ -1,6 +1,10 @@
 export const SITE = 'https://cookbook.antoniwan.online';
 export const GROUPS = ['All recipes', 'Mains', 'Sides & staples', 'Baking & breakfast', 'Drinks'] as const;
 
+export function hasRecipePhoto(data: { heroImage?: string; imageKind?: 'photo' | 'illustration'; imageOwnership?: 'original' | 'third-party' | 'unverified' }): boolean {
+  return Boolean(data.heroImage) && data.imageKind !== 'illustration' && data.imageOwnership === 'original';
+}
+
 export interface RecipeParts {
   introduction: string;
   ingredients: string[];
@@ -41,7 +45,7 @@ export function isPublished(data: { draft?: boolean; published?: boolean; pubDat
 }
 
 export function plainText(value: string): string {
-  return value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim();
+  return value.replace(/!\[[^\]]*\]\([^)]+\)/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim();
 }
 
 export function safeJson(value: unknown): string {

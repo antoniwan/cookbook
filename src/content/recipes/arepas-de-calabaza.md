@@ -9,6 +9,7 @@ language:
 recipeYield: 2 arepas
 totalTime: PT55M
 heroImage: /images/2026/arepas-de-calabaza.avif
+imageOwnership: third-party
 imageAlt: >-
   Golden seared corn arepas on a white plate, one cut into wedges with melted
   cheese

@@ -7,6 +7,7 @@ pubDate: '2025-01-10'
 language:
   - es
 heroImage: /images/2026/mias-chicken-nuggets.avif
+imageKind: illustration
 imageAlt: >-
   Patrón de caricatura: nuggets dorados irregulares repetidos sobre un fondo
   rojo paprika

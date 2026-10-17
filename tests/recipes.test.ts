@@ -2,7 +2,24 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { isPublished, recipeParts, safeJson, scaleIngredient } from '../src/lib/recipe.ts';
+import { hasRecipePhoto, isPublished, plainText, recipeParts, safeJson, scaleIngredient } from '../src/lib/recipe.ts';
+
+test('process photographs stay inside their method step without leaking image markup into plain text', () => {
+  const parts = recipeParts('## Method\n\n1. Mix.\n\n   ![Before roasting.](/images/process.avif)\n\n   *In progress.*\n\n2. Roast.');
+  assert.equal(parts.method.length, 2);
+  assert.equal(plainText(parts.method[0]), 'Mix. In progress.');
+  assert.equal(plainText(parts.method[1]), 'Roast.');
+});
+
+test('recipe photos require confirmed original ownership and exclude illustrations or missing images', () => {
+  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif' }), false);
+  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageKind: 'photo', imageOwnership: 'original' }), true);
+  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'third-party' }), false);
+  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'unverified' }), false);
+  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageKind: 'illustration', imageOwnership: 'original' }), false);
+  assert.equal(hasRecipePhoto({}), false);
+  assert.equal(hasRecipePhoto({ imageKind: 'photo', imageOwnership: 'original' }), false);
+});
 
 test('public eligibility excludes drafts, withdrawn, and scheduled recipes', () => {
   const now = new Date('2026-10-16T18:00:00Z');

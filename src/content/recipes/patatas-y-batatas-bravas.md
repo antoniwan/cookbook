@@ -7,10 +7,7 @@ pubDate: '2026-10-16T07:30:00-04:00'
 language:
   - en
 recipeYield: 2 adults and a toddler
-heroImage: /images/2026/patatas-y-batatas-bravas.avif
-imageAlt: >-
-  Parboiled cubes of pale potato and orange sweet potato piled together in a
-  glass bowl
+imageOwnership: original
 category:
   - diy-creation
 subcategory: Recipes
@@ -52,6 +49,11 @@ Serves 2 adults and a toddler.
 1. Put the potato and sweet potato cubes in one pot of cold salted water. Bring to a boil and simmer 7 minutes, until the edges soften. Drain and steam-dry a few minutes.
 2. Heat the oven to 425°F.
 3. Put all the cubes in a big bowl. Sprinkle about ¼ tsp fine salt over all of them, drizzle a little olive oil, and fold with a rubber spatula. Do this three times in all. Fold gently so the cubes stay whole: only the salt should rough up the surface, and that is what gives the texture.
+
+   ![Parboiled cubes of potato and sweet potato in a glass bowl, before roasting.](/images/patatas-y-batatas-bravas-process.avif)
+
+   *In progress: the potatoes and sweet potatoes before roasting.*
+
 4. Spread them in one layer on the 2 wire racks. Roast 30 minutes.
 5. Optional, not tried yet: 1 minute under the high broiler should make the crust crunchier.
 6. Serve hot, plain or with the brava sauce and aioli.

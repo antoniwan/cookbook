@@ -7,6 +7,7 @@ pubDate: '2022-05-24'
 language:
   - en
 heroImage: /images/2026/pancakes-sin-huevo-para-mia-luna.avif
+imageOwnership: third-party
 imageAlt: >-
   Two thick golden-brown pancakes on a large off-white plate with a dark rim
 imageCredit: Dbenbenn

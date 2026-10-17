@@ -8,6 +8,7 @@ updatedDate: '2026-10-16T07:30:00-04:00'
 language:
   - en
 heroImage: /images/2026/patatas-bravas.avif
+imageOwnership: third-party
 imageAlt: >-
   Cubed fried potatoes in a white bowl, red brava sauce and aioli on top
 imageCredit: Krista

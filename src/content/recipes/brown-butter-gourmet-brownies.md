@@ -8,6 +8,7 @@ language:
   - en
 recipeYield: 16 squares
 heroImage: /images/2026/brown-butter-gourmet-brownies.avif
+imageOwnership: third-party
 imageAlt: >-
   Close-up of square chocolate brownies with a crackly top and chocolate
   chunks

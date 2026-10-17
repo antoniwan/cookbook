@@ -7,6 +7,7 @@ pubDate: '2022-08-31T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/chilean-sea-bass.avif
+imageOwnership: third-party
 imageAlt: >-
   Pan-seared sea bass fillet with crispy skin, cherry tomatoes on the vine,
   and roasted potatoes

@@ -34,6 +34,14 @@ Each method step has a stable HTML anchor. Its HowToStep record links to that an
 
 The existing equipment list supplies HowToTool records. No new equipment is inferred.
 
+## Missing recipe photographs
+
+An illustrated, third-party, unverified, or missing cover uses a labeled decorative placeholder. It is not represented as a completed-dish photograph in Recipe structured data.
+
+Those recipes omit the image property. They cannot meet Google's recipe rich-result image requirement until a suitable dish photograph is added.
+
+Other recipe fields and ordinary page indexing remain available. The generic social preview uses the pattern without claiming it is a dish photograph.
+
 The 18-minute cupcake baking step is not its total duration. Sofrito's active preparation time excludes overnight freezing.
 
 The brownies and fettuccine state active-time estimates. Those estimates are not complete elapsed durations, so totalTime remains absent.

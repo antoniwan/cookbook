@@ -7,6 +7,7 @@ pubDate: '2025-05-02'
 language:
   - en
 heroImage: /images/2026/lemon-pepper-chicken.avif
+imageOwnership: third-party
 imageAlt: >-
   Bone-in lemon pepper chicken on a black plate, cilantro and lemon slices on
   top

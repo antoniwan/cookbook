@@ -9,6 +9,7 @@ language:
   - en
 recipeYield: 4 to 5 large bottles
 heroImage: /images/2026/coquito-de-moni.avif
+imageOwnership: third-party
 imageAlt: >-
   Close-up of a glass of coquito, ground cinnamon on the surface, on a green
   table

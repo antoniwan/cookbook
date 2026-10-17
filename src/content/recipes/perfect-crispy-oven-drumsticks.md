@@ -7,6 +7,7 @@ pubDate: '2026-07-28T10:00:00-04:00'
 language:
   - en
 heroImage: /images/2026/perfect-crispy-oven-drumsticks.avif
+imageOwnership: third-party
 imageAlt: >-
   Six roasted chicken drumsticks on a white plate with a blue floral rim
 imageCredit: Mousa Alhaddad
