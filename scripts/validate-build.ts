@@ -33,6 +33,8 @@ for (const recipe of catalogue.recipes) {
   assert.equal(Boolean(schema.prepTime), Boolean(schema.cookTime));
   assert.ok(!schema.nutrition && !schema.aggregateRating, recipe.slug + ': invented nutrition or ratings');
   assert.ok(html.includes('class="recipe-facts"'), recipe.slug + ': visible recipe facts');
+  for (const identifier of ['quantity-panel', 'quantity-form', 'quantity-multiplier', 'quantity-status', 'show-originals', 'copy-ingredients', 'print-recipe', 'kitchen-mode', 'scale-summary']) assert.ok(html.includes(`id="${identifier}"`), recipe.slug + ': ' + identifier);
+  assert.ok(html.includes('min="0.25" max="20" step="any"'), recipe.slug + ': custom quantity limits');
   if (recipe.totalTime) assert.ok(html.includes(durationLabel(recipe.totalTime)), recipe.slug + ': visible duration');
   const breadcrumbs = schemas.find(value => value['@type'] === 'BreadcrumbList');
   assert.deepEqual(breadcrumbs?.itemListElement.map((item: any) => item.item), [`${SITE}/`, `${SITE}/contents`, recipe.id]);

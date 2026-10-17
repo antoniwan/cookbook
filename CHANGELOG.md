@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Compact the recipe toolbar and give quantity controls a dedicated panel.
+- Add half-batches, custom multipliers, original-amount comparisons, and ingredient copying.
+- Scale ranges, optional amounts, and explicit equivalents while flagging ambiguous numeric lines for review.
+- Preserve the original recipe data and include the active multiplier when printing scaled ingredients.
+
 - Document the recipe photography direction, capture workflow, and 28-dish completion checklist.
 
 - Replace decorative asterisks and wordmark punctuation with garlic and strawberry icons.
