@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a recipe-specific photography checklist for all 28 dishes, with 26 missing covers and two optional cover refreshes.
+
 - Move the Patatas y Batatas Bravas preparation photograph into method step 3 and use the pattern as its cover.
 
 - Restrict recipe photographs to confirmed original images; use placeholders for third-party and unverified images, including social previews.

@@ -4,7 +4,11 @@ For Antonio. Agreed direction: October 16, 2026.
 
 ## Goal
 
-Cook and photograph all 28 dishes again. Use the same photographs for each recipe's English and Spanish pages.
+Build a consistent photograph collection for all 28 dishes. Use the same photographs for each recipe's English and Spanish pages.
+
+Use the [recipe shot list](recipe-shot-list.md) for recipe-specific covers, details, and optional process photographs.
+
+Twenty-six dishes currently need completed-dish covers. The two existing original covers can remain; their replacements are optional.
 
 Use warm, honest family-kitchen photography. Let the garlic and strawberry characters provide the whimsy outside the photographs.
 
