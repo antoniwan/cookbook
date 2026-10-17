@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Let readers collapse quantity controls while keeping the selected multiplier visible.
+- Collapse quantity controls when kitchen mode starts.
+- Use a pearl-white paper texture and remove decorative borders and panel backgrounds.
+- Clarify the homepage note about fun, curiosity, creative direction, and personal expression.
+
 - Add a recipe-specific photography checklist for all 28 dishes, with 26 missing covers and two optional cover refreshes.
 
 - Move the Patatas y Batatas Bravas preparation photograph into method step 3 and use the pattern as its cover.

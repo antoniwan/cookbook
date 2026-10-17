@@ -2,7 +2,11 @@
 
 The recipe toolbar contains compact ingredient, equipment, and method links. Kitchen mode and printing remain secondary actions.
 
-The Quantities panel is the primary recipe control. It stays beside the ingredients on larger screens and appears above them on mobile.
+The Quantities panel appears above the recipe. Select its heading to collapse or expand the controls.
+
+The collapsed heading shows the current multiplier. Collapsing the panel preserves quantities and checklist selections.
+
+Kitchen mode collapses the panel. You can open it again while kitchen mode remains active.
 
 ## Use the controls
 

@@ -43,19 +43,22 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
       <p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p>
     </nav>
     <div class="recipe-body-layout">
-      <section class="quantity-controls" aria-labelledby="quantities-title" id="quantity-panel" hidden>
-        <div class="quantity-heading"><MascotIcon variant="garlic" size={32} /><h2 id="quantities-title">{language === 'es' ? 'Cantidades' : 'Quantities'}</h2></div>
+      <details class="quantity-controls" aria-labelledby="quantities-title" id="quantity-panel" open hidden>
+        <summary class="quantity-toggle"><span class="quantity-heading"><MascotIcon variant="garlic" size={32} /><span class="quantity-title" id="quantities-title">{language === 'es' ? 'Cantidades' : 'Quantities'}</span></span><span class="quantity-batch" id="quantity-batch">{language === 'es' ? '1× · Receta original' : '1× · Original recipe'}</span><span class="quantity-toggle-action"><span class="quantity-open-label">{language === 'es' ? 'Ocultar' : 'Hide'}</span><span class="quantity-closed-label">{language === 'es' ? 'Ajustar' : 'Adjust'}</span><span class="quantity-chevron" aria-hidden="true">⌄</span></span></summary>
+        <div class="quantity-body"><div class="quantity-main">
         <p class="quantity-description">{language === 'es' ? 'Ajusta la receta a tu mesa.' : 'Make the amount you need.'}</p>
         {yieldLabel && <p class="quantity-yield">{language === 'es' ? 'Rendimiento original:' : 'Original yield:'} {yieldLabel}</p>}
         <div class="quantity-presets" role="group" aria-label={language === 'es' ? 'Multiplicadores de receta' : 'Recipe multipliers'}>{[.5, 1, 1.5, 2, 3].map(multiplier => <button type="button" data-multiplier={multiplier} aria-pressed={multiplier === 1}>{multiplier === .5 ? '½' : multiplier}×</button>)}</div>
         <form id="quantity-form"><label for="quantity-multiplier">{language === 'es' ? 'Multiplicador personalizado' : 'Custom multiplier'}</label><div class="quantity-custom"><input type="number" id="quantity-multiplier" min="0.25" max="20" step="any" value="1" required inputmode="decimal" aria-describedby="quantity-help" /><span aria-hidden="true">×</span><button type="submit">{language === 'es' ? 'Aplicar' : 'Apply'}</button></div></form>
         <p class="quantity-help" id="quantity-help">{language === 'es' ? 'De 0.25× a 20×. 1× restaura la receta.' : 'From 0.25× to 20×. 1× restores the recipe.'}</p>
         <p id="quantity-status" class="quantity-status" role="status" aria-live="polite">{language === 'es' ? 'Cantidades originales.' : 'Original quantities.'}</p>
+        </div><div class="quantity-secondary">
         <label class="quantity-compare"><input type="checkbox" id="show-originals" />{language === 'es' ? 'Mostrar cantidades originales' : 'Show original amounts'}</label>
         <div class="quantity-utilities"><button type="button" id="copy-ingredients">{language === 'es' ? 'Copiar ingredientes' : 'Copy ingredients'}</button><button type="button" id="reset-checklist">{language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}</button></div>
         <p class="tool-status" id="copy-status" role="status" aria-live="polite"></p>
         <details class="quantity-guidance"><summary>{language === 'es' ? 'Qué cambia y qué no' : 'What changes, what stays'}</summary><p>{language === 'es' ? 'Se ajustan cantidades, intervalos y equivalencias explícitas. Las alternativas ambiguas y las medidas sin cantidad quedan como están. Las partes siguen siendo proporciones, no conversiones a gramos o tazas.' : 'Amounts, ranges, and explicit equivalent measures scale together. Ambiguous alternatives and unmeasured ingredients stay as written. Parts remain ratios, not gram or cup conversions.'}</p><p>{language === 'es' ? 'Los tiempos, temperaturas, dimensiones y las cantidades dentro del método no cambian. Revisa esas cantidades y los huevos fraccionados. Ajusta el tamaño del recipiente.' : 'Times, temperatures, dimensions, and quantities within the method stay original. Review those quantities and fractional eggs. Adjust pan size as needed.'}</p></details>
-      </section>
+        </div></div>
+      </details>
       <div class="recipe-content"><p class="scale-summary" id="scale-summary" hidden></p><article class="recipe-prose" data-recipe-id={recipe.id} data-language={language}><Content /></article></div>
     </div>
     <aside class="recipe-caution"><MascotIcon variant="garlic-angry" size={38} /><p>{language === 'es' ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.' : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}</p></aside>
@@ -115,6 +118,7 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
   const multiplierInput = document.querySelector<HTMLInputElement>('#quantity-multiplier');
   const originals = document.querySelector<HTMLInputElement>('#show-originals');
   const quantityStatus = document.querySelector('#quantity-status');
+  const quantityBatch = document.querySelector('#quantity-batch');
   const scaleSummary = document.querySelector<HTMLElement>('#scale-summary');
   const copyStatus = document.querySelector('#copy-status');
   let currentMultiplier = 1;
@@ -124,6 +128,7 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
   function updateQuantities(multiplier: number) {
     if (!Number.isFinite(multiplier) || multiplier < .25 || multiplier > 20) return;
     currentMultiplier = multiplier;
+    if (quantityBatch) quantityBatch.textContent = multiplier === 1 ? language === 'es' ? '1× · Receta original' : '1× · Original recipe' : language === 'es' ? `${multiplier}× · Receta ajustada` : `${multiplier}× · Adjusted recipe`;
     if (multiplierInput) multiplierInput.value = String(multiplier);
     multiplierButtons.forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.multiplier) === multiplier)));
     let changed = 0;
@@ -156,7 +161,7 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
       if (copyStatus) copyStatus.textContent = language === 'es' ? 'Ingredientes copiados.' : 'Ingredients copied.';
     } catch { if (copyStatus) copyStatus.textContent = language === 'es' ? 'No se pudo copiar. Selecciona y copia la lista de ingredientes.' : 'Could not copy. Select and copy the ingredient list instead.'; }
   });
-  const quantityPanel = document.querySelector<HTMLElement>('#quantity-panel');
+  const quantityPanel = document.querySelector<HTMLDetailsElement>('#quantity-panel');
   if (quantityPanel) quantityPanel.hidden = false;
   const kitchen = document.querySelector<HTMLButtonElement>('#kitchen-mode');
   const status = document.querySelector('#kitchen-status');
@@ -174,6 +179,7 @@ const more = recipes.filter(other => other.id !== recipe.id && other.data.langua
     kitchen.setAttribute('aria-pressed', String(kitchenEnabled));
     document.body.classList.toggle('kitchen-mode', kitchenEnabled);
     if (kitchenEnabled) {
+      if (quantityPanel) quantityPanel.open = false;
       if (status) status.textContent = language === 'es' ? 'Modo cocina activo.' : 'Kitchen mode is on.';
       await requestWakeLock();
     } else { await wakeLock?.release(); wakeLock = null; if (status) status.textContent = ''; }
