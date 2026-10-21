@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Vercel Web Analytics to every page.
+
 - Let readers collapse quantity controls while keeping the selected multiplier visible.
 - Collapse quantity controls when kitchen mode starts.
 - Use a pearl-white paper texture and remove decorative borders and panel backgrounds.
