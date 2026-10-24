@@ -58,6 +58,8 @@ The decorative pattern is not a completed-dish image. Recipe structured data omi
 
 ## Visual direction
 
+The [photo rulebook](photo-rulebook.md) expands this table with reasons and practice drills. Grade every candidate with the [photo scorecard](photo-scorecard.md) before publication.
+
 | Element | Direction |
 | --- | --- |
 | Light | Soft window light from the side. Warm, but not yellow. No direct flash. |
@@ -96,7 +98,7 @@ A phone and window light are enough to start. New equipment is not a prerequisit
 ## Capture checklist for each dish
 
 1. Photograph the completed dish before serving.
-2. Capture a wider landscape composition with space around the food.
+2. Capture a wider landscape composition with space around the food. Hold the phone horizontally: the wide recipe cover crops a portrait photo to about a third of its height.
 3. Capture a closer view that shows texture or the inside of the dish.
 4. Capture a second angle if the first angle hides important details.
 5. Check sharpness and exposure before eating or clearing the plate.

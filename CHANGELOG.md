@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a photo rulebook with reasons and practice drills, a keep, edit, or retake scorecard, recipe writing rules, and a photo and layout audit.
+
 - Add Vercel Web Analytics to every page.
 
 - Let readers collapse quantity controls while keeping the selected multiplier visible.

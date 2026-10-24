@@ -34,6 +34,10 @@ Each page keeps its image credit and license. Asset source records are in docs/m
 
 The [recipe photography plan](docs/recipe-photography.md) records the visual direction, capture checklist, and progress for all 28 dishes.
 
+The [photo rulebook](docs/photo-rulebook.md) sets the quality bar for photographs and explains the reasons behind each rule, with practice drills. The [photo scorecard](docs/photo-scorecard.md) grades each candidate as keep, edit, or retake. The [photo and layout audit](docs/photo-audit-2026-10.md) records how the site crops photographs.
+
+The [recipe writing rules](docs/recipe-writing.md) set the house style for recipe text in both languages.
+
 The [recipe shot list](docs/recipe-shot-list.md) lists each dish's cover, detail, and optional process photographs.
 
 The [recipe placeholder guide](docs/recipe-placeholder.md) records the missing-photo pattern, its prompt, and its structured-data policy.
