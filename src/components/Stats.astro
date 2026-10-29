@@ -13,9 +13,16 @@ const websiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID as string | undefined;
       // Clicks to other sites become an "outbound" event: the host, and the address without its query.
       document.addEventListener('click', (event) => {
         const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
-        if (!link || link.hasAttribute('data-umami-event')) return;
+        if (!link) return;
         const url = new URL(link.href, location.href);
         if (!/^https?:$/.test(url.protocol) || url.host === location.host) return;
+        // A call to action that leaves the site keeps its "cta" event and gets the same two properties.
+        if (link.getAttribute('data-umami-event') === 'cta') {
+          link.setAttribute('data-umami-event-to', url.hostname);
+          link.setAttribute('data-umami-event-url', url.origin + url.pathname);
+          return;
+        }
+        if (link.hasAttribute('data-umami-event')) return;
         window.umami?.track('outbound', { to: url.hostname, url: url.origin + url.pathname });
       }, true);
     </script>
