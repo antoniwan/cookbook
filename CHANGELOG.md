@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Count visits in Stats, the self-hosted Umami shared with antoniwan.online, next to Vercel Web Analytics: no cookies, no stored IP addresses, Do Not Track respected. Clicks to other sites are recorded as an `outbound` event. It loads only when the build has `PUBLIC_UMAMI_HOST` and `PUBLIC_UMAMI_WEBSITE_ID`.
+
 - Add a photo rulebook with reasons and practice drills, a keep, edit, or retake scorecard, recipe writing rules, and a photo and layout audit.
 
 - Add Vercel Web Analytics to every page.
