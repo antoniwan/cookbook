@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
+import Stats from '../components/Stats.astro';
 import { safeJson, SITE } from '../lib/recipe';
 import { websiteStructuredData } from '../lib/seo';
 import Wordmark from '../components/Wordmark.astro';
@@ -34,6 +35,7 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     {path === '/' && <script type="application/ld+json" set:html={safeJson(websiteStructuredData())} />}
     <slot name="head" />
     <Analytics />
+    <Stats />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
