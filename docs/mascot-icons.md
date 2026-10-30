@@ -6,10 +6,10 @@ The built-in image generation tool produced three transparent portraits from the
 
 ## Assets
 
-| Character | Source | Web asset | Use |
-| --- | --- | --- | --- |
-| Garlic | src/assets/icons/garlic.png | public/icons/garlic.webp | Wordmark start and practical recipe sections |
-| Strawberry | src/assets/icons/strawberry.png | public/icons/strawberry.webp | Wordmark ending and collection introduction |
+| Character    | Source                            | Web asset                      | Use                                                    |
+| ------------ | --------------------------------- | ------------------------------ | ------------------------------------------------------ |
+| Garlic       | src/assets/icons/garlic.png       | public/icons/garlic.webp       | Wordmark start and practical recipe sections           |
+| Strawberry   | src/assets/icons/strawberry.png   | public/icons/strawberry.webp   | Wordmark ending and collection introduction            |
 | Angry garlic | src/assets/icons/garlic-angry.png | public/icons/garlic-angry.webp | Quantity caution, no search results, and missing pages |
 
 The original pair remains unchanged. Icons complement text; they do not replace warning text or accessible names.
@@ -31,4 +31,3 @@ Use case: illustration-story. Asset type: small illustrated UI icon for Cookbook
 ### Angry garlic
 
 Use case: illustration-story. Asset type: small illustrated UI icon for Cookbook. Reference image: the supplied pair of existing Cookbook mascots, used only as visual identity and illustration-style reference. Create exactly ONE isolated character portrait, not a pair and not a sheet. Preserve the reference character's recognizable colors, simple expressive dark-ink face, organic outline, warm hand-drawn colored-pencil cookbook texture. Simplify details so the face and silhouette remain legible at 24–48 pixels. Center the complete compact head in a square composition with modest even clear margins. Genuine transparent background and clean alpha edges. No background glow, no shadow cloud, no frame, no text, no lettering, no watermark, no props, no arms or legs, no extra characters. Subject: the ivory garlic bulb from the reference with subtle lilac clove shading and short tapered stem. Expression: mildly angry or stern, lowered eyebrows and a small firm frown, a protective kitchen supervisor. Endearing rather than threatening; not screaming, no teeth, no flames, no anger symbols. Intended for caution notes and a missing-page state. Keep the same recognizable garlic identity as the reference.
-

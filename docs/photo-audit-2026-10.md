@@ -8,14 +8,14 @@ This audit explains why the [photo rulebook](photo-rulebook.md) asks for what it
 
 One image file feeds four placements. Each placement crops it from the centre with `object-fit: cover`.
 
-| Placement | Shape on screen | Size on screen | Source |
-| --- | --- | --- | --- |
-| Recipe card, desktop grid (4 across) | 4:3 | about 314 × 235 CSS px | `.card-image` in `src/styles/global.css` |
-| Recipe card, phone | 4:3 | about 350 × 233 CSS px | same |
-| Recipe cover, desktop | about 2.1:1 | 1160 × 550 CSS px (capped by `max-height: 550px`) | `.recipe-hero > img` |
-| Recipe cover, phone | about 1.9:1 | about 350 × 186 CSS px | `width={1280} height={680}` in `src/pages/recipes/[slug].astro` |
-| Social preview and Recipe JSON-LD | 1.91:1 | 1200 × 630 px file | `public/social/` |
-| Process photo inside a method step | the file's own shape | up to 780 px wide | `.recipe-prose img` |
+| Placement                            | Shape on screen      | Size on screen                                    | Source                                                          |
+| ------------------------------------ | -------------------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| Recipe card, desktop grid (4 across) | 4:3                  | about 314 × 235 CSS px                            | `.card-image` in `src/styles/global.css`                        |
+| Recipe card, phone                   | 4:3                  | about 350 × 233 CSS px                            | same                                                            |
+| Recipe cover, desktop                | about 2.1:1          | 1160 × 550 CSS px (capped by `max-height: 550px`) | `.recipe-hero > img`                                            |
+| Recipe cover, phone                  | about 1.9:1          | about 350 × 186 CSS px                            | `width={1280} height={680}` in `src/pages/recipes/[slug].astro` |
+| Social preview and Recipe JSON-LD    | 1.91:1               | 1200 × 630 px file                                | `public/social/`                                                |
+| Process photo inside a method step   | the file's own shape | up to 780 px wide                                 | `.recipe-prose img`                                             |
 
 The wide cover is the binding constraint. A 4:3 landscape photo loses about 18 % at the top and 18 % at the bottom on desktop. A 3:4 portrait photo loses about 64 % of its height.
 

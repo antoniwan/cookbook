@@ -91,11 +91,11 @@ The card is also small: about 314 px wide in the desktop grid. At that size, onl
 
 **Rule.** Choose the angle that shows the dish's defining feature.
 
-| Dish shape | Angle | Shows | Cookbook examples |
-| --- | --- | --- | --- |
-| Flat, or in a wide vessel | Overhead, camera parallel to the table | Pattern, colour, what is in the pot | Arroz con gandules, arroz con pollo, asopao, habichuelas, broccoli, guacamole toast, sofrito, lamb chops with vegetables |
-| Has height or a cut face | About 45°, roughly the view of someone seated | Crust, thickness, the inside | Flank steak slices, chicken thighs and drumsticks, sea bass, arepas, brownies, banana bread with a cut slice |
-| Tall or stacked | Straight on, 0° to 20° | Layers, height, the side of a glass | A tall pancake stack, a single cupcake in its liner |
+| Dish shape                | Angle                                         | Shows                               | Cookbook examples                                                                                                        |
+| ------------------------- | --------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Flat, or in a wide vessel | Overhead, camera parallel to the table        | Pattern, colour, what is in the pot | Arroz con gandules, arroz con pollo, asopao, habichuelas, broccoli, guacamole toast, sofrito, lamb chops with vegetables |
+| Has height or a cut face  | About 45°, roughly the view of someone seated | Crust, thickness, the inside        | Flank steak slices, chicken thighs and drumsticks, sea bass, arepas, brownies, banana bread with a cut slice             |
+| Tall or stacked           | Straight on, 0° to 20°                        | Layers, height, the side of a glass | A tall pancake stack, a single cupcake in its liner                                                                      |
 
 The [shot list](recipe-shot-list.md) names the angle for each dish that needs a cover. It uses 45° for coquito and the pancakes, so the surface of the drink and the browned pancake tops show as well as the sides. That is the trade-off to understand: 45° shows some of the top and some of the side; straight on shows the whole side and none of the top.
 

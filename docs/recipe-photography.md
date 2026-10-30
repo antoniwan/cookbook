@@ -60,16 +60,16 @@ The decorative pattern is not a completed-dish image. Recipe structured data omi
 
 The [photo rulebook](photo-rulebook.md) expands this table with reasons and practice drills. Grade every candidate with the [photo scorecard](photo-scorecard.md) before publication.
 
-| Element | Direction |
-| --- | --- |
-| Light | Soft window light from the side. Warm, but not yellow. No direct flash. |
-| Background | Cream ceramics, natural wood, or neutral linen. Use a small, repeatable selection. |
-| Color | Natural food colors. Gentle contrast. No heavy filters or excessive saturation. |
-| Framing | Make the dish the main subject. Leave enough space for square and landscape crops. |
-| Angle | Overhead for rice, soups, and skillets. Use approximately 45 degrees when height or layers matter. |
-| Styling | Real portions, visible texture, and normal imperfections. Family plates and cookware are welcome. |
-| Accuracy | Show the actual recipe. Do not add garnish or ingredients that the recipe does not contain. |
-| Branding | No text, logo, mascot, or watermark inside the food image. |
+| Element    | Direction                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| Light      | Soft window light from the side. Warm, but not yellow. No direct flash.                            |
+| Background | Cream ceramics, natural wood, or neutral linen. Use a small, repeatable selection.                 |
+| Color      | Natural food colors. Gentle contrast. No heavy filters or excessive saturation.                    |
+| Framing    | Make the dish the main subject. Leave enough space for square and landscape crops.                 |
+| Angle      | Overhead for rice, soups, and skillets. Use approximately 45 degrees when height or layers matter. |
+| Styling    | Real portions, visible texture, and normal imperfections. Family plates and cookware are welcome.  |
+| Accuracy   | Show the actual recipe. Do not add garnish or ingredients that the recipe does not contain.        |
+| Branding   | No text, logo, mascot, or watermark inside the food image.                                         |
 
 Do not use generated food photographs as evidence of our cooking. Keep any future illustrations clearly distinct from actual photographs.
 

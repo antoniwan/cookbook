@@ -1,14 +1,28 @@
 // TypeScript tests structured data with Node's built-in runner without requiring Astro's runtime.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { AUTHOR, breadcrumbStructuredData, durationLabel, recipeListStructuredData, recipeStructuredData, websiteStructuredData } from '../src/lib/seo.ts';
+import {
+  AUTHOR,
+  breadcrumbStructuredData,
+  durationLabel,
+  recipeListStructuredData,
+  recipeStructuredData,
+  websiteStructuredData,
+} from '../src/lib/seo.ts';
 import { SITE } from '../src/lib/recipe.ts';
 import recipeStepAnchors from '../src/lib/recipe-step-anchors.ts';
 
 const record = {
-  id: `${SITE}/recipes/example`, title: 'Example', description: 'A recipe.', language: 'en',
-  publishedAt: '2026-01-01T00:00:00.000Z', ingredients: ['2 carrots'], equipment: ['A pan'], method: ['Cook the carrots.'],
-  subjects: ['carrots'], recipeCategory: 'Sides & staples',
+  id: `${SITE}/recipes/example`,
+  title: 'Example',
+  description: 'A recipe.',
+  language: 'en',
+  publishedAt: '2026-01-01T00:00:00.000Z',
+  ingredients: ['2 carrots'],
+  equipment: ['A pan'],
+  method: ['Cook the carrots.'],
+  subjects: ['carrots'],
+  recipeCategory: 'Sides & staples',
 };
 
 test('site identity describes Cookbook and Antonio without claiming a separate company publisher', () => {
@@ -20,13 +34,29 @@ test('site identity describes Cookbook and Antonio without claiming a separate c
 });
 
 test('recipe list positions and canonical URLs follow visible recipe order', () => {
-  const list = recipeListStructuredData([{ id: 'second', data: { title: 'Second' } }, { id: 'first', data: { title: 'First' } }], '/contents');
+  const list = recipeListStructuredData(
+    [
+      { id: 'second', data: { title: 'Second' } },
+      { id: 'first', data: { title: 'First' } },
+    ],
+    '/contents',
+  );
   assert.equal(list.numberOfItems, 2);
-  assert.deepEqual(list.itemListElement.map(item => [item.position, item.url]), [[1, `${SITE}/recipes/second`], [2, `${SITE}/recipes/first`]]);
+  assert.deepEqual(
+    list.itemListElement.map((item) => [item.position, item.url]),
+    [
+      [1, `${SITE}/recipes/second`],
+      [2, `${SITE}/recipes/first`],
+    ],
+  );
 });
 
 test('breadcrumb positions describe the same public navigation', () => {
-  const breadcrumb = breadcrumbStructuredData([{ name: 'Cookbook', url: `${SITE}/` }, { name: 'Recipes', url: `${SITE}/contents` }, { name: 'Example', url: record.id }]);
+  const breadcrumb = breadcrumbStructuredData([
+    { name: 'Cookbook', url: `${SITE}/` },
+    { name: 'Recipes', url: `${SITE}/contents` },
+    { name: 'Example', url: record.id },
+  ]);
   assert.equal(breadcrumb.itemListElement.length, 3);
   assert.equal(breadcrumb.itemListElement[2].item, record.id);
   assert.equal(breadcrumb.itemListElement[2].position, 3);
@@ -34,7 +64,16 @@ test('breadcrumb positions describe the same public navigation', () => {
 
 test('recipe schema omits unknown durations, yields, nutrition, and ratings', () => {
   const schema = recipeStructuredData(record);
-  for (const key of ['prepTime', 'cookTime', 'totalTime', 'recipeYield', 'recipeCuisine', 'nutrition', 'aggregateRating']) assert.ok(!(key in schema), key);
+  for (const key of [
+    'prepTime',
+    'cookTime',
+    'totalTime',
+    'recipeYield',
+    'recipeCuisine',
+    'nutrition',
+    'aggregateRating',
+  ])
+    assert.ok(!(key in schema), key);
   assert.equal(schema.recipeCategory, record.recipeCategory);
   assert.equal(schema.recipeInstructions[0].text, record.method[0]);
   assert.equal(schema.recipeInstructions[0].name, 'Cook the carrots');
@@ -45,17 +84,28 @@ test('recipe schema omits unknown durations, yields, nutrition, and ratings', ()
 test('method anchors skip ingredient lists, nested lists, and later sections', () => {
   const ingredient = { type: 'listItem', data: { hProperties: { class: 'ingredient' } } };
   const nestedStep = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
-  const firstStep = { type: 'listItem', data: { hProperties: { class: 'existing' } }, children: [{ type: 'list', ordered: true, children: [nestedStep] }] };
+  const firstStep = {
+    type: 'listItem',
+    data: { hProperties: { class: 'existing' } },
+    children: [{ type: 'list', ordered: true, children: [nestedStep] }],
+  };
   const secondStep = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
   const note = { type: 'listItem', data: { hProperties: {} as Record<string, string> } };
-  const tree = { type: 'root', children: [
-    { type: 'list', ordered: false, children: [ingredient] },
-    { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Method' }] },
-    { type: 'list', ordered: true, children: [firstStep, secondStep] },
-    { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Notes' }] },
-    { type: 'list', ordered: true, children: [note] },
-  ] };
-  recipeStepAnchors().before(tree, { setProperty(node, key, value) { node[key] = value; } });
+  const tree = {
+    type: 'root',
+    children: [
+      { type: 'list', ordered: false, children: [ingredient] },
+      { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Method' }] },
+      { type: 'list', ordered: true, children: [firstStep, secondStep] },
+      { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Notes' }] },
+      { type: 'list', ordered: true, children: [note] },
+    ],
+  };
+  recipeStepAnchors().before(tree, {
+    setProperty(node, key, value) {
+      node[key] = value;
+    },
+  });
   assert.deepEqual(firstStep.data.hProperties, { class: 'existing', id: 'step-1' });
   assert.equal(secondStep.data.hProperties.id, 'step-2');
   assert.ok(!('id' in ingredient.data.hProperties));
@@ -64,7 +114,14 @@ test('method anchors skip ingredient lists, nested lists, and later sections', (
 });
 
 test('supported recipe facts propagate without inventing missing preparation time', () => {
-  const schema = recipeStructuredData({ ...record, totalTime: 'PT15M', recipeYield: '1', recipeCuisine: 'Puerto Rican', subjects: ['puerto-rico', 'carrots'], cookTime: 'PT5M' });
+  const schema = recipeStructuredData({
+    ...record,
+    totalTime: 'PT15M',
+    recipeYield: '1',
+    recipeCuisine: 'Puerto Rican',
+    subjects: ['puerto-rico', 'carrots'],
+    cookTime: 'PT5M',
+  });
   assert.equal(schema.totalTime, 'PT15M');
   assert.equal(schema.recipeYield, '1');
   assert.equal(schema.recipeCuisine, 'Puerto Rican');

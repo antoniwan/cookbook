@@ -6,12 +6,14 @@ import { recipeImage } from './images.ts';
 export type Recipe = CollectionEntry<'recipes'>;
 
 export async function allRecipes() {
-  return (await getCollection('recipes')).filter(recipe => isPublished(recipe.data));
+  return (await getCollection('recipes')).filter((recipe) => isPublished(recipe.data));
 }
 
 export function publicRecipe(recipe: Recipe) {
   const parts = recipeParts(recipe.body ?? '');
-  const hasPhoto = Boolean(recipeImage(recipe.data.heroImage, recipe.data.imageKind, recipe.data.imageOwnership));
+  const hasPhoto = Boolean(
+    recipeImage(recipe.data.heroImage, recipe.data.imageKind, recipe.data.imageOwnership),
+  );
   return {
     id: `${SITE}/recipes/${recipe.id}`,
     slug: recipe.id,

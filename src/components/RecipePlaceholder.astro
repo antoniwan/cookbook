@@ -1,8 +1,20 @@
 ---
-interface Props { variant?: 'card' | 'cover'; language?: 'en' | 'es'; }
+interface Props {
+  variant?: 'card' | 'cover';
+  language?: 'en' | 'es';
+}
 const { variant = 'card', language = 'en' } = Astro.props;
 ---
+
 <div class={`recipe-placeholder recipe-placeholder-${variant}`}>
-  <img src="/recipe-placeholder.webp" alt="" width="768" height="768" loading={variant === 'cover' ? 'eager' : 'lazy'} />
-  <span class="placeholder-label">{language === 'es' ? 'Foto de la receta pendiente' : 'Recipe photo to come'}</span>
+  <img
+    src="/recipe-placeholder.webp"
+    alt=""
+    width="768"
+    height="768"
+    loading={variant === 'cover' ? 'eager' : 'lazy'}
+  />
+  <span class="placeholder-label">
+    {language === 'es' ? 'Foto de la receta pendiente' : 'Recipe photo to come'}
+  </span>
 </div>

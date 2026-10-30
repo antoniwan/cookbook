@@ -1,5 +1,18 @@
 ---
-interface Props { variant?: 'garlic' | 'strawberry' | 'garlic-angry'; size?: number; class?: string; }
+interface Props {
+  variant?: 'garlic' | 'strawberry' | 'garlic-angry';
+  size?: number;
+  class?: string;
+}
 const { variant = 'garlic', size = 24, class: className = '' } = Astro.props;
 ---
-<img class={`mascot-icon ${className}`} src={`/icons/${variant}.webp`} width={size} height={size} alt="" aria-hidden="true" decoding="async" />
+
+<img
+  class={`mascot-icon ${className}`}
+  src={`/icons/${variant}.webp`}
+  width={size}
+  height={size}
+  alt=""
+  aria-hidden="true"
+  decoding="async"
+/>
