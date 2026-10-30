@@ -1,0 +1,12 @@
+node_modules
+dist
+.astro
+.vercel
+reports
+public/**/*.png
+public/**/*.jpg
+public/**/*.webp
+public/**/*.avif
+public/**/*.svg
+*.lock
+pnpm-lock.yaml
