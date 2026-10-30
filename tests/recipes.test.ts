@@ -2,10 +2,19 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { hasRecipePhoto, isPublished, plainText, recipeParts, safeJson, scaleIngredient } from '../src/lib/recipe.ts';
+import {
+  hasRecipePhoto,
+  isPublished,
+  plainText,
+  recipeParts,
+  safeJson,
+  scaleIngredient,
+} from '../src/lib/recipe.ts';
 
 test('process photographs stay inside their method step without leaking image markup into plain text', () => {
-  const parts = recipeParts('## Method\n\n1. Mix.\n\n   ![Before roasting.](/images/process.avif)\n\n   *In progress.*\n\n2. Roast.');
+  const parts = recipeParts(
+    '## Method\n\n1. Mix.\n\n   ![Before roasting.](/images/process.avif)\n\n   *In progress.*\n\n2. Roast.',
+  );
   assert.equal(parts.method.length, 2);
   assert.equal(plainText(parts.method[0]), 'Mix. In progress.');
   assert.equal(plainText(parts.method[1]), 'Roast.');
@@ -13,10 +22,30 @@ test('process photographs stay inside their method step without leaking image ma
 
 test('recipe photos require confirmed original ownership and exclude illustrations or missing images', () => {
   assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif' }), false);
-  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageKind: 'photo', imageOwnership: 'original' }), true);
-  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'third-party' }), false);
-  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'unverified' }), false);
-  assert.equal(hasRecipePhoto({ heroImage: '/images/example.avif', imageKind: 'illustration', imageOwnership: 'original' }), false);
+  assert.equal(
+    hasRecipePhoto({
+      heroImage: '/images/example.avif',
+      imageKind: 'photo',
+      imageOwnership: 'original',
+    }),
+    true,
+  );
+  assert.equal(
+    hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'third-party' }),
+    false,
+  );
+  assert.equal(
+    hasRecipePhoto({ heroImage: '/images/example.avif', imageOwnership: 'unverified' }),
+    false,
+  );
+  assert.equal(
+    hasRecipePhoto({
+      heroImage: '/images/example.avif',
+      imageKind: 'illustration',
+      imageOwnership: 'original',
+    }),
+    false,
+  );
   assert.equal(hasRecipePhoto({}), false);
   assert.equal(hasRecipePhoto({ imageKind: 'photo', imageOwnership: 'original' }), false);
 });
@@ -30,7 +59,9 @@ test('public eligibility excludes drafts, withdrawn, and scheduled recipes', () 
 });
 
 test('recipe extraction keeps continuation lines with their original step', () => {
-  const parts = recipeParts('A dish.\n\n## Ingredients\n\n- 2 eggs\n- Salt\n\n## Equipment\n\n- A bowl\n\n## Method\n\n1. Mix.\n   Keep the texture coarse.\n2. Cook.\n\n## Notes\n\n- Cool before storing.');
+  const parts = recipeParts(
+    'A dish.\n\n## Ingredients\n\n- 2 eggs\n- Salt\n\n## Equipment\n\n- A bowl\n\n## Method\n\n1. Mix.\n   Keep the texture coarse.\n2. Cook.\n\n## Notes\n\n- Cool before storing.',
+  );
   assert.deepEqual(parts.ingredients, ['2 eggs', 'Salt']);
   assert.deepEqual(parts.method, ['Mix.\n   Keep the texture coarse.', 'Cook.']);
   assert.equal(parts.introduction, 'A dish.');
@@ -49,31 +80,57 @@ test('quantity controls scale fractions and leave ambiguous alternatives unchang
 });
 
 test('scaling supports smaller batches, ranges, optional amounts, and Spanish measures', () => {
-  assert.equal(scaleIngredient('3 eggs', .5), '1½ eggs');
-  assert.equal(scaleIngredient('1½ to 2 lb chicken', .5), '¾ to 1 lb chicken');
+  assert.equal(scaleIngredient('3 eggs', 0.5), '1½ eggs');
+  assert.equal(scaleIngredient('1½ to 2 lb chicken', 0.5), '¾ to 1 lb chicken');
   assert.equal(scaleIngredient('6–12 chicken thighs', 1.5), '9–18 chicken thighs');
   assert.equal(scaleIngredient('(optional) ¼ cup cheese', 3), '(optional) ¾ cup cheese');
-  assert.equal(scaleIngredient('(opcional) 1 a 2 cucharadas aceite', 2), '(opcional) 2 a 4 cucharadas aceite');
-  assert.equal(scaleIngredient('Approximately 1 pound chicken', 2), 'Approximately 2 pound chicken');
-  assert.equal(scaleIngredient('1/10 part baking powder', .5), '0.05 part baking powder');
-  assert.equal(scaleIngredient('2 to 3 tablespoons oat milk', .5), '1 to 1½ tablespoons oat milk');
+  assert.equal(
+    scaleIngredient('(opcional) 1 a 2 cucharadas aceite', 2),
+    '(opcional) 2 a 4 cucharadas aceite',
+  );
+  assert.equal(
+    scaleIngredient('Approximately 1 pound chicken', 2),
+    'Approximately 2 pound chicken',
+  );
+  assert.equal(scaleIngredient('1/10 part baking powder', 0.5), '0.05 part baking powder');
+  assert.equal(scaleIngredient('2 to 3 tablespoons oat milk', 0.5), '1 to 1½ tablespoons oat milk');
 });
 
 test('explicit equivalent measures scale together without changing dimensions or package sizes', () => {
   assert.equal(scaleIngredient('1½ cups (210 g) flour', 2), '3 cups (420 g) flour');
-  assert.equal(scaleIngredient('170 g (12 tbsp / 1.5 sticks) butter', .5), '85 g (6 tbsp / ¾ sticks) butter');
+  assert.equal(
+    scaleIngredient('170 g (12 tbsp / 1.5 sticks) butter', 0.5),
+    '85 g (6 tbsp / ¾ sticks) butter',
+  );
   assert.equal(scaleIngredient('1.25 lb (567 g) chicken', 2), '2½ lb (1134 g) chicken');
   assert.equal(scaleIngredient('1 cup pumpkin, 1-inch cubes', 2), '2 cup pumpkin, 1-inch cubes');
   assert.equal(scaleIngredient('170 g chocolate (60 to 70%)', 2), '340 g chocolate (60 to 70%)');
   assert.equal(scaleIngredient('1 can (15 oz) beans', 2), '2 can (15 oz) beans');
-  assert.equal(scaleIngredient('1 head garlic (10 to 12 cloves)', 2), '2 head garlic (10 to 12 cloves)');
-  assert.equal(scaleIngredient('4 fish fillets, 6 to 8 ounces each', 2), '8 fish fillets, 6 to 8 ounces each');
-  assert.equal(scaleIngredient('Approximately 2 inches of oil', 2), 'Approximately 2 inches of oil');
+  assert.equal(
+    scaleIngredient('1 head garlic (10 to 12 cloves)', 2),
+    '2 head garlic (10 to 12 cloves)',
+  );
+  assert.equal(
+    scaleIngredient('4 fish fillets, 6 to 8 ounces each', 2),
+    '8 fish fillets, 6 to 8 ounces each',
+  );
+  assert.equal(
+    scaleIngredient('Approximately 2 inches of oil', 2),
+    'Approximately 2 inches of oil',
+  );
 });
 
 test('scaling preserves ambiguous alternatives and rejects invalid multipliers', () => {
-  for (const text of ['2 eggs, or 1 cup milk', '1 tbsp oil + ½ tsp sazón', '1 tbsp tomato paste (or 2–3 tbsp tomato sauce)', 'About ¾ tsp salt, in three ¼ tsp passes', '1 cup flour (120 g plus 2 tbsp)']) assert.equal(scaleIngredient(text, 2), text);
-  for (const multiplier of [0, -1, NaN, Infinity]) assert.equal(scaleIngredient('2 eggs', multiplier), '2 eggs');
+  for (const text of [
+    '2 eggs, or 1 cup milk',
+    '1 tbsp oil + ½ tsp sazón',
+    '1 tbsp tomato paste (or 2–3 tbsp tomato sauce)',
+    'About ¾ tsp salt, in three ¼ tsp passes',
+    '1 cup flour (120 g plus 2 tbsp)',
+  ])
+    assert.equal(scaleIngredient(text, 2), text);
+  for (const multiplier of [0, -1, NaN, Infinity])
+    assert.equal(scaleIngredient('2 eggs', multiplier), '2 eggs');
   assert.equal(scaleIngredient('1/0 cup milk', 2), '1/0 cup milk');
 });
 
@@ -84,7 +141,9 @@ test('JSON-LD cannot terminate its script element', () => {
 });
 
 test('every migrated public recipe retains a usable cooking structure and source hash', () => {
-  const manifest = JSON.parse(readFileSync(new URL('../docs/migration.json', import.meta.url), 'utf8'));
+  const manifest = JSON.parse(
+    readFileSync(new URL('../docs/migration.json', import.meta.url), 'utf8'),
+  );
   assert.equal(manifest.files.length, 40);
   const slugs = new Set();
   for (const entry of manifest.files) {
@@ -101,7 +160,12 @@ test('every migrated public recipe retains a usable cooking structure and source
     assert.match(entry.sourceSha256, /^[a-f0-9]{64}$/);
   }
   const groups = new Map<string, string[]>();
-  for (const entry of manifest.files) if (entry.translationGroup) groups.set(entry.translationGroup, [...(groups.get(entry.translationGroup) ?? []), entry.language]);
+  for (const entry of manifest.files)
+    if (entry.translationGroup)
+      groups.set(entry.translationGroup, [
+        ...(groups.get(entry.translationGroup) ?? []),
+        entry.language,
+      ]);
   assert.equal(groups.size, 12);
   for (const languages of groups.values()) assert.deepEqual(languages.sort(), ['en', 'es']);
 });

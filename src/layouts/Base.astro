@@ -5,11 +5,24 @@ import Stats from '../components/Stats.astro';
 import { safeJson, SITE } from '../lib/recipe';
 import { websiteStructuredData } from '../lib/seo';
 import Wordmark from '../components/Wordmark.astro';
-interface Props { title?: string; description?: string; path?: string; language?: 'en' | 'es'; image?: string; }
-const { title = 'Cookbook — Recipes from our kitchen', description = 'Family recipes by Antonio, in English and Spanish.', path = '/', language = 'en', image = '/social/cookbook.jpg' } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  language?: 'en' | 'es';
+  image?: string;
+}
+const {
+  title = 'Cookbook — Recipes from our kitchen',
+  description = 'Family recipes by Antonio, in English and Spanish.',
+  path = '/',
+  language = 'en',
+  image = '/social/cookbook.jpg',
+} = Astro.props;
 const canonical = new URL(path, SITE).href;
 const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
 ---
+
 <!doctype html>
 <html lang={language}>
   <head>
@@ -32,13 +45,17 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <meta property="og:site_name" content="Cookbook" />
     <meta property="og:image" content={new URL(image, SITE).href} />
     <meta name="twitter:card" content="summary_large_image" />
-    {path === '/' && <script type="application/ld+json" set:html={safeJson(websiteStructuredData())} />}
+    {path === '/' && (
+      <script type="application/ld+json" set:html={safeJson(websiteStructuredData())} />
+    )}
     <slot name="head" />
     <Analytics />
     <Stats />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
     <header class="site-header wrap">
       <Wordmark />
       <nav aria-label="Main navigation">
@@ -46,14 +63,46 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
         <a href="/contents">A–Z</a>
         <a href="/about">Our kitchen</a>
       </nav>
-      <a class="personal-link" href="https://antoniwan.online">By Antonio <span aria-hidden="true">↗</span></a>
+      <a class="personal-link" href="https://antoniwan.online">
+        By Antonio <span aria-hidden="true">↗</span>
+      </a>
     </header>
     <slot />
     <footer class="site-footer wrap">
       <Wordmark />
       <p>The strawberry knows too much.</p>
-      <a class="professional-mark" href="https://antoniwan.online" aria-label="Antonio’s professional mark"><img src="/professional-mark.svg" alt="" width="24" height="24" /></a>
-      <div class="footer-links"><a href="https://notes.antoniwan.online" data-umami-event="cta" data-umami-event-label="notes">Notes ↗</a><a href="https://antoniwan.online" data-umami-event="cta" data-umami-event-label="antonio">Antonio ↗</a><a href="/rss.xml" data-umami-event="cta" data-umami-event-label="rss">RSS</a><a href="/recipes.json" data-umami-event="cta" data-umami-event-label="recipe-data">Recipe data</a><a href="https://github.com/antoniwan/cookbook" data-umami-event="cta" data-umami-event-label="source">Source ↗</a></div>
+      <a
+        class="professional-mark"
+        href="https://antoniwan.online"
+        aria-label="Antonio’s professional mark"
+      >
+        <img src="/professional-mark.svg" alt="" width="24" height="24" />
+      </a>
+      <div class="footer-links">
+        <a
+          href="https://notes.antoniwan.online"
+          data-umami-event="cta"
+          data-umami-event-label="notes"
+        >
+          Notes ↗
+        </a>
+        <a href="https://antoniwan.online" data-umami-event="cta" data-umami-event-label="antonio">
+          Antonio ↗
+        </a>
+        <a href="/rss.xml" data-umami-event="cta" data-umami-event-label="rss">
+          RSS
+        </a>
+        <a href="/recipes.json" data-umami-event="cta" data-umami-event-label="recipe-data">
+          Recipe data
+        </a>
+        <a
+          href="https://github.com/antoniwan/cookbook"
+          data-umami-event="cta"
+          data-umami-event-label="source"
+        >
+          Source ↗
+        </a>
+      </div>
     </footer>
   </body>
 </html>

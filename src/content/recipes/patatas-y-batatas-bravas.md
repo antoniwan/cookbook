@@ -52,7 +52,7 @@ Serves 2 adults and a toddler.
 
    ![Parboiled cubes of potato and sweet potato in a glass bowl, before roasting.](/images/patatas-y-batatas-bravas-process.avif)
 
-   *In progress: the potatoes and sweet potatoes before roasting.*
+   _In progress: the potatoes and sweet potatoes before roasting._
 
 4. Spread them in one layer on the 2 wire racks. Roast 30 minutes.
 5. Optional, not tried yet: 1 minute under the high broiler should make the crust crunchier.
