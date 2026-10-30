@@ -10,13 +10,16 @@ Public home: https://cookbook.antoniwan.online.
 2. Run pnpm install --frozen-lockfile.
 3. Run pnpm dev.
 
+Installing also sets up a pre-commit hook. It runs ESLint, Stylelint, and Prettier on the staged files, so a lint error stops the commit.
+
 ## Verify a release
 
-1. Run pnpm test.
-2. Run pnpm check.
-3. Run pnpm build.
-4. Run pnpm validate.
-5. Verify browsing, recipe search, ingredient checklists, quantities, printing, and translation links in a browser.
+1. Run pnpm format:check, pnpm lint, and pnpm lint:css. pnpm format fixes formatting.
+2. Run pnpm test.
+3. Run pnpm check.
+4. Run pnpm build.
+5. Run pnpm validate.
+6. Verify browsing, recipe search, ingredient checklists, quantities, printing, and translation links in a browser.
 
 ## Content
 

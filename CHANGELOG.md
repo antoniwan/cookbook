@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add Prettier, ESLint, and Stylelint with the same settings as Notes, a pre-commit hook that runs them on staged files, and format, lint, and CSS lint steps in CI. Format the repo once; the built pages are unchanged.
+- Add the shared .editorconfig and .gitattributes, an AGENTS.md for coding agents, and TypeScript checks for unused variables and parameters.
+
 - Add a photo rulebook with reasons and practice drills, a keep, edit, or retake scorecard, recipe writing rules, and a photo and layout audit.
 
 - Add Vercel Web Analytics to every page.
