@@ -1,0 +1,12 @@
+# Coding standards v1 (antoniwan/ai shared/standards). Copy as .prettierignore at a repo's root.
+node_modules
+dist
+public/**/*.png
+public/**/*.jpg
+public/**/*.webp
+public/**/*.avif
+public/**/*.svg
+*.lock
+pnpm-lock.yaml
+
+

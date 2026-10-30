@@ -12,11 +12,13 @@ Public home: https://cookbook.antoniwan.online.
 
 ## Verify a release
 
-1. Run pnpm test.
-2. Run pnpm check.
-3. Run pnpm build.
-4. Run pnpm validate.
-5. Verify browsing, recipe search, ingredient checklists, quantities, printing, and translation links in a browser.
+1. Run pnpm run format:check (pnpm run format fixes it).
+2. Run pnpm lint.
+3. Run pnpm test.
+4. Run pnpm check.
+5. Run pnpm build.
+6. Run pnpm validate.
+7. Verify browsing, recipe search, ingredient checklists, quantities, printing, and translation links in a browser.
 
 ## Content
 

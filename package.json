@@ -5,7 +5,9 @@
   "type": "module",
   "repository": "github:antoniwan/cookbook",
   "homepage": "https://cookbook.antoniwan.online",
-  "engines": { "node": "22.x" },
+  "engines": {
+    "node": "22.x"
+  },
   "packageManager": "pnpm@12.3.4",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
@@ -13,7 +15,10 @@
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
     "test": "node --test tests/*.test.ts",
-    "validate": "node scripts/validate-build.ts"
+    "validate": "node scripts/validate-build.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.2",
@@ -24,6 +29,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@typescript-eslint/parser": "8.72.0",
+    "eslint": "10.13.0",
+    "eslint-plugin-astro": "3.2.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
     "typescript": "6.0.3"
   }
 }
