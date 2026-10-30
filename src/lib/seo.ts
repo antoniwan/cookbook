@@ -1,6 +1,11 @@
 import { SITE } from './recipe.ts';
 
-export const AUTHOR = { '@type': 'Person', '@id': 'https://antoniwan.online/#person', name: 'Antonio', url: 'https://antoniwan.online' };
+export const AUTHOR = {
+  '@type': 'Person',
+  '@id': 'https://antoniwan.online/#person',
+  name: 'Antonio',
+  url: 'https://antoniwan.online',
+};
 
 export function websiteStructuredData() {
   return {
@@ -15,7 +20,10 @@ export function websiteStructuredData() {
   };
 }
 
-export function recipeListStructuredData(recipes: { id: string; data: { title: string } }[], path: string) {
+export function recipeListStructuredData(
+  recipes: { id: string; data: { title: string } }[],
+  path: string,
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -35,7 +43,12 @@ export function breadcrumbStructuredData(items: { name: string; url: string }[])
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: item.url })),
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }
 
@@ -74,19 +87,30 @@ export function recipeStructuredData(record: RecipeRecord, image?: string) {
     ...(image ? { image: [image] } : {}),
     author: AUTHOR,
     recipeIngredient: record.ingredients,
-    recipeInstructions: record.method.map((text, index) => ({ '@type': 'HowToStep', position: index + 1, name: text.split(/[.!?](?:\s|$)/)[0].trim(), text, url: `${record.id}#step-${index + 1}` })),
-    tool: record.equipment.map(name => ({ '@type': 'HowToTool', name })),
+    recipeInstructions: record.method.map((text, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: text.split(/[.!?](?:\s|$)/)[0].trim(),
+      text,
+      url: `${record.id}#step-${index + 1}`,
+    })),
+    tool: record.equipment.map((name) => ({ '@type': 'HowToTool', name })),
     recipeCategory: record.recipeCategory,
     ...(record.recipeCuisine ? { recipeCuisine: record.recipeCuisine } : {}),
     ...(record.recipeYield ? { recipeYield: record.recipeYield } : {}),
-    ...(record.prepTime && record.cookTime ? { prepTime: record.prepTime, cookTime: record.cookTime } : {}),
+    ...(record.prepTime && record.cookTime
+      ? { prepTime: record.prepTime, cookTime: record.cookTime }
+      : {}),
     ...(record.totalTime ? { totalTime: record.totalTime } : {}),
-    keywords: record.subjects.filter(subject => subject !== 'puerto-rico').join(', '),
+    keywords: record.subjects.filter((subject) => subject !== 'puerto-rico').join(', '),
   };
 }
 
 export function durationLabel(duration: string): string {
   const match = duration.match(/^PT(?:(\d+)H)?(?:(\d+)M)?$/);
-  if (!match || (!match[1] && !match[2])) throw new Error(`Unsupported recipe duration: ${duration}`);
-  return [match[1] && `${Number(match[1])} h`, match[2] && `${Number(match[2])} min`].filter(Boolean).join(' ');
+  if (!match || (!match[1] && !match[2]))
+    throw new Error(`Unsupported recipe duration: ${duration}`);
+  return [match[1] && `${Number(match[1])} h`, match[2] && `${Number(match[2])} min`]
+    .filter(Boolean)
+    .join(' ');
 }

@@ -10,17 +10,17 @@ Show recipe facts in HTML and include them in JSON and Recipe structured data.
 
 ## Current facts
 
-| Recipe | Added fact | Published evidence |
-| --- | --- | --- |
-| Arepas de Calabaza | 2 arepas; approximately 55 minutes total | Introduction: "Two arepas, about 55 minutes." |
-| Brocoli Con Sabor, both languages | 1 serving; approximately 15 minutes total | Introduction: "About 15 minutes. One serving." Spanish text states the same facts. |
-| Easy Breakfast Guacamole Toast | 1 serving; approximately 10 minutes total | Introduction: "About 10 minutes. One serving." |
-| Coquito de Moni, both languages | 4 to 5 large bottles | Introduction states this yield in both languages. |
-| Sofrito, both languages | Approximately 2½ cups, approximately 20 cubes | Notes state these amounts in both languages. |
-| Mia's Vegan Cupcakes | 12 cupcakes | Description states "Twelve cupcakes." Introduction confirms the yield. |
-| Patatas y Batatas Bravas | 2 adults and a toddler | Introduction states this household yield. Do not convert it into equal adult servings. |
-| Brown Butter Gourmet Brownies | 16 squares | Description and introduction state this yield. |
-| Truffle Cacio e Pepe Fettuccine with Seared Chicken | 3 hearty portions or 4 moderate portions | Introduction states both portion sizes. |
+| Recipe                                              | Added fact                                    | Published evidence                                                                     |
+| --------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Arepas de Calabaza                                  | 2 arepas; approximately 55 minutes total      | Introduction: "Two arepas, about 55 minutes."                                          |
+| Brocoli Con Sabor, both languages                   | 1 serving; approximately 15 minutes total     | Introduction: "About 15 minutes. One serving." Spanish text states the same facts.     |
+| Easy Breakfast Guacamole Toast                      | 1 serving; approximately 10 minutes total     | Introduction: "About 10 minutes. One serving."                                         |
+| Coquito de Moni, both languages                     | 4 to 5 large bottles                          | Introduction states this yield in both languages.                                      |
+| Sofrito, both languages                             | Approximately 2½ cups, approximately 20 cubes | Notes state these amounts in both languages.                                           |
+| Mia's Vegan Cupcakes                                | 12 cupcakes                                   | Description states "Twelve cupcakes." Introduction confirms the yield.                 |
+| Patatas y Batatas Bravas                            | 2 adults and a toddler                        | Introduction states this household yield. Do not convert it into equal adult servings. |
+| Brown Butter Gourmet Brownies                       | 16 squares                                    | Description and introduction state this yield.                                         |
+| Truffle Cacio e Pepe Fettuccine with Seared Chicken | 3 hearty portions or 4 moderate portions      | Introduction states both portion sizes.                                                |
 
 The existing visible recipe group supplies recipeCategory. The existing puerto-rico tag supplies Puerto Rican recipeCuisine.
 

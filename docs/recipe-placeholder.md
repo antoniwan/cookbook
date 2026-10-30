@@ -61,8 +61,8 @@ Reference: [Google recipe image guidance](https://developers.google.com/search/d
 ## Final prompt
 
 Use case: stylized-concept. Create a square decorative picnic-cloth wallpaper for the Cookbook website.
- Image 1 and image 2 are identity references for the existing garlic and strawberry portrait icons.
- Make pale dusty-rose-and-cream gingham with a subtle woven linen texture. On it, print a small evenly spaced repeating pattern of ONLY TWO MOTIFS: the garlic portrait from image 1 always UPRIGHT, and the strawberry portrait from image 2 always rotated completely UPSIDE DOWN (180 degrees, including its face and green crown). Alternate these two motifs in staggered rows. No inverted garlic anywhere.
- Every garlic has a single stem at its TOP and a rounded bulb at its BOTTOM, exactly like image 1. No bottom stem, no double-ended garlic, no fused or mirrored heads. Every strawberry has one leafy crown.
- Use quiet faded colored-pencil print in warm cream, dusty berry red, pale lilac and muted sage. Heads are small with generous space between them, around six motifs across the image. The cloth is the main subject; the characters are a subtle decorative pattern.
- Flat overhead textile swatch, no folds, no props, no food, no frame, no shadow, no text or watermark. Opaque light-cream background. Do not make new hybrid characters.
+Image 1 and image 2 are identity references for the existing garlic and strawberry portrait icons.
+Make pale dusty-rose-and-cream gingham with a subtle woven linen texture. On it, print a small evenly spaced repeating pattern of ONLY TWO MOTIFS: the garlic portrait from image 1 always UPRIGHT, and the strawberry portrait from image 2 always rotated completely UPSIDE DOWN (180 degrees, including its face and green crown). Alternate these two motifs in staggered rows. No inverted garlic anywhere.
+Every garlic has a single stem at its TOP and a rounded bulb at its BOTTOM, exactly like image 1. No bottom stem, no double-ended garlic, no fused or mirrored heads. Every strawberry has one leafy crown.
+Use quiet faded colored-pencil print in warm cream, dusty berry red, pale lilac and muted sage. Heads are small with generous space between them, around six motifs across the image. The cloth is the main subject; the characters are a subtle decorative pattern.
+Flat overhead textile swatch, no folds, no props, no food, no frame, no shadow, no text or watermark. Opaque light-cream background. Do not make new hybrid characters.

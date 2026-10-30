@@ -6,27 +6,143 @@ import { allRecipes } from '../lib/catalogue';
 import { GROUPS, safeJson } from '../lib/recipe';
 import { recipeListStructuredData } from '../lib/seo';
 const all = await allRecipes();
-const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((first, second) => first.data.title.localeCompare(second.data.title));
+const recipes = all
+  .filter((recipe) => recipe.data.language[0] === 'en')
+  .sort((first, second) => first.data.title.localeCompare(second.data.title));
 ---
+
 <Base>
-  <script slot="head" type="application/ld+json" set:html={safeJson(recipeListStructuredData(recipes, '/'))} />
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={safeJson(recipeListStructuredData(recipes, '/'))}
+  />
   <main id="main">
     <section class="hero wrap">
-      <div class="hero-copy"><p class="eyebrow">Family recipes</p><h1>Recipes from<br /><em>our kitchen.</em></h1><p class="hero-description">The recipes we cook at home, in English and Spanish.<br />Ingredients, equipment, and step-by-step methods.</p><a class="button" href="#recipes">Browse recipes <span aria-hidden="true">↓</span></a><p class="hero-note">{recipes.length} recipes <span>·</span> English &amp; Español</p></div>
-      <div class="hero-illustration"><div class="illustration-halo"></div><img src="/mascots.webp" width="1536" height="1024" alt="A smiling garlic bulb and strawberry, Cookbook’s two kitchen companions." fetchpriority="high" /></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Family recipes</p>
+        <h1>
+          Recipes from
+          <br />
+          <em>our kitchen.</em>
+        </h1>
+        <p class="hero-description">
+          The recipes we cook at home, in English and Spanish.
+          <br />
+          Ingredients, equipment, and step-by-step methods.
+        </p>
+        <a class="button" href="#recipes">
+          Browse recipes <span aria-hidden="true">↓</span>
+        </a>
+        <p class="hero-note">
+          {recipes.length} recipes <span>·</span> English &amp; Español
+        </p>
+      </div>
+      <div class="hero-illustration">
+        <div class="illustration-halo"></div>
+        <img
+          src="/mascots.webp"
+          width="1536"
+          height="1024"
+          alt="A smiling garlic bulb and strawberry, Cookbook’s two kitchen companions."
+          fetchpriority="high"
+        />
+      </div>
     </section>
-    <section class="collection-banner wrap" aria-label="Cookbook introduction"><MascotIcon variant="strawberry" size={36} /><p>{recipes.length} recipes. {all.filter(recipe => recipe.data.language[0] === 'es').length} also available in Spanish.</p><a href="/about">Our kitchen ↗</a></section>
+    <section class="collection-banner wrap" aria-label="Cookbook introduction">
+      <MascotIcon variant="strawberry" size={36} />
+      <p>
+        {recipes.length} recipes. {all.filter((recipe) => recipe.data.language[0] === 'es').length}{' '}
+        also available in Spanish.
+      </p>
+      <a href="/about">Our kitchen ↗</a>
+    </section>
     <section class="recipe-section wrap" id="recipes" aria-labelledby="recipes-title">
-      <div class="section-heading"><div><p class="eyebrow">Recipe index</p><h2 id="recipes-title">Find a recipe</h2></div><label class="search-field"><span class="sr-only">Search recipes and ingredients</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" id="recipe-search" placeholder="Search by dish or ingredient" autocomplete="off" /></label></div>
-      <div class="filter-bar" role="group" aria-label="Filter recipes">{GROUPS.map((group, index) => <button type="button" data-filter={group} aria-pressed={index === 0}>{group}</button>)}</div>
-      <div class="results-line"><p id="recipe-results" role="status" aria-live="polite">{recipes.length} recipes</p><button id="clear-filters" type="button" hidden>Clear filters</button></div>
-      <div class="recipe-grid">{recipes.map((recipe, index) => <RecipeCard recipe={recipe} translated={Boolean(recipe.data.translationGroup && all.some(other => other.id !== recipe.id && other.data.translationGroup === recipe.data.translationGroup))} index={index} />)}</div>
-      <div class="empty-state" id="empty-state" hidden><MascotIcon variant="garlic-angry" size={64} class="state-mascot" /><h3>No recipes found.</h3><p>Try another search term or clear the filters.</p></div>
-      <a class="index-link" href="/contents">Recipes, A–Z <span aria-hidden="true">↗</span></a>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Recipe index</p>
+          <h2 id="recipes-title">Find a recipe</h2>
+        </div>
+        <label class="search-field">
+          <span class="sr-only">Search recipes and ingredients</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m16 16 5 5" />
+          </svg>
+          <input
+            type="search"
+            id="recipe-search"
+            placeholder="Search by dish or ingredient"
+            autocomplete="off"
+          />
+        </label>
+      </div>
+      <div class="filter-bar" role="group" aria-label="Filter recipes">
+        {GROUPS.map((group, index) => (
+          <button type="button" data-filter={group} aria-pressed={index === 0}>
+            {group}
+          </button>
+        ))}
+      </div>
+      <div class="results-line">
+        <p id="recipe-results" role="status" aria-live="polite">
+          {recipes.length} recipes
+        </p>
+        <button id="clear-filters" type="button" hidden>
+          Clear filters
+        </button>
+      </div>
+      <div class="recipe-grid">
+        {recipes.map((recipe, index) => (
+          <RecipeCard
+            recipe={recipe}
+            translated={Boolean(
+              recipe.data.translationGroup &&
+              all.some(
+                (other) =>
+                  other.id !== recipe.id &&
+                  other.data.translationGroup === recipe.data.translationGroup,
+              ),
+            )}
+            index={index}
+          />
+        ))}
+      </div>
+      <div class="empty-state" id="empty-state" hidden>
+        <MascotIcon variant="garlic-angry" size={64} class="state-mascot" />
+        <h3>No recipes found.</h3>
+        <p>Try another search term or clear the filters.</p>
+      </div>
+      <a class="index-link" href="/contents">
+        Recipes, A–Z <span aria-hidden="true">↗</span>
+      </a>
     </section>
     <section class="kitchen-note wrap" id="project-note" aria-labelledby="project-note-title">
-      <div class="project-note-copy"><p class="eyebrow">A personal project</p><h2 id="project-note-title">Made for<br /><em>the fun of it.</em></h2><p>This cookbook is for fun and curiosity. I build software for a living, but I rarely get to direct a project or be as creative as I want to be.</p><p>Here, I get to follow my own ideas, make the decisions, and express myself through the things I build. Our family recipes give that creativity a home.</p><a href="/about">Our kitchen ↗</a></div>
-      <aside class="kitchen-howto" aria-labelledby="kitchen-howto-title"><p class="eyebrow">Using Cookbook</p><h3 id="kitchen-howto-title">Made to be used.</h3><p>Each recipe follows the same format. Check off ingredients, adjust quantities, print a copy, or use kitchen mode while you cook.</p></aside>
+      <div class="project-note-copy">
+        <p class="eyebrow">A personal project</p>
+        <h2 id="project-note-title">
+          Made for
+          <br />
+          <em>the fun of it.</em>
+        </h2>
+        <p>
+          This cookbook is for fun and curiosity. I build software for a living, but I rarely get to
+          direct a project or be as creative as I want to be.
+        </p>
+        <p>
+          Here, I get to follow my own ideas, make the decisions, and express myself through the
+          things I build. Our family recipes give that creativity a home.
+        </p>
+        <a href="/about">Our kitchen ↗</a>
+      </div>
+      <aside class="kitchen-howto" aria-labelledby="kitchen-howto-title">
+        <p class="eyebrow">Using Cookbook</p>
+        <h3 id="kitchen-howto-title">Made to be used.</h3>
+        <p>
+          Each recipe follows the same format. Check off ingredients, adjust quantities, print a
+          copy, or use kitchen mode while you cook.
+        </p>
+      </aside>
     </section>
   </main>
 </Base>
@@ -38,21 +154,43 @@ const recipes = all.filter(recipe => recipe.data.language[0] === 'en').sort((fir
   const clear = document.querySelector<HTMLButtonElement>('#clear-filters');
   const empty = document.querySelector<HTMLElement>('#empty-state');
   let selected = 'All recipes';
-  const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const normalize = (text: string) =>
+    text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
   function applyFilters() {
-    const terms = normalize(search?.value ?? '').trim().split(/\s+/).filter(Boolean);
+    const terms = normalize(search?.value ?? '')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
     let count = 0;
     for (const card of cards) {
-      const visible = (selected === 'All recipes' || card.dataset.group === selected) && terms.every(term => normalize(card.dataset.search ?? '').includes(term));
+      const visible =
+        (selected === 'All recipes' || card.dataset.group === selected) &&
+        terms.every((term) => normalize(card.dataset.search ?? '').includes(term));
       card.hidden = !visible;
       if (visible) count++;
     }
-    filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === selected)));
-    if (result) result.textContent = `${count} ${count === 1 ? 'recipe' : 'recipes'}${terms.length || selected !== 'All recipes' ? ' found' : ''}`;
+    filters.forEach((button) =>
+      button.setAttribute('aria-pressed', String(button.dataset.filter === selected)),
+    );
+    if (result)
+      result.textContent = `${count} ${count === 1 ? 'recipe' : 'recipes'}${terms.length || selected !== 'All recipes' ? ' found' : ''}`;
     if (clear) clear.hidden = !terms.length && selected === 'All recipes';
     if (empty) empty.hidden = count !== 0;
   }
   search?.addEventListener('input', applyFilters);
-  filters.forEach(button => button.addEventListener('click', () => { selected = button.dataset.filter ?? 'All recipes'; applyFilters(); }));
-  clear?.addEventListener('click', () => { if (search) search.value = ''; selected = 'All recipes'; applyFilters(); search?.focus(); });
+  filters.forEach((button) =>
+    button.addEventListener('click', () => {
+      selected = button.dataset.filter ?? 'All recipes';
+      applyFilters();
+    }),
+  );
+  clear?.addEventListener('click', () => {
+    if (search) search.value = '';
+    selected = 'All recipes';
+    applyFilters();
+    search?.focus();
+  });
 </script>
