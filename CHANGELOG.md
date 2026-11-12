@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- The home page answers a request for Markdown (`Accept: text/markdown`) with the site's `llms.txt` as `text/markdown`, and both versions of the home page carry `Vary: Accept`. Browsers still get the HTML page.
+- Agents that ask for Markdown (`Accept: text/markdown`) at an address with no page now get a short Markdown 404 that links to `/llms.txt`, the sitemap, and the home page. The status stays 404, and browsers get the same HTML 404 page as before.
+
 - Add the shared coding standards (antoniwan/ai `shared/standards` v1): `.editorconfig`, LF line endings, Prettier, ESLint correctness rules, and no unused locals or parameters. CI now fails on unformatted code or a lint error.
 
 - Count each call to action in Stats as a `cta` click event with a `label`: Browse recipes, the recipe filters and Clear filters, kitchen mode, Print, the multipliers, Copy ingredients, Reset checklist, the language link, and the footer links. One that leaves the site also carries `to` and `url` instead of a second `outbound` event. Tasteless lists every label beside the site's views, so the unused ones can go.
