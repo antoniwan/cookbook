@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Send the site's uncaught script errors to Stats, shown in its Errors tab (Umami 3.5.0). Umami strips emails, tokens, and query strings from each report.
+
 - The home page answers a request for Markdown (`Accept: text/markdown`) with the site's `llms.txt` as `text/markdown`, and both versions of the home page carry `Vary: Accept`. Browsers still get the HTML page.
 - Agents that ask for Markdown (`Accept: text/markdown`) at an address with no page now get a short Markdown 404 that links to `/llms.txt`, the sitemap, and the home page. The status stays 404, and browsers get the same HTML 404 page as before.
 
