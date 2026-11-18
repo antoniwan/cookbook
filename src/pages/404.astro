@@ -4,22 +4,24 @@ import MascotIcon from '../components/MascotIcon.astro';
 ---
 
 <Base title="Page not found — Cookbook" path="/404">
-  <main class="wrap about-page" id="main">
-    <MascotIcon variant="garlic-angry" size={96} />
-    <p class="eyebrow">404</p>
-    <h1>
-      Page
-      <br />
-      <em>not found.</em>
-    </h1>
-    <p class="page-description">The requested page does not exist.</p>
-    <a
-      class="button"
-      href="/contents"
-      data-umami-event="cta"
-      data-umami-event-label="browse-recipes"
-    >
-      Browse recipes ↗
-    </a>
+  <main class="about-page" id="main">
+    <article class="book">
+      <section class="book-page left">
+        <p class="tag">404</p>
+        <h1>This page fell out of the book.</h1>
+        <p class="page-dek">The requested page does not exist.</p>
+        <a
+          class="button"
+          href="/contents"
+          data-umami-event="cta"
+          data-umami-event-label="browse-recipes"
+        >
+          Browse recipes ↗
+        </a>
+      </section>
+      <section class="book-page right page-centered">
+        <MascotIcon variant="garlic-angry" size={220} />
+      </section>
+    </article>
   </main>
 </Base>

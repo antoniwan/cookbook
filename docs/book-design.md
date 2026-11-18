@@ -4,6 +4,12 @@ Antonio asked for the open-book redesign on November 18, 2026. Four directions w
 
 ## The look
 
+Every page is an open book on a desk: two pages side by side, each with its own folio (page number) at the foot. The body is the desk, a warm grey with grain. Below 900px the book closes to one page at a time.
+
+- Home: the left page holds the title, search and filters and stays put while the recipes scroll on the right page. A second spread closes the book with the project note.
+- Recipe: the photo, quantities (collapsed until opened) and the ingredient checklist on the left page; the group tag, a large title, the introduction, facts, tools, method and a taped Notes card on the right.
+- A to Z, About and 404 are spreads too.
+
 - Graph paper: the page background is a 24px grid over the paper grain.
 - Type: Bricolage Grotesque for titles, Newsreader for reading, Caveat only for notes the companions leave, Bodoni Moda italic only in the screensaver. They load from Google Fonts in `src/layouts/Base.astro`.
 - Photos sit on white cards with a soft lift. The recipe cover gets a flat tan offset, like a print on a page.
@@ -23,7 +29,7 @@ To add a drawing: add a `<symbol id="ing-name">`, add `name` to `INGREDIENT_ICON
 The garlic and strawberry stay as drawn (see `docs/mascots.md`). Notes are handwritten sticky notes:
 
 - Home page: a fixed note about sofrito.
-- Recipe page: the recipe's first note from its Notes section. A recipe without notes shows no sticky note.
+- Recipe page: the strawberry keeps your place. Its note changes to "Step 3 of 7" when you tap a step. The recipe's own Notes section is a taped card under the method.
 
 ## Tap the step you're on
 

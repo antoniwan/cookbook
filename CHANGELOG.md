@@ -2,10 +2,10 @@
 
 ## Unreleased
 
-- Redesign Cookbook as an open book: graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. Recipe pages open as a two-page spread, with the photo on one side and the title and facts on the other.
+- Redesign Cookbook as an open book on a desk: every page is a two-page spread with page numbers, graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. The home page keeps search and filters on the left page while the recipes scroll on the right. Recipe pages put the photo, quantities and ingredients on the left page and the title, method and a taped Notes card on the right. Quantities start collapsed.
 - Draw each ingredient. Checklist lines get a hand-drawn ingredient beside them (garlic, recao, ajíes, salt, and 20 more), matched in English and Spanish.
-- The garlic and strawberry leave notes. The home page suggests starting with sofrito, and each recipe pins its first note to a handwritten sticky note.
-- Tap the step you're on and it stays marked while you cook.
+- The garlic and strawberry leave notes. The home page suggests starting with sofrito.
+- Tap the step you're on and it stays marked while you cook; the strawberry's note says which step you're on.
 - Add a home page screensaver. After a minute without input, the book opens full screen to the recipes that have photographs. Any movement, tap, or key closes it; `?idle=off` turns it off and `?idle=now` shows it at once.
 
 - Send the site's uncaught script errors to Stats, shown in its Errors tab (Umami 3.5.0). Umami strips emails, tokens, and query strings from each report.
