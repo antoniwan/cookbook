@@ -94,19 +94,19 @@ const more = recipes
   </Fragment>
   <IngredientIcons />
   <main id="main" class="recipe-page">
-    <nav
-      class="recipe-breadcrumb book-wrap"
-      aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
-    >
-      <a href="/">Cookbook</a>
-      <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
-      <span aria-current="page">{recipe.data.title}</span>
-    </nav>
     <article class="book recipe-book">
       <section
         class="book-page left"
         aria-label={language === 'es' ? 'Ingredientes' : 'Ingredients'}
       >
+        <nav
+          class="recipe-breadcrumb"
+          aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
+        >
+          <a href="/">Cookbook</a>
+          <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
+          <span aria-current="page">{recipe.data.title}</span>
+        </nav>
         {image ? (
           <figure class="recipe-hero">
             <Image
@@ -272,6 +272,14 @@ const more = recipes
           data-language={language}
           set:html={sections.ingredients + sections.equipment}
         />
+        <aside class="recipe-caution">
+          <MascotIcon variant="garlic-angry" size={38} />
+          <p>
+            {language === 'es'
+              ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.'
+              : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}
+          </p>
+        </aside>
         <div class="shelf" aria-hidden="true">
           <MascotIcon variant="garlic" size={88} class="shelf-mascot" />
         </div>
@@ -357,6 +365,20 @@ const more = recipes
         </nav>
         <div class="recipe-prose recipe-prose-right" set:html={sections.method + sections.other} />
         {sections.notes && <div class="recipe-notes" set:html={sections.notes} />}
+        <section class="more-recipes">
+          <h2>{language === 'es' ? 'Más recetas' : 'More recipes'}</h2>
+          <div>
+            {more.map((other) => (
+              <a href={`/recipes/${other.id}`}>
+                {other.data.title}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+          <a class="index-link" href="/#recipes">
+            {language === 'es' ? 'Ver todas las recetas' : 'All recipes'} ↗
+          </a>
+        </section>
         <div class="shelf" aria-hidden="true">
           <p class="bubble" id="place-note">
             {language === 'es'
@@ -370,30 +392,6 @@ const more = recipes
         </span>
       </section>
     </article>
-    <div class="book-wrap recipe-after">
-      <aside class="recipe-caution">
-        <MascotIcon variant="garlic-angry" size={38} />
-        <p>
-          {language === 'es'
-            ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.'
-            : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}
-        </p>
-      </aside>
-      <section class="more-recipes">
-        <h2>{language === 'es' ? 'Más recetas' : 'More recipes'}</h2>
-        <div>
-          {more.map((other) => (
-            <a href={`/recipes/${other.id}`}>
-              {other.data.title}
-              <span aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
-        <a class="index-link" href="/#recipes">
-          {language === 'es' ? 'Ver todas las recetas' : 'All recipes'} ↗
-        </a>
-      </section>
-    </div>
   </main>
 </Base>
 <script>

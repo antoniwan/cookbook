@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Redesign Cookbook as an open book on a desk: every page is a two-page spread with page numbers, graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. The home page keeps search and filters on the left page while the recipes scroll on the right. Recipe pages put the photo, quantities and ingredients on the left page and the title, method and a taped Notes card on the right. Quantities start collapsed.
+- Redesign Cookbook as an open book. The site is the book: every page is a two-page spread from edge to edge of the screen, the header and footer are its running head and foot, and each page has a page number. It has graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. The home page keeps search and filters on the left page while the recipes scroll on the right. Recipe pages put the photo, quantities and ingredients on the left page and the title, method and a taped Notes card on the right. Quantities start collapsed.
 - Draw each ingredient. Checklist lines get a hand-drawn ingredient beside them (garlic, recao, ajíes, salt, and 20 more), matched in English and Spanish.
 - The garlic and strawberry leave notes. The home page suggests starting with sofrito.
 - Tap the step you're on and it stays marked while you cook; the strawberry's note says which step you're on.
