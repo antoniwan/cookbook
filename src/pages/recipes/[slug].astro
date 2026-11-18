@@ -3,10 +3,11 @@ import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import MascotIcon from '../../components/MascotIcon.astro';
+import IngredientIcons from '../../components/IngredientIcons.astro';
 import RecipePlaceholder from '../../components/RecipePlaceholder.astro';
 import { allRecipes, publicRecipe, structuredRecipe, type Recipe } from '../../lib/catalogue';
 import { recipeImage } from '../../lib/images';
-import { recipeGroup, safeJson, SITE } from '../../lib/recipe';
+import { plainText, recipeGroup, recipeParts, safeJson, SITE } from '../../lib/recipe';
 import { breadcrumbStructuredData, durationLabel } from '../../lib/seo';
 export async function getStaticPaths() {
   const recipes = await allRecipes();
@@ -20,6 +21,9 @@ const { recipe, recipes } = Astro.props;
 const { Content } = await render(recipe);
 const image = recipeImage(recipe.data.heroImage, recipe.data.imageKind, recipe.data.imageOwnership);
 const language = recipe.data.language[0];
+const firstNote = recipeParts(recipe.body ?? '')
+  .notes.map(plainText)
+  .find(Boolean);
 const record = publicRecipe(recipe);
 const yieldLabel =
   record.recipeYield && /^\d+$/.test(record.recipeYield)
@@ -79,6 +83,7 @@ const more = recipes
       <link rel="alternate" hreflang={twin.data.language[0]} href={`${SITE}/recipes/${twin.id}`} />
     )}
   </Fragment>
+  <IngredientIcons />
   <main id="main" class="recipe-page wrap">
     <nav
       class="recipe-breadcrumb"
@@ -88,90 +93,103 @@ const more = recipes
       <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
       <span aria-current="page">{recipe.data.title}</span>
     </nav>
-    <header class="recipe-title-block">
-      <p class="eyebrow">{language === 'es' ? 'Receta' : 'Recipe'}</p>
-      <h1>{recipe.data.title}</h1>
-      <div class="recipe-heading-bottom">
-        <p>{recipe.data.description}</p>
-        {twin && (
-          <a
-            class="translation-link"
-            href={`/recipes/${twin.id}`}
-            lang={twin.data.language[0]}
-            data-umami-event="cta"
-            data-umami-event-label="language-switch"
-          >
-            {language === 'es' ? 'Read in English' : 'Leer en español'} ↗
-          </a>
-        )}
-      </div>
-    </header>
-    <dl class="recipe-facts">
-      <div>
-        <dt>{language === 'es' ? 'Categoría' : 'Category'}</dt>
-        <dd>{recipeGroup(recipe.id)}</dd>
-      </div>
-      {record.recipeCuisine && (
-        <div>
-          <dt>{language === 'es' ? 'Cocina' : 'Cuisine'}</dt>
-          <dd>{language === 'es' ? 'Puertorriqueña' : record.recipeCuisine}</dd>
-        </div>
+    <div class="recipe-spread">
+      {image ? (
+        <figure class="recipe-hero">
+          <Image
+            class="recipe-photo"
+            src={image}
+            alt={recipe.data.imageAlt ?? recipe.data.title}
+            widths={[600, 900, 1200]}
+            sizes="(min-width: 900px) 50vw, 100vw"
+            width={1200}
+            height={900}
+            loading="eager"
+          />
+          {recipe.data.imageCredit && (
+            <figcaption>
+              {recipe.data.imageCreditUrl ? (
+                <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">
+                  {recipe.data.imageCredit}
+                </a>
+              ) : (
+                recipe.data.imageCredit
+              )}
+              {recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}
+            </figcaption>
+          )}
+        </figure>
+      ) : (
+        <figure class="recipe-hero">
+          <RecipePlaceholder variant="cover" language={language} />
+        </figure>
       )}
-      {yieldLabel && (
-        <div>
-          <dt>{language === 'es' ? 'Rendimiento' : 'Yield'}</dt>
-          <dd>{yieldLabel}</dd>
-        </div>
-      )}
-      {record.totalTime && (
-        <div>
-          <dt>{language === 'es' ? 'Tiempo total aproximado' : 'Approx. total time'}</dt>
-          <dd>{durationLabel(record.totalTime)}</dd>
-        </div>
-      )}
-      {record.prepTime && record.cookTime && (
-        <>
-          <div>
-            <dt>{language === 'es' ? 'Preparación' : 'Preparation'}</dt>
-            <dd>{durationLabel(record.prepTime)}</dd>
-          </div>
-          <div>
-            <dt>{language === 'es' ? 'Cocción' : 'Cooking'}</dt>
-            <dd>{durationLabel(record.cookTime)}</dd>
-          </div>
-        </>
-      )}
-    </dl>
-    {image ? (
-      <figure class="recipe-hero">
-        <Image
-          class="recipe-photo"
-          src={image}
-          alt={recipe.data.imageAlt ?? recipe.data.title}
-          widths={[640, 960, 1280]}
-          sizes="(min-width: 1100px) 1100px, 100vw"
-          width={1280}
-          height={680}
-          loading="eager"
-        />
-        {recipe.data.imageCredit && (
-          <figcaption>
-            {recipe.data.imageCreditUrl ? (
-              <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">
-                {recipe.data.imageCredit}
+      <div class="recipe-spread-copy">
+        <header class="recipe-title-block">
+          <p class="eyebrow">{language === 'es' ? 'Receta' : 'Recipe'}</p>
+          <h1>{recipe.data.title}</h1>
+          <div class="recipe-heading-bottom">
+            <p>{recipe.data.description}</p>
+            {twin && (
+              <a
+                class="translation-link"
+                href={`/recipes/${twin.id}`}
+                lang={twin.data.language[0]}
+                data-umami-event="cta"
+                data-umami-event-label="language-switch"
+              >
+                {language === 'es' ? 'Read in English' : 'Leer en español'} ↗
               </a>
-            ) : (
-              recipe.data.imageCredit
             )}
-            {recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}
-          </figcaption>
+          </div>
+        </header>
+        <dl class="recipe-facts">
+          <div>
+            <dt>{language === 'es' ? 'Categoría' : 'Category'}</dt>
+            <dd>{recipeGroup(recipe.id)}</dd>
+          </div>
+          {record.recipeCuisine && (
+            <div>
+              <dt>{language === 'es' ? 'Cocina' : 'Cuisine'}</dt>
+              <dd>{language === 'es' ? 'Puertorriqueña' : record.recipeCuisine}</dd>
+            </div>
+          )}
+          {yieldLabel && (
+            <div>
+              <dt>{language === 'es' ? 'Rendimiento' : 'Yield'}</dt>
+              <dd>{yieldLabel}</dd>
+            </div>
+          )}
+          {record.totalTime && (
+            <div>
+              <dt>{language === 'es' ? 'Tiempo total aproximado' : 'Approx. total time'}</dt>
+              <dd>{durationLabel(record.totalTime)}</dd>
+            </div>
+          )}
+          {record.prepTime && record.cookTime && (
+            <>
+              <div>
+                <dt>{language === 'es' ? 'Preparación' : 'Preparation'}</dt>
+                <dd>{durationLabel(record.prepTime)}</dd>
+              </div>
+              <div>
+                <dt>{language === 'es' ? 'Cocción' : 'Cooking'}</dt>
+                <dd>{durationLabel(record.cookTime)}</dd>
+              </div>
+            </>
+          )}
+        </dl>
+        {firstNote && (
+          <aside
+            class="companion-note-wrap"
+            aria-label={language === 'es' ? 'Nota de la cocina' : 'Kitchen note'}
+          >
+            <p class="companion-note">{firstNote}</p>
+            <MascotIcon variant="strawberry" size={72} class="companion-mascot" />
+          </aside>
         )}
-      </figure>
-    ) : (
-      <figure class="recipe-hero">
-        <RecipePlaceholder variant="cover" language={language} />
-      </figure>
-    )}
+      </div>
+    </div>
     <nav
       class="recipe-tools"
       aria-label={language === 'es' ? 'Herramientas de receta' : 'Recipe tools'}
@@ -365,6 +383,7 @@ const more = recipes
 </Base>
 <script>
   import { scaleIngredient } from '../../lib/recipe';
+  import { ingredientIcon } from '../../lib/ingredient-icons';
   const prose = document.querySelector<HTMLElement>('.recipe-prose');
   const language = prose?.dataset.language ?? 'en';
   prose?.querySelectorAll<HTMLElement>('[id^="step-"]').forEach((step, index) => {
@@ -378,6 +397,16 @@ const more = recipes
     );
     (step.querySelector('p') ?? step).append(' ', link);
   });
+  // Tap the step you're on: it stays marked while you cook.
+  const steps = [...(prose?.querySelectorAll<HTMLElement>('[id^="step-"]') ?? [])];
+  steps.forEach((step) =>
+    step.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) return;
+      const current = step.classList.contains('is-current');
+      steps.forEach((other) => other.classList.remove('is-current'));
+      if (!current) step.classList.add('is-current');
+    }),
+  );
   const checks: HTMLInputElement[] = [];
   const labels: {
     node: HTMLElement;
@@ -413,7 +442,16 @@ const more = recipes
       review.textContent = language === 'es' ? 'Sin cambios: revisar' : 'As written: review';
       const description = document.createElement('span');
       description.append(text, comparison, review);
-      label.append(checkbox, description);
+      const icon = ingredientIcon(text.textContent ?? '');
+      const drawing = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      drawing.setAttribute('class', 'ingredient-drawing');
+      drawing.setAttribute('aria-hidden', 'true');
+      if (icon) {
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', `#ing-${icon}`);
+        drawing.append(use);
+      }
+      label.append(checkbox, drawing, description);
       item.append(label);
       item.classList.add('ingredient-item');
       checks.push(checkbox);

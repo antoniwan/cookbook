@@ -1,0 +1,143 @@
+---
+// The home page's screensaver. After a minute without input, the book opens
+// to full-screen spreads of the recipes that have photographs. Any input
+// closes it. The slides live in a <template>, so their photos download only
+// when the screensaver starts.
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Slide {
+  title: string;
+  href: string;
+  group: string;
+  description: string;
+  image: ImageMetadata;
+  alt: string;
+}
+interface Props {
+  slides: Slide[];
+  total: number;
+}
+const { slides, total } = Astro.props;
+const pictures = await Promise.all(
+  slides.map((slide) => getImage({ src: slide.image, width: 1600, format: 'webp' })),
+);
+---
+
+<template id="idle-book-template">
+  <div
+    class="idle-book"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Cookbook slideshow. Press any key to return."
+  >
+    <div class="idle-slide idle-cover is-on">
+      <div class="idle-cover-copy">
+        <p class="idle-eyebrow">Family recipes · {total} recipes</p>
+        <p class="idle-title">Cookbook</p>
+        <p class="idle-note">en English y en español</p>
+      </div>
+      <img class="idle-mascots" src="/mascots.webp" width="1536" height="1024" alt="" />
+    </div>
+    {slides.map((slide, index) => (
+      <div class="idle-slide">
+        <div class="idle-photo">
+          <img src={pictures[index].src} alt={slide.alt} decoding="async" />
+        </div>
+        <div class="idle-page">
+          <p class="idle-eyebrow">{slide.group}</p>
+          <p class="idle-title">{slide.title}</p>
+          <p class="idle-description">{slide.description}</p>
+          <a class="idle-open" href={slide.href} tabindex="-1">
+            Open the recipe
+          </a>
+        </div>
+      </div>
+    ))}
+    <p class="idle-hint">Move, tap, or press any key to return</p>
+  </div>
+</template>
+<script>
+  const IDLE_MS = 60_000;
+  const SLIDE_MS = 8_000;
+  const template = document.querySelector<HTMLTemplateElement>('#idle-book-template');
+  let idleTimer = 0;
+  let slideTimer = 0;
+  let overlay: HTMLElement | null = null;
+  let openedAt = 0;
+  let lastPointer: { x: number; y: number } | null = null;
+
+  function schedule() {
+    window.clearTimeout(idleTimer);
+    if (!overlay) idleTimer = window.setTimeout(open, IDLE_MS);
+  }
+
+  function open() {
+    if (!template || overlay || document.visibilityState !== 'visible') return schedule();
+    overlay = template.content.firstElementChild?.cloneNode(true) as HTMLElement;
+    document.body.append(overlay);
+    document.documentElement.classList.add('idle-active');
+    openedAt = performance.now();
+    lastPointer = null;
+    requestAnimationFrame(() => overlay?.classList.add('is-visible'));
+    const slides = [...overlay.querySelectorAll<HTMLElement>('.idle-slide')];
+    let current = 0;
+    if (slides.length > 1)
+      slideTimer = window.setInterval(() => {
+        slides[current].classList.remove('is-on');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-on');
+      }, SLIDE_MS);
+    overlay
+      .querySelectorAll<HTMLAnchorElement>('.idle-open')
+      .forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()));
+  }
+
+  function close() {
+    window.clearInterval(slideTimer);
+    overlay?.remove();
+    overlay = null;
+    document.documentElement.classList.remove('idle-active');
+    schedule();
+  }
+
+  function activity(event: Event) {
+    if (!overlay) return schedule();
+    // Ignore the first moments and small pointer drift so the screensaver
+    // does not flicker shut on its own.
+    if (performance.now() - openedAt < 600) return;
+    if (event instanceof PointerEvent && event.type === 'pointermove') {
+      const point = { x: event.clientX, y: event.clientY };
+      const moved = lastPointer && Math.hypot(point.x - lastPointer.x, point.y - lastPointer.y);
+      lastPointer ??= point;
+      if (!moved || moved < 24) return;
+    }
+    if ((event.target as Element | null)?.closest?.('.idle-open')) return;
+    event.preventDefault();
+    if (event.type === 'pointerdown' || event.type === 'touchstart') swallowNextClick();
+    close();
+  }
+
+  // The tap that closes the screensaver must not also open whatever was underneath.
+  function swallowNextClick() {
+    const swallow = (click: Event) => {
+      click.preventDefault();
+      click.stopPropagation();
+    };
+    window.addEventListener('click', swallow, { capture: true, once: true });
+    window.setTimeout(() => window.removeEventListener('click', swallow, { capture: true }), 500);
+  }
+
+  if (template && new URLSearchParams(location.search).get('idle') !== 'off') {
+    for (const type of ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart'])
+      window.addEventListener(type, activity, {
+        passive: type !== 'keydown' && type !== 'pointerdown',
+      });
+    window.addEventListener('scroll', () => !overlay && schedule(), { passive: true });
+    document.addEventListener('visibilitychange', () =>
+      document.visibilityState === 'visible' ? schedule() : close(),
+    );
+    if (new URLSearchParams(location.search).get('idle') === 'now') open();
+    else schedule();
+  }
+</script>

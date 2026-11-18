@@ -2,13 +2,34 @@
 import Base from '../layouts/Base.astro';
 import RecipeCard from '../components/RecipeCard.astro';
 import MascotIcon from '../components/MascotIcon.astro';
+import IdleBook from '../components/IdleBook.astro';
 import { allRecipes } from '../lib/catalogue';
-import { GROUPS, safeJson } from '../lib/recipe';
+import { recipeImage } from '../lib/images';
+import { GROUPS, recipeGroup, safeJson } from '../lib/recipe';
 import { recipeListStructuredData } from '../lib/seo';
 const all = await allRecipes();
 const recipes = all
   .filter((recipe) => recipe.data.language[0] === 'en')
   .sort((first, second) => first.data.title.localeCompare(second.data.title));
+const slides = recipes.flatMap((recipe) => {
+  const image = recipeImage(
+    recipe.data.heroImage,
+    recipe.data.imageKind,
+    recipe.data.imageOwnership,
+  );
+  return image
+    ? [
+        {
+          title: recipe.data.title,
+          href: `/recipes/${recipe.id}`,
+          group: recipeGroup(recipe.id),
+          description: recipe.data.description,
+          image,
+          alt: recipe.data.imageAlt ?? recipe.data.title,
+        },
+      ]
+    : [];
+});
 ---
 
 <Base>
@@ -20,16 +41,11 @@ const recipes = all
   <main id="main">
     <section class="hero wrap">
       <div class="hero-copy">
-        <p class="eyebrow">Family recipes</p>
-        <h1>
-          Recipes from
-          <br />
-          <em>our kitchen.</em>
-        </h1>
+        <p class="tag">Family recipes</p>
+        <h1>What are we cooking today?</h1>
         <p class="hero-description">
-          The recipes we cook at home, in English and Spanish.
-          <br />
-          Ingredients, equipment, and step-by-step methods.
+          The recipes we cook at home, in English and Spanish. Ingredients, equipment, and
+          step-by-step methods.
         </p>
         <a
           class="button"
@@ -44,7 +60,9 @@ const recipes = all
         </p>
       </div>
       <div class="hero-illustration">
-        <div class="illustration-halo"></div>
+        <a class="companion-note" href="/recipes/sofrito-en">
+          Start with sofrito. The rice and the beans both need it.
+        </a>
         <img
           src="/mascots.webp"
           width="1536"
@@ -162,6 +180,7 @@ const recipes = all
       </aside>
     </section>
   </main>
+  <IdleBook slides={slides} total={recipes.length} />
 </Base>
 <script>
   const search = document.querySelector<HTMLInputElement>('#recipe-search');

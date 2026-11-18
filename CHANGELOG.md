@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Redesign Cookbook as an open book: graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. Recipe pages open as a two-page spread, with the photo on one side and the title and facts on the other.
+- Draw each ingredient. Checklist lines get a hand-drawn ingredient beside them (garlic, recao, ajíes, salt, and 20 more), matched in English and Spanish.
+- The garlic and strawberry leave notes. The home page suggests starting with sofrito, and each recipe pins its first note to a handwritten sticky note.
+- Tap the step you're on and it stays marked while you cook.
+- Add a home page screensaver. After a minute without input, the book opens full screen to the recipes that have photographs. Any movement, tap, or key closes it; `?idle=off` turns it off and `?idle=now` shows it at once.
+
 - Send the site's uncaught script errors to Stats, shown in its Errors tab (Umami 3.5.0). Umami strips emails, tokens, and query strings from each report.
 
 - The home page answers a request for Markdown (`Accept: text/markdown`) with the site's `llms.txt` as `text/markdown`, and both versions of the home page carry `Vary: Accept`. Browsers still get the HTML page.
