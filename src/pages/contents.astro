@@ -30,7 +30,6 @@ const pages = [firstPage, letters.filter((letter) => !firstPage.includes(letter)
         <section class={`book-page ${pageIndex === 0 ? 'left' : 'right'}`}>
           {pageIndex === 0 && (
             <>
-              <p class="tag">Recipe index</p>
               <h1>Recipes, A to Z.</h1>
               <p class="page-dek">{recipes.length} recipes.</p>
               <nav class="letter-nav" aria-label="Jump to a letter">

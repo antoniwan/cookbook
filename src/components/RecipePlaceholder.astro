@@ -14,7 +14,9 @@ const { variant = 'card', language = 'en' } = Astro.props;
     height="768"
     loading={variant === 'cover' ? 'eager' : 'lazy'}
   />
-  <span class="placeholder-label">
-    {language === 'es' ? 'Foto de la receta pendiente' : 'Recipe photo to come'}
-  </span>
+  {variant === 'cover' && (
+    <span class="placeholder-label">
+      {language === 'es' ? 'Foto de la receta pendiente' : 'Recipe photo to come'}
+    </span>
+  )}
 </div>
