@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Pin a kitchen notice over the book on the first visit: the cookbook is still in the oven, browse at your own peril. It speaks Spanish on Spanish recipes, closes with its button, the ×, Escape, or a tap outside, and stays closed after that. The screensaver waits while it is open.
+
 - Say each thing once. Drop the labels that repeated the page titles, the recipe count in the home intro, the visible recipe breadcrumb, the "Recipe photo to come" label on every card, the second "Made to be used" page, the 404's extra sentence, and the footer's second wordmark and Antonio link. Tighten the About page.
 - Phones read top to bottom. The header fits on one line, page numbers and mid-page shelves are gone, recipes open with the title and then the photo, ingredients, method, and notes, and the home page lists recipes as compact rows instead of full-width tiles.
 

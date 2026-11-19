@@ -74,6 +74,8 @@ const pictures = await Promise.all(
 
   function open() {
     if (!template || overlay || document.visibilityState !== 'visible') return schedule();
+    // Wait while a notice or other modal is open.
+    if (document.querySelector('dialog[open]')) return schedule();
     overlay = template.content.firstElementChild?.cloneNode(true) as HTMLElement;
     document.body.append(overlay);
     document.documentElement.classList.add('idle-active');

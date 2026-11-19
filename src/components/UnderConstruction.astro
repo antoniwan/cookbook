@@ -1,0 +1,103 @@
+---
+// A one-time kitchen notice: the cookbook is still being built. It opens once
+// per browser and remembers the dismissal in localStorage. It is a native
+// <dialog> opened with showModal(), so the rest of the page goes inert, focus
+// stays inside, and Escape closes it.
+import MascotIcon from './MascotIcon.astro';
+
+interface Props {
+  language?: 'en' | 'es';
+}
+const { language = 'en' } = Astro.props;
+
+const copy = {
+  en: {
+    eyebrow: 'Kitchen notice',
+    title: 'Pardon our mess. This cookbook is still in the oven.',
+    body: 'We’re remodeling the kitchen while cooking in it. Some pages are half-baked, a few photos are still marinating, and the strawberry has been left in charge.',
+    peril:
+      'Browse at your own peril: wear an apron, taste before you salt, and don’t blame the garlic.',
+    accept: 'I’ll risk it',
+    close: 'Close',
+    once: 'We’ll only say this once.',
+  },
+  es: {
+    eyebrow: 'Aviso de la cocina',
+    title: 'Disculpe el reguero. Este recetario todavía está en el horno.',
+    body: 'Estamos remodelando la cocina mientras cocinamos en ella. Algunas páginas están a medio hornear, varias fotos siguen marinándose y dejamos a la fresa a cargo.',
+    peril:
+      'Navegue bajo su propio riesgo: póngase el delantal, pruebe antes de echarle sal y no le eche la culpa al ajo.',
+    accept: 'Me arriesgo',
+    close: 'Cerrar',
+    once: 'Solo se lo diremos una vez.',
+  },
+}[language];
+---
+
+<dialog
+  class="construction"
+  id="under-construction"
+  aria-labelledby="construction-title"
+  aria-describedby="construction-body"
+>
+  <form method="dialog" class="construction-card">
+    <button class="construction-x" value="close" aria-label={copy.close}>
+      <span aria-hidden="true">×</span>
+    </button>
+    <p class="construction-eyebrow">
+      <MascotIcon variant="garlic-angry" size={34} />
+      {copy.eyebrow}
+    </p>
+    <h2 id="construction-title">{copy.title}</h2>
+    <div id="construction-body">
+      <p>{copy.body}</p>
+      <p class="construction-peril">{copy.peril}</p>
+    </div>
+    <div class="construction-actions">
+      <button
+        class="construction-ok"
+        value="accept"
+        data-umami-event="cta"
+        data-umami-event-label="under-construction"
+      >
+        {copy.accept}
+      </button>
+      <span class="construction-once">
+        {copy.once}
+        <MascotIcon variant="strawberry" size={28} />
+      </span>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  const KEY = 'cookbook:under-construction-dismissed';
+  const dialog = document.querySelector<HTMLDialogElement>('#under-construction');
+
+  function dismissed() {
+    try {
+      return localStorage.getItem(KEY) === '1';
+    } catch {
+      return false;
+    }
+  }
+
+  if (dialog && !dismissed() && typeof dialog.showModal === 'function') {
+    dialog.addEventListener('close', () => {
+      try {
+        localStorage.setItem(KEY, '1');
+      } catch {
+        // Storage is blocked; the notice will show again next visit.
+      }
+    });
+    // A click on the backdrop (outside the card) also closes it.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close('backdrop');
+    });
+    dialog.showModal();
+    // Start on the answer button without scrolling a tall card past its top
+    // on short phones.
+    dialog.querySelector<HTMLButtonElement>('.construction-ok')?.focus({ preventScroll: true });
+    dialog.querySelector('.construction-card')?.scrollTo(0, 0);
+  }
+</script>
