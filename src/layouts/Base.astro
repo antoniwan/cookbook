@@ -6,6 +6,7 @@ import Stats from '../components/Stats.astro';
 import { safeJson, SITE } from '../lib/recipe';
 import { websiteStructuredData } from '../lib/seo';
 import Wordmark from '../components/Wordmark.astro';
+import UnderConstruction from '../components/UnderConstruction.astro';
 interface Props {
   title?: string;
   description?: string;
@@ -115,5 +116,6 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
         </div>
       </div>
     </footer>
+    <UnderConstruction language={language} />
   </body>
 </html>
