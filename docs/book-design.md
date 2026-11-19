@@ -4,10 +4,10 @@ Antonio asked for the open-book redesign on November 18, 2026. Four directions w
 
 ## The look
 
-The site is the book. The screen is an open spread from edge to edge: graph paper everywhere, the gutter down the middle, and a little shade at each outer edge. The header and footer are the running head and foot of the two pages: the wordmark on the left page, the navigation and links on the right. Each page has its folio (page number) at the foot. Below 900px the book closes to one page at a time.
+The site is the book. The screen is an open spread from edge to edge: graph paper everywhere, the gutter down the middle, and a little shade at each outer edge. The header and footer are the running head and foot of the two pages: the wordmark on the left page, the navigation and links on the right. Each page has its folio (page number) at the foot. Below 900px the book closes into one page that reads top to bottom: no page numbers, the header on one line, home recipes as compact rows, and a recipe in cooking order (title, photo, quantities, ingredients, method, notes).
 
 - Home: the left page holds the title, search and filters and stays put while the recipes scroll on the right page. A second spread closes the book with the project note.
-- Recipe: the breadcrumb, photo, quantities (collapsed until opened), the ingredient checklist and the scaling caution on the left page; the group tag, a large title, the introduction, facts, tools, method, a taped Notes card and More recipes on the right.
+- Recipe: the photo, quantities (collapsed until opened), the ingredient checklist and the scaling caution on the left page; the group tag, a large title, the introduction, facts, tools, method, a taped Notes card and More recipes on the right.
 - A to Z, About and 404 are spreads too.
 
 - Graph paper: the page background is a 24px grid over the paper grain.

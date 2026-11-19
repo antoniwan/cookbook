@@ -99,14 +99,6 @@ const more = recipes
         class="book-page left"
         aria-label={language === 'es' ? 'Ingredientes' : 'Ingredients'}
       >
-        <nav
-          class="recipe-breadcrumb"
-          aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
-        >
-          <a href="/">Cookbook</a>
-          <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
-          <span aria-current="page">{recipe.data.title}</span>
-        </nav>
         {image ? (
           <figure class="recipe-hero">
             <Image

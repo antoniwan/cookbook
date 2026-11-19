@@ -81,7 +81,6 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <slot />
     <footer class="site-footer running-head">
       <div class="running-left">
-        <Wordmark />
         <p>The strawberry knows too much.</p>
       </div>
       <div class="running-right">
@@ -99,13 +98,6 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
             data-umami-event-label="notes"
           >
             Notes ↗
-          </a>
-          <a
-            href="https://antoniwan.online"
-            data-umami-event="cta"
-            data-umami-event-label="antonio"
-          >
-            Antonio ↗
           </a>
           <a href="/rss.xml" data-umami-event="cta" data-umami-event-label="rss">
             RSS

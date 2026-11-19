@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Say each thing once. Drop the labels that repeated the page titles, the recipe count in the home intro, the visible recipe breadcrumb, the "Recipe photo to come" label on every card, the second "Made to be used" page, the 404's extra sentence, and the footer's second wordmark and Antonio link. Tighten the About page.
+- Phones read top to bottom. The header fits on one line, page numbers and mid-page shelves are gone, recipes open with the title and then the photo, ingredients, method, and notes, and the home page lists recipes as compact rows instead of full-width tiles.
+
 - Redesign Cookbook as an open book. The site is the book: every page is a two-page spread from edge to edge of the screen, the header and footer are its running head and foot, and each page has a page number. It has graph paper, big Bricolage Grotesque titles, Newsreader for reading, and photo cards. The home page keeps search and filters on the left page while the recipes scroll on the right. Recipe pages put the photo, quantities and ingredients on the left page and the title, method and a taped Notes card on the right. Quantities start collapsed.
 - Draw each ingredient. Checklist lines get a hand-drawn ingredient beside them (garlic, recao, ajíes, salt, and 20 more), matched in English and Spanish.
 - The garlic and strawberry leave notes. The home page suggests starting with sofrito.
