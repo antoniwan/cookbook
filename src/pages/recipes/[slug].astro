@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import MascotIcon from '../../components/MascotIcon.astro';
+import IngredientIcons from '../../components/IngredientIcons.astro';
 import RecipePlaceholder from '../../components/RecipePlaceholder.astro';
 import { allRecipes, publicRecipe, structuredRecipe, type Recipe } from '../../lib/catalogue';
 import { recipeImage } from '../../lib/images';
+import { recipeSections } from '../../lib/recipe-sections';
 import { recipeGroup, safeJson, SITE } from '../../lib/recipe';
 import { breadcrumbStructuredData, durationLabel } from '../../lib/seo';
 export async function getStaticPaths() {
@@ -17,7 +18,8 @@ interface Props {
   recipes: Recipe[];
 }
 const { recipe, recipes } = Astro.props;
-const { Content } = await render(recipe);
+if (recipe.rendered?.html === undefined) throw new Error(`${recipe.id} has no rendered HTML`);
+const sections = recipeSections(recipe.rendered.html);
 const image = recipeImage(recipe.data.heroImage, recipe.data.imageKind, recipe.data.imageOwnership);
 const language = recipe.data.language[0];
 const record = publicRecipe(recipe);
@@ -39,6 +41,17 @@ const imagePath =
         .at(-1)!
         .replace(/\.[^.]+$/, '.jpg')
     : '/social/recipe-placeholder.jpg';
+const sameLanguage = recipes
+  .filter((other) => other.data.language[0] === language)
+  .sort((first, second) => first.data.title.localeCompare(second.data.title));
+// The recipe's page in the book: two pages per recipe, after the contents spread.
+const folio =
+  4 +
+  2 *
+    Math.max(
+      0,
+      sameLanguage.findIndex((other) => other.id === recipe.id),
+    );
 const more = recipes
   .filter(
     (other) =>
@@ -79,295 +92,314 @@ const more = recipes
       <link rel="alternate" hreflang={twin.data.language[0]} href={`${SITE}/recipes/${twin.id}`} />
     )}
   </Fragment>
-  <main id="main" class="recipe-page wrap">
-    <nav
-      class="recipe-breadcrumb"
-      aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
-    >
-      <a href="/">Cookbook</a>
-      <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
-      <span aria-current="page">{recipe.data.title}</span>
-    </nav>
-    <header class="recipe-title-block">
-      <p class="eyebrow">{language === 'es' ? 'Receta' : 'Recipe'}</p>
-      <h1>{recipe.data.title}</h1>
-      <div class="recipe-heading-bottom">
-        <p>{recipe.data.description}</p>
-        {twin && (
-          <a
-            class="translation-link"
-            href={`/recipes/${twin.id}`}
-            lang={twin.data.language[0]}
-            data-umami-event="cta"
-            data-umami-event-label="language-switch"
-          >
-            {language === 'es' ? 'Read in English' : 'Leer en español'} ↗
-          </a>
-        )}
-      </div>
-    </header>
-    <dl class="recipe-facts">
-      <div>
-        <dt>{language === 'es' ? 'Categoría' : 'Category'}</dt>
-        <dd>{recipeGroup(recipe.id)}</dd>
-      </div>
-      {record.recipeCuisine && (
-        <div>
-          <dt>{language === 'es' ? 'Cocina' : 'Cuisine'}</dt>
-          <dd>{language === 'es' ? 'Puertorriqueña' : record.recipeCuisine}</dd>
-        </div>
-      )}
-      {yieldLabel && (
-        <div>
-          <dt>{language === 'es' ? 'Rendimiento' : 'Yield'}</dt>
-          <dd>{yieldLabel}</dd>
-        </div>
-      )}
-      {record.totalTime && (
-        <div>
-          <dt>{language === 'es' ? 'Tiempo total aproximado' : 'Approx. total time'}</dt>
-          <dd>{durationLabel(record.totalTime)}</dd>
-        </div>
-      )}
-      {record.prepTime && record.cookTime && (
-        <>
-          <div>
-            <dt>{language === 'es' ? 'Preparación' : 'Preparation'}</dt>
-            <dd>{durationLabel(record.prepTime)}</dd>
-          </div>
-          <div>
-            <dt>{language === 'es' ? 'Cocción' : 'Cooking'}</dt>
-            <dd>{durationLabel(record.cookTime)}</dd>
-          </div>
-        </>
-      )}
-    </dl>
-    {image ? (
-      <figure class="recipe-hero">
-        <Image
-          class="recipe-photo"
-          src={image}
-          alt={recipe.data.imageAlt ?? recipe.data.title}
-          widths={[640, 960, 1280]}
-          sizes="(min-width: 1100px) 1100px, 100vw"
-          width={1280}
-          height={680}
-          loading="eager"
-        />
-        {recipe.data.imageCredit && (
-          <figcaption>
-            {recipe.data.imageCreditUrl ? (
-              <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">
-                {recipe.data.imageCredit}
-              </a>
-            ) : (
-              recipe.data.imageCredit
-            )}
-            {recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}
-          </figcaption>
-        )}
-      </figure>
-    ) : (
-      <figure class="recipe-hero">
-        <RecipePlaceholder variant="cover" language={language} />
-      </figure>
-    )}
-    <nav
-      class="recipe-tools"
-      aria-label={language === 'es' ? 'Herramientas de receta' : 'Recipe tools'}
-    >
-      <div class="recipe-jumps">
-        <a href="#ingredients">{language === 'es' ? 'Ingredientes' : 'Ingredients'} ↓</a>
-        <a href="#equipment">{language === 'es' ? 'Equipo' : 'Equipment'} ↓</a>
-        <a href="#method">{language === 'es' ? 'Método' : 'Method'} ↓</a>
-      </div>
-      <div class="recipe-actions">
-        <button
-          type="button"
-          id="kitchen-mode"
-          aria-pressed="false"
-          data-umami-event="cta"
-          data-umami-event-label="kitchen-mode"
-        >
-          <span aria-hidden="true">☼</span> {language === 'es' ? 'Modo cocina' : 'Kitchen mode'}
-        </button>
-        <button
-          type="button"
-          id="print-recipe"
-          data-umami-event="cta"
-          data-umami-event-label="print"
-        >
-          <span aria-hidden="true">↗</span> {language === 'es' ? 'Imprimir' : 'Print'}
-        </button>
-      </div>
-      <p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p>
-    </nav>
-    <div class="recipe-body-layout">
-      <details
-        class="quantity-controls"
-        aria-labelledby="quantities-title"
-        id="quantity-panel"
-        open
-        hidden
+  <IngredientIcons />
+  <main id="main" class="recipe-page">
+    <article class="book recipe-book">
+      <section
+        class="book-page left"
+        aria-label={language === 'es' ? 'Ingredientes' : 'Ingredients'}
       >
-        <summary class="quantity-toggle">
-          <span class="quantity-heading">
-            <MascotIcon variant="garlic" size={32} />
-            <span class="quantity-title" id="quantities-title">
-              {language === 'es' ? 'Cantidades' : 'Quantities'}
-            </span>
-          </span>
-          <span class="quantity-batch" id="quantity-batch">
-            {language === 'es' ? '1× · Receta original' : '1× · Original recipe'}
-          </span>
-          <span class="quantity-toggle-action">
-            <span class="quantity-open-label">{language === 'es' ? 'Ocultar' : 'Hide'}</span>
-            <span class="quantity-closed-label">{language === 'es' ? 'Ajustar' : 'Adjust'}</span>
-            <span class="quantity-chevron" aria-hidden="true">
-              ⌄
-            </span>
-          </span>
-        </summary>
-        <div class="quantity-body">
-          <div class="quantity-main">
-            <p class="quantity-description">
-              {language === 'es' ? 'Ajusta la receta a tu mesa.' : 'Make the amount you need.'}
-            </p>
-            {yieldLabel && (
-              <p class="quantity-yield">
-                {language === 'es' ? 'Rendimiento original:' : 'Original yield:'} {yieldLabel}
-              </p>
+        <nav
+          class="recipe-breadcrumb"
+          aria-label={language === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
+        >
+          <a href="/">Cookbook</a>
+          <a href="/contents">{language === 'es' ? 'Recetas' : 'Recipes'}</a>
+          <span aria-current="page">{recipe.data.title}</span>
+        </nav>
+        {image ? (
+          <figure class="recipe-hero">
+            <Image
+              class="recipe-photo"
+              src={image}
+              alt={recipe.data.imageAlt ?? recipe.data.title}
+              widths={[600, 900, 1200]}
+              sizes="(min-width: 900px) 50vw, 100vw"
+              width={1200}
+              height={900}
+              loading="eager"
+            />
+            {recipe.data.imageCredit && (
+              <figcaption>
+                {recipe.data.imageCreditUrl ? (
+                  <a href={recipe.data.imageCreditUrl} rel="noopener noreferrer">
+                    {recipe.data.imageCredit}
+                  </a>
+                ) : (
+                  recipe.data.imageCredit
+                )}
+                {recipe.data.imageLicense && ` · ${recipe.data.imageLicense}`}
+              </figcaption>
             )}
-            <div
-              class="quantity-presets"
-              role="group"
-              aria-label={language === 'es' ? 'Multiplicadores de receta' : 'Recipe multipliers'}
-            >
-              {[0.5, 1, 1.5, 2, 3].map((multiplier) => (
+          </figure>
+        ) : (
+          <figure class="recipe-hero">
+            <RecipePlaceholder variant="cover" language={language} />
+          </figure>
+        )}
+        <details
+          class="quantity-controls"
+          aria-labelledby="quantities-title"
+          id="quantity-panel"
+          hidden
+        >
+          <summary class="quantity-toggle">
+            <span class="quantity-heading">
+              <MascotIcon variant="garlic" size={32} />
+              <span class="quantity-title" id="quantities-title">
+                {language === 'es' ? 'Cantidades' : 'Quantities'}
+              </span>
+            </span>
+            <span class="quantity-batch" id="quantity-batch">
+              {language === 'es' ? '1× · Receta original' : '1× · Original recipe'}
+            </span>
+            <span class="quantity-toggle-action">
+              <span class="quantity-open-label">{language === 'es' ? 'Ocultar' : 'Hide'}</span>
+              <span class="quantity-closed-label">{language === 'es' ? 'Ajustar' : 'Adjust'}</span>
+              <span class="quantity-chevron" aria-hidden="true">
+                ⌄
+              </span>
+            </span>
+          </summary>
+          <div class="quantity-body">
+            <div class="quantity-main">
+              <p class="quantity-description">
+                {language === 'es' ? 'Ajusta la receta a tu mesa.' : 'Make the amount you need.'}
+              </p>
+              {yieldLabel && (
+                <p class="quantity-yield">
+                  {language === 'es' ? 'Rendimiento original:' : 'Original yield:'} {yieldLabel}
+                </p>
+              )}
+              <div
+                class="quantity-presets"
+                role="group"
+                aria-label={language === 'es' ? 'Multiplicadores de receta' : 'Recipe multipliers'}
+              >
+                {[0.5, 1, 1.5, 2, 3].map((multiplier) => (
+                  <button
+                    type="button"
+                    data-multiplier={multiplier}
+                    aria-pressed={multiplier === 1}
+                    data-umami-event="cta"
+                    data-umami-event-label="multiplier-preset"
+                  >
+                    {multiplier === 0.5 ? '½' : multiplier}×
+                  </button>
+                ))}
+              </div>
+              <form id="quantity-form">
+                <label for="quantity-multiplier">
+                  {language === 'es' ? 'Multiplicador personalizado' : 'Custom multiplier'}
+                </label>
+                <div class="quantity-custom">
+                  <input
+                    type="number"
+                    id="quantity-multiplier"
+                    min="0.25"
+                    max="20"
+                    step="any"
+                    value="1"
+                    required
+                    inputmode="decimal"
+                    aria-describedby="quantity-help"
+                  />
+                  <span aria-hidden="true">×</span>
+                  <button
+                    type="submit"
+                    data-umami-event="cta"
+                    data-umami-event-label="multiplier-custom"
+                  >
+                    {language === 'es' ? 'Aplicar' : 'Apply'}
+                  </button>
+                </div>
+              </form>
+              <p class="quantity-help" id="quantity-help">
+                {language === 'es'
+                  ? 'De 0.25× a 20×. 1× restaura la receta.'
+                  : 'From 0.25× to 20×. 1× restores the recipe.'}
+              </p>
+              <p id="quantity-status" class="quantity-status" role="status" aria-live="polite">
+                {language === 'es' ? 'Cantidades originales.' : 'Original quantities.'}
+              </p>
+            </div>
+            <div class="quantity-secondary">
+              <label class="quantity-compare">
+                <input type="checkbox" id="show-originals" />
+                {language === 'es' ? 'Mostrar cantidades originales' : 'Show original amounts'}
+              </label>
+              <div class="quantity-utilities">
                 <button
                   type="button"
-                  data-multiplier={multiplier}
-                  aria-pressed={multiplier === 1}
+                  id="copy-ingredients"
                   data-umami-event="cta"
-                  data-umami-event-label="multiplier-preset"
+                  data-umami-event-label="copy-ingredients"
                 >
-                  {multiplier === 0.5 ? '½' : multiplier}×
+                  {language === 'es' ? 'Copiar ingredientes' : 'Copy ingredients'}
                 </button>
-              ))}
-            </div>
-            <form id="quantity-form">
-              <label for="quantity-multiplier">
-                {language === 'es' ? 'Multiplicador personalizado' : 'Custom multiplier'}
-              </label>
-              <div class="quantity-custom">
-                <input
-                  type="number"
-                  id="quantity-multiplier"
-                  min="0.25"
-                  max="20"
-                  step="any"
-                  value="1"
-                  required
-                  inputmode="decimal"
-                  aria-describedby="quantity-help"
-                />
-                <span aria-hidden="true">×</span>
                 <button
-                  type="submit"
+                  type="button"
+                  id="reset-checklist"
                   data-umami-event="cta"
-                  data-umami-event-label="multiplier-custom"
+                  data-umami-event-label="reset-checklist"
                 >
-                  {language === 'es' ? 'Aplicar' : 'Apply'}
+                  {language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}
                 </button>
               </div>
-            </form>
-            <p class="quantity-help" id="quantity-help">
-              {language === 'es'
-                ? 'De 0.25× a 20×. 1× restaura la receta.'
-                : 'From 0.25× to 20×. 1× restores the recipe.'}
-            </p>
-            <p id="quantity-status" class="quantity-status" role="status" aria-live="polite">
-              {language === 'es' ? 'Cantidades originales.' : 'Original quantities.'}
-            </p>
-          </div>
-          <div class="quantity-secondary">
-            <label class="quantity-compare">
-              <input type="checkbox" id="show-originals" />
-              {language === 'es' ? 'Mostrar cantidades originales' : 'Show original amounts'}
-            </label>
-            <div class="quantity-utilities">
-              <button
-                type="button"
-                id="copy-ingredients"
-                data-umami-event="cta"
-                data-umami-event-label="copy-ingredients"
-              >
-                {language === 'es' ? 'Copiar ingredientes' : 'Copy ingredients'}
-              </button>
-              <button
-                type="button"
-                id="reset-checklist"
-                data-umami-event="cta"
-                data-umami-event-label="reset-checklist"
-              >
-                {language === 'es' ? 'Reiniciar lista' : 'Reset checklist'}
-              </button>
+              <p class="tool-status" id="copy-status" role="status" aria-live="polite"></p>
+              <details class="quantity-guidance">
+                <summary>
+                  {language === 'es' ? 'Qué cambia y qué no' : 'What changes, what stays'}
+                </summary>
+                <p>
+                  {language === 'es'
+                    ? 'Se ajustan cantidades, intervalos y equivalencias explícitas. Las alternativas ambiguas y las medidas sin cantidad quedan como están. Las partes siguen siendo proporciones, no conversiones a gramos o tazas.'
+                    : 'Amounts, ranges, and explicit equivalent measures scale together. Ambiguous alternatives and unmeasured ingredients stay as written. Parts remain ratios, not gram or cup conversions.'}
+                </p>
+                <p>
+                  {language === 'es'
+                    ? 'Los tiempos, temperaturas, dimensiones y las cantidades dentro del método no cambian. Revisa esas cantidades y los huevos fraccionados. Ajusta el tamaño del recipiente.'
+                    : 'Times, temperatures, dimensions, and quantities within the method stay original. Review those quantities and fractional eggs. Adjust pan size as needed.'}
+                </p>
+              </details>
             </div>
-            <p class="tool-status" id="copy-status" role="status" aria-live="polite"></p>
-            <details class="quantity-guidance">
-              <summary>
-                {language === 'es' ? 'Qué cambia y qué no' : 'What changes, what stays'}
-              </summary>
-              <p>
-                {language === 'es'
-                  ? 'Se ajustan cantidades, intervalos y equivalencias explícitas. Las alternativas ambiguas y las medidas sin cantidad quedan como están. Las partes siguen siendo proporciones, no conversiones a gramos o tazas.'
-                  : 'Amounts, ranges, and explicit equivalent measures scale together. Ambiguous alternatives and unmeasured ingredients stay as written. Parts remain ratios, not gram or cup conversions.'}
-              </p>
-              <p>
-                {language === 'es'
-                  ? 'Los tiempos, temperaturas, dimensiones y las cantidades dentro del método no cambian. Revisa esas cantidades y los huevos fraccionados. Ajusta el tamaño del recipiente.'
-                  : 'Times, temperatures, dimensions, and quantities within the method stay original. Review those quantities and fractional eggs. Adjust pan size as needed.'}
-              </p>
-            </details>
           </div>
-        </div>
-      </details>
-      <div class="recipe-content">
+        </details>
         <p class="scale-summary" id="scale-summary" hidden></p>
-        <article class="recipe-prose" data-recipe-id={recipe.id} data-language={language}>
-          <Content />
-        </article>
-      </div>
-    </div>
-    <aside class="recipe-caution">
-      <MascotIcon variant="garlic-angry" size={38} />
-      <p>
-        {language === 'es'
-          ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.'
-          : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}
-      </p>
-    </aside>
-    <section class="more-recipes">
-      <h2>{language === 'es' ? 'Más recetas' : 'More recipes'}</h2>
-      <div>
-        {more.map((other) => (
-          <a href={`/recipes/${other.id}`}>
-            {other.data.title}
-            <span aria-hidden="true">↗</span>
+        <div
+          class="recipe-prose recipe-prose-left"
+          data-recipe-id={recipe.id}
+          data-language={language}
+          set:html={sections.ingredients + sections.equipment}
+        />
+        <aside class="recipe-caution">
+          <MascotIcon variant="garlic-angry" size={38} />
+          <p>
+            {language === 'es'
+              ? 'Al multiplicar ingredientes, revisa los tiempos de cocción por separado. No se multiplican automáticamente.'
+              : 'When scaling ingredients, check cooking times separately. They do not multiply automatically.'}
+          </p>
+        </aside>
+        <div class="shelf" aria-hidden="true">
+          <MascotIcon variant="garlic" size={88} class="shelf-mascot" />
+        </div>
+        <span class="folio" aria-hidden="true">
+          {folio}
+        </span>
+      </section>
+      <section class="book-page right" aria-label={recipe.data.title}>
+        <header class="recipe-title-block">
+          <p class="tag">{recipeGroup(recipe.id)}</p>
+          <h1>{recipe.data.title}</h1>
+          <div class="recipe-heading-bottom">
+            <div class="recipe-intro" set:html={sections.introduction} />
+            {twin && (
+              <a
+                class="translation-link"
+                href={`/recipes/${twin.id}`}
+                lang={twin.data.language[0]}
+                data-umami-event="cta"
+                data-umami-event-label="language-switch"
+              >
+                {language === 'es' ? 'Read in English' : 'Leer en español'} ↗
+              </a>
+            )}
+          </div>
+        </header>
+        <dl class="recipe-facts">
+          {record.recipeCuisine && (
+            <div>
+              <dt>{language === 'es' ? 'Cocina' : 'Cuisine'}</dt>
+              <dd>{language === 'es' ? 'Puertorriqueña' : record.recipeCuisine}</dd>
+            </div>
+          )}
+          {yieldLabel && (
+            <div>
+              <dt>{language === 'es' ? 'Rendimiento' : 'Yield'}</dt>
+              <dd>{yieldLabel}</dd>
+            </div>
+          )}
+          {record.totalTime && (
+            <div>
+              <dt>{language === 'es' ? 'Tiempo total aproximado' : 'Approx. total time'}</dt>
+              <dd>{durationLabel(record.totalTime)}</dd>
+            </div>
+          )}
+          {record.prepTime && record.cookTime && (
+            <>
+              <div>
+                <dt>{language === 'es' ? 'Preparación' : 'Preparation'}</dt>
+                <dd>{durationLabel(record.prepTime)}</dd>
+              </div>
+              <div>
+                <dt>{language === 'es' ? 'Cocción' : 'Cooking'}</dt>
+                <dd>{durationLabel(record.cookTime)}</dd>
+              </div>
+            </>
+          )}
+        </dl>
+        <nav
+          class="recipe-tools"
+          aria-label={language === 'es' ? 'Herramientas de receta' : 'Recipe tools'}
+        >
+          <div class="recipe-actions">
+            <button
+              type="button"
+              id="kitchen-mode"
+              aria-pressed="false"
+              data-umami-event="cta"
+              data-umami-event-label="kitchen-mode"
+            >
+              <span aria-hidden="true">☼</span> {language === 'es' ? 'Modo cocina' : 'Kitchen mode'}
+            </button>
+            <button
+              type="button"
+              id="print-recipe"
+              data-umami-event="cta"
+              data-umami-event-label="print"
+            >
+              <span aria-hidden="true">↗</span> {language === 'es' ? 'Imprimir' : 'Print'}
+            </button>
+          </div>
+          <p class="tool-status" id="kitchen-status" role="status" aria-live="polite"></p>
+        </nav>
+        <div class="recipe-prose recipe-prose-right" set:html={sections.method + sections.other} />
+        {sections.notes && <div class="recipe-notes" set:html={sections.notes} />}
+        <section class="more-recipes">
+          <h2>{language === 'es' ? 'Más recetas' : 'More recipes'}</h2>
+          <div>
+            {more.map((other) => (
+              <a href={`/recipes/${other.id}`}>
+                {other.data.title}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+          <a class="index-link" href="/#recipes">
+            {language === 'es' ? 'Ver todas las recetas' : 'All recipes'} ↗
           </a>
-        ))}
-      </div>
-      <a class="index-link" href="/#recipes">
-        {language === 'es' ? 'Ver todas las recetas' : 'All recipes'} ↗
-      </a>
-    </section>
+        </section>
+        <div class="shelf" aria-hidden="true">
+          <p class="bubble" id="place-note">
+            {language === 'es'
+              ? 'Toca un paso y lo marco.'
+              : "Tap a step and I'll keep your place."}
+          </p>
+          <MascotIcon variant="strawberry" size={80} class="shelf-mascot" />
+        </div>
+        <span class="folio" aria-hidden="true">
+          {folio + 1}
+        </span>
+      </section>
+    </article>
   </main>
 </Base>
 <script>
   import { scaleIngredient } from '../../lib/recipe';
-  const prose = document.querySelector<HTMLElement>('.recipe-prose');
+  import { ingredientIcon } from '../../lib/ingredient-icons';
+  const prose = document.querySelector<HTMLElement>('[data-recipe-id]');
   const language = prose?.dataset.language ?? 'en';
-  prose?.querySelectorAll<HTMLElement>('[id^="step-"]').forEach((step, index) => {
+  document.querySelectorAll<HTMLElement>('[id^="step-"]').forEach((step, index) => {
     const link = document.createElement('a');
     link.href = `#${step.id}`;
     link.className = 'step-link';
@@ -378,6 +410,25 @@ const more = recipes
     );
     (step.querySelector('p') ?? step).append(' ', link);
   });
+  // Tap the step you're on: it stays marked while you cook.
+  const steps = [...document.querySelectorAll<HTMLElement>('[id^="step-"]')];
+  const bubble = document.querySelector('#place-note');
+  steps.forEach((step) =>
+    step.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) return;
+      const current = step.classList.contains('is-current');
+      steps.forEach((other) => other.classList.remove('is-current'));
+      if (!current) step.classList.add('is-current');
+      if (bubble)
+        bubble.textContent = current
+          ? language === 'es'
+            ? 'Toca un paso y lo marco.'
+            : "Tap a step and I'll keep your place."
+          : language === 'es'
+            ? `Paso ${steps.indexOf(step) + 1} de ${steps.length}. Aquí te espero.`
+            : `Step ${steps.indexOf(step) + 1} of ${steps.length}. I'll hold your place.`;
+    }),
+  );
   const checks: HTMLInputElement[] = [];
   const labels: {
     node: HTMLElement;
@@ -392,7 +443,7 @@ const more = recipes
     checked = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
     if (!Array.isArray(checked)) checked = [];
   } catch {}
-  const ingredientHeading = prose?.querySelector('#ingredients');
+  const ingredientHeading = document.querySelector('#ingredients');
   let element = ingredientHeading?.nextElementSibling;
   while (element && element.tagName !== 'H2') {
     for (const item of element.querySelectorAll<HTMLLIElement>('li')) {
@@ -413,7 +464,16 @@ const more = recipes
       review.textContent = language === 'es' ? 'Sin cambios: revisar' : 'As written: review';
       const description = document.createElement('span');
       description.append(text, comparison, review);
-      label.append(checkbox, description);
+      const icon = ingredientIcon(text.textContent ?? '');
+      const drawing = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      drawing.setAttribute('class', 'ingredient-drawing');
+      drawing.setAttribute('aria-hidden', 'true');
+      if (icon) {
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', `#ing-${icon}`);
+        drawing.append(use);
+      }
+      label.append(checkbox, drawing, description);
       item.append(label);
       item.classList.add('ingredient-item');
       checks.push(checkbox);

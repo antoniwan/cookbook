@@ -46,4 +46,6 @@ The [recipe placeholder guide](docs/recipe-placeholder.md) records the missing-p
 
 The [quantity controls guide](docs/quantity-controls.md) describes custom batches, original-amount comparisons, ingredient copying, and scaling limits.
 
+The [book design guide](docs/book-design.md) covers the open-book look, the ingredient drawings, the companions' notes, and the home page screensaver.
+
 The garlic bulb and strawberry are Cookbook's companion mascots. Their illustration prompt is recorded in docs/mascots.md.

@@ -169,3 +169,23 @@ test('every migrated public recipe retains a usable cooking structure and source
   assert.equal(groups.size, 12);
   for (const languages of groups.values()) assert.deepEqual(languages.sort(), ['en', 'es']);
 });
+
+test('rendered recipe HTML splits into its sections without losing any markup', async () => {
+  const { recipeSections } = await import('../src/lib/recipe-sections.ts');
+  const html =
+    '<p>Intro.</p>\n<h2 id="ingredients">Ingredients</h2>\n<ul><li>Salt</li></ul>\n<h2 id="equipment">Equipment</h2>\n<ul><li>Pot</li></ul>\n<h2 id="method">Method</h2>\n<ol><li id="step-1"><p>Boil.</p></li></ol>\n<h2 id="serving">Serving</h2>\n<p>Hot.</p>\n<h2 id="notes">Notes</h2>\n<ul><li>Good.</li></ul>';
+  const sections = recipeSections(html);
+  assert.equal(sections.introduction, '<p>Intro.</p>\n');
+  assert.match(sections.ingredients, /^<h2 id="ingredients">.*Salt/s);
+  assert.match(sections.method, /step-1/);
+  assert.match(sections.other, /Serving/);
+  assert.equal(
+    sections.introduction +
+      sections.ingredients +
+      sections.equipment +
+      sections.method +
+      sections.other +
+      sections.notes,
+    html,
+  );
+});

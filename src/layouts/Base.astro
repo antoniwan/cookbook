@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/book.css';
 import Analytics from '@vercel/analytics/astro';
 import Stats from '../components/Stats.astro';
 import { safeJson, SITE } from '../lib/recipe';
@@ -28,7 +29,13 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fbfbf9" />
+    <meta name="theme-color" content="#fbf9f3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,500&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Caveat:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Antonio" />
@@ -56,52 +63,64 @@ const isPreview = import.meta.env.PROD && process.env.VERCEL_ENV === 'preview';
     <a class="skip-link" href="#main">
       Skip to content
     </a>
-    <header class="site-header wrap">
-      <Wordmark />
-      <nav aria-label="Main navigation">
-        <a href="/#recipes">Recipes</a>
-        <a href="/contents">A–Z</a>
-        <a href="/about">Our kitchen</a>
-      </nav>
-      <a class="personal-link" href="https://antoniwan.online">
-        By Antonio <span aria-hidden="true">↗</span>
-      </a>
+    <header class="site-header running-head">
+      <div class="running-left">
+        <Wordmark />
+      </div>
+      <div class="running-right">
+        <nav aria-label="Main navigation">
+          <a href="/#recipes">Recipes</a>
+          <a href="/contents">A–Z</a>
+          <a href="/about">Our kitchen</a>
+        </nav>
+        <a class="personal-link" href="https://antoniwan.online">
+          By Antonio <span aria-hidden="true">↗</span>
+        </a>
+      </div>
     </header>
     <slot />
-    <footer class="site-footer wrap">
-      <Wordmark />
-      <p>The strawberry knows too much.</p>
-      <a
-        class="professional-mark"
-        href="https://antoniwan.online"
-        aria-label="Antonio’s professional mark"
-      >
-        <img src="/professional-mark.svg" alt="" width="24" height="24" />
-      </a>
-      <div class="footer-links">
+    <footer class="site-footer running-head">
+      <div class="running-left">
+        <Wordmark />
+        <p>The strawberry knows too much.</p>
+      </div>
+      <div class="running-right">
         <a
-          href="https://notes.antoniwan.online"
-          data-umami-event="cta"
-          data-umami-event-label="notes"
+          class="professional-mark"
+          href="https://antoniwan.online"
+          aria-label="Antonio’s professional mark"
         >
-          Notes ↗
+          <img src="/professional-mark.svg" alt="" width="24" height="24" />
         </a>
-        <a href="https://antoniwan.online" data-umami-event="cta" data-umami-event-label="antonio">
-          Antonio ↗
-        </a>
-        <a href="/rss.xml" data-umami-event="cta" data-umami-event-label="rss">
-          RSS
-        </a>
-        <a href="/recipes.json" data-umami-event="cta" data-umami-event-label="recipe-data">
-          Recipe data
-        </a>
-        <a
-          href="https://github.com/antoniwan/cookbook"
-          data-umami-event="cta"
-          data-umami-event-label="source"
-        >
-          Source ↗
-        </a>
+        <div class="footer-links">
+          <a
+            href="https://notes.antoniwan.online"
+            data-umami-event="cta"
+            data-umami-event-label="notes"
+          >
+            Notes ↗
+          </a>
+          <a
+            href="https://antoniwan.online"
+            data-umami-event="cta"
+            data-umami-event-label="antonio"
+          >
+            Antonio ↗
+          </a>
+          <a href="/rss.xml" data-umami-event="cta" data-umami-event-label="rss">
+            RSS
+          </a>
+          <a href="/recipes.json" data-umami-event="cta" data-umami-event-label="recipe-data">
+            Recipe data
+          </a>
+          <a
+            href="https://github.com/antoniwan/cookbook"
+            data-umami-event="cta"
+            data-umami-event-label="source"
+          >
+            Source ↗
+          </a>
+        </div>
       </div>
     </footer>
   </body>
